@@ -1,0 +1,732 @@
+<!doctype html>
+<html ⚡>
+  <head>
+    <meta charset="utf-8">
+    <link rel="canonical" href="https://jmperezperez.com/more-progressive-image-loading/" >
+    <title>More examples of Progressive Image Loading - Web development, performance, and some other good practices.</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
+    <noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    
+    <script async custom-element="amp-video" src="https://cdn.ampproject.org/v0/amp-video-0.1.js"></script>
+    
+    <script async custom-element="amp-youtube" src="https://cdn.ampproject.org/v0/amp-youtube-0.1.js"></script>
+    
+    <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+    
+
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <script type="application/ld+json">
+		{
+			"@context": "http://schema.org",
+			"@type": "BlogPosting",
+			"headline": "More examples of Progressive Image Loading",
+			
+			"description": "Medium is not the only site using blurry placeholders. Let&#39;s look at how Quora and Quartz implement a similar technique.",
+			
+			"mainEntityOfPage":{
+			    "@type":"WebPage",
+			    "@id":"more-progressive-image-loading/"
+			},
+			"datePublished": "2017-03-05T17:45:00.000Z",
+			"dateModified": "2018-01-04T11:39:58.000Z",
+			
+			"image": {
+				"@type": "ImageObject",
+				"url": "https://res.cloudinary.com/jmperez/image/upload/w_auto:100:684,f_auto,c_scale/v1510477139/quora-progressive-image-loading_fze0za.png",
+				"width" : "700",
+				"height" : "784"
+			},
+			
+			"author": {
+			    "@type": "Person",
+			    "name": "Jose M. Perez"
+			},
+			"publisher": {
+			    "@type": "Organization",
+			    "name": "Jose M. Perez&#39;s Blog"
+			    
+			    ,
+			    "logo": {
+			      "@type": "ImageObject",
+			      "url": "https://jmperezperez.com/amp-dist/logo.png",
+			      "width": 600,
+			      "height": 60
+			    }
+			    
+			}
+		}
+	</script>
+	<style amp-custom>
+		
+			/*--RESET--*/
+* {
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+    border: none;
+    font: inherit;
+    margin: 0;
+    padding: 0;
+    vertical-align: baseline;
+}
+
+input,
+button {
+    background: none;
+}
+
+/*--BODY--*/
+
+body {
+    background: #fff;
+    color: #555;
+    font-family: Georgia, Times;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 19px;
+    line-height: 1.725;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%; /* fixes a too large font issue in horizontally scrollable <pre> on webkit */
+}
+
+@media(max-width: 800px) {
+    body {
+        font-size: 17px;
+    }
+}
+
+@media(max-width: 600px) {
+    body {
+        font-size: 15px;
+    }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    color: #212121;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 600;
+    font-size: 1em;
+    line-height: 1.3;
+    margin-bottom: 1em;
+}
+
+h2,
+h3,
+h4,
+h5 {
+    margin-top: 2em;
+}
+
+#menu a,
+.button {
+    font-size: 1em;
+    font-weight: 400;
+}
+
+p,
+.post ul,
+.post ol,
+iframe,
+video,
+amp-video,
+amp-vimeo,
+amp-youtube {
+    margin: 0;
+    margin-bottom: 1em;
+}
+
+twitterwidget {
+  margin-bottom: 1em ;
+}
+
+a {
+    color: #2a7cb2;
+    font-weight: inherit;
+    text-decoration: none;
+    transition: color .15s ease-out, border-bottom-color .15s ease-out;
+}
+
+a:hover {
+    color: #2a7cb2;
+}
+
+p a {
+    border-bottom: 1px solid #eee;
+}
+
+p a:hover {
+    border-bottom-color: #212121;
+}
+
+strong {
+    font-weight: bold;
+}
+
+em {
+    font-style: italic;
+}
+
+h1 {
+    font-size: 1.7em;
+}
+
+h2 {
+    color: #444;
+    font-size: 1.6em;
+    font-weight: 400;
+}
+
+h3 {
+    color: #666;
+    font-size: 1.4em;
+    font-weight: 400;
+}
+
+h4 {
+    font-size: 1.18em;
+}
+
+h5 {
+    font-size: 1em;
+}
+
+a h1,
+a h2,
+a h3,
+a h4,
+a h5 {
+    transition: color .15s ease-out;
+}
+
+a:hover h1,
+a:hover h2,
+a:hover h3,
+a:hover h4,
+a:hover h5 {
+    color: #3498db;
+}
+
+.quote {
+    margin: 0 0 15px 0;
+}
+
+blockquote {
+    border-left: 2px solid #ccc;
+    font-style: italic;
+    margin: 0 0 15px 0;
+    padding-left: 20px;
+}
+
+ul,
+ol {
+    margin: 0 0 15px 0;
+    padding-left: 25px;
+}
+
+ul {
+    list-style: square;
+}
+
+ol {
+    list-style: decimal;
+}
+
+hr {
+    background: #eee;
+    color: #eee;
+    clear: both;
+    display: block;
+    height: 2px;
+    margin: 30px auto;
+    width: 50%;
+}
+
+pre,
+code {
+    color: #333;
+    font-family: Courier, Menlo, Monaco;
+    font-size: 0.8em;
+    letter-spacing: 0px;
+    overflow-x: auto;
+}
+
+pre {
+    padding: 0.8em 1em;
+}
+
+code {
+    margin: 0;
+}
+
+/*--CLEARFIXES--*/
+
+.post::after {
+    display: block;
+    clear: both;
+    content: '';
+}
+
+/*--HEADER--*/
+
+.main-header {
+    background-color: #005689;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    overflow: hidden;
+    padding: 1em;
+    position: relative;
+    text-align: center;
+    width: 100%;
+}
+
+/*--MENU--*/
+
+#menu {
+    display: inline-block;
+    margin: 1px 0;
+}
+
+#menu a {
+    color: #fff;
+    font-size: 14px;
+    margin-left: 15px;
+    padding: 20px 10px;
+    text-transform: uppercase;
+}
+
+@media(max-width: 500px) {
+  #menu a {
+    margin-left: 10px;
+    padding: 10px 5px;
+  }
+}
+
+#menu a:first-child {
+    margin-left: 0;
+}
+
+#menu a[aria-current] {
+    font-weight: bold;
+}
+
+/*--PAGE--*/
+
+#page {
+    margin: 0 auto;
+    max-width: 40em;
+    padding: 3em 2em;
+    position: relative;
+}
+
+.videoWrapper {
+    height: 0;
+    margin-bottom: 1em;
+    padding-bottom: 56.25%; /* 16:9 */
+    padding-top: 25px;
+    position: relative;
+}
+
+.videoWrapper iframe,
+.videoWrapper amp-youtube {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+/*--WRAPPER--*/
+
+.wrapper {
+    border-top: 2px solid #eee;
+    padding: 3em 0;
+}
+
+.wrapper:first-child {
+    border-top: none;
+    padding-top: 5%;
+}
+
+.posts-list h2 {
+    margin-top: 0;
+}
+
+/*--POSTS--*/
+
+.post {
+    display: block;
+    width: 100%;
+}
+
+.post div[itemprop=articleBody] > p:first-child {
+    color: #333;
+}
+
+.post li {
+    margin-bottom: 0.5em;
+}
+
+.post p img {
+    border: 1px solid #eee;
+    display: block;
+    max-width: 100%;
+}
+
+.post img + .caption {
+  padding-top: 5px;
+}
+
+.post .svg-container {
+    margin-bottom: 5%;
+    max-width: 100%;
+    text-align: center;
+}
+
+video {
+    height: auto;
+    max-width: 100%;
+}
+
+.post .svg-container object {
+    width: 100%;
+}
+
+/*--PAGINATION--*/
+
+.pagination {
+    text-align: center;
+}
+
+.pagination a {
+    min-width: 30px;
+    max-height: 30px;
+    text-align: center;
+}
+
+/*--FOOTER--*/
+
+footer {
+    background: rgba(0, 0, 0, 0.05);
+    padding: 2em;
+    text-align: center;
+}
+
+/*--BUTTONS--*/
+
+.button {
+    background-color: #fff;
+    border: 1px solid #555;
+    border-radius: 20px;
+    color: #555;
+    display: inline-block;
+    font-size: 13px;
+    line-height: 10px;
+    padding: 10px 20px;
+    transition: background-color .15s ease-out;
+}
+
+.button:hover {
+    background-color: #3498db;
+    border-color: transparent;
+    color: #fff;
+}
+
+.button.inactive {
+    background-color: #ccc;
+    color: #fff;
+}
+
+/*--404--*/
+.search-goog input {
+    border: 2px solid #ddd;
+    padding: 10px;
+}
+
+.search-goog input[type=submit] {
+    background-color: #ddd;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 768px) {
+
+    /*--PAGE--*/
+
+    #page,
+    .wrapper {
+        margin: 0;
+        max-width: 100%;
+        padding: 1.5em;
+        width: 100%;
+    }
+
+    /*--WRAPPER--*/
+
+    .wrapper {
+        padding: 10% 0;
+    }
+
+    .wraper::after {
+        clear: both;
+        content: '';
+        display: block;
+    }
+
+    /*--POSTS--*/
+
+    .post {
+        margin: 0 auto;
+        max-width: 640px;
+    }
+
+}
+
+/*--ACCESSIBILITY--*/
+.outscreen {
+    height: 1px;
+    left: -1000px;
+    overflow: hidden;
+    position: absolute;
+    top: auto;
+    width: 1px;
+}
+
+/*--CALLOUT--*/
+.callout {
+    border: 1px solid #eee;
+    border-left-color: #777;
+    border-left-width: 5px;
+    border-radius: 3px;
+    font-size: 90%;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.author {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 0.8em;
+    margin-bottom: 2em;
+}
+
+.author .name {
+    line-height: 1.5;
+    padding-top: 0.35em;
+}
+
+.media, .bd {
+    overflow: hidden;
+    _overflow: visible;
+    
+}
+
+.media .img {
+    float: left;
+}
+
+.avatar-img {
+    border-radius: 100%;
+    height: 3.5em;
+    margin-right: 0.5em;
+    width: 3.5em;
+}
+
+/* SYNTAX HIGHLIGHTING */
+
+.highlight {
+    border: 1px solid #eee;
+    margin-bottom: 1em;
+    overflow-x: auto;
+}
+
+.code {
+    background:white;
+    color:#333333;
+    display: block;
+    letter-spacing: 0;
+    overflow-x: auto;
+}
+
+.code .comment,
+.code .meta {
+    color:#969896;
+}
+
+.code .string,
+.code .variable,
+.code .template-variable,
+.code .strong,
+.code .emphasis,
+.code .quote {
+    color:#df5000;
+}
+
+.code .keyword,
+.code .selector-tag,
+.code .type {
+    color:#a71d5d;
+}
+
+.code .literal,
+.code .symbol,
+.code .bullet,
+.code .attribute {
+    color:#0086b3;
+}
+
+.code .section,
+.code .name {
+    color:#63a35c;
+}
+
+.code .tag {
+    color:#333333;
+}
+
+.code .title,
+.code .attr,
+.code .selector-id,
+.code .selector-class,
+.code .selector-attr,
+.code .selector-pseudo {
+    color:#795da3;
+}
+
+.code .addition {
+    background-color:#eaffea;
+    color:#55a532;
+}
+
+.code .deletion {
+    background-color:#ffecec;
+    color:#bd2c00;
+}
+
+.code .link {
+    text-decoration: underline;
+}
+
+.code-wrap pre {
+    white-space: pre-wrap;
+}
+
+.caption {
+  display: block;
+  font-size: 0.8em;
+  text-align: center;
+}
+
+.codepen-aspect-ratio > iframe {
+    height: 100%;
+    position: absolute;
+    width: 100%;
+}
+
+.twitter-tweet {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.twitter-tweet::after {
+    content: "";
+    display: block;
+    padding-bottom: 20px;
+    width: 100%;
+}
+
+.intro-blog {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 1.5em;
+    font-weight: bold;
+    line-height: 1.3;
+    margin: 2em auto;
+    max-width: 640px;
+    text-align: center;
+}
+
+		
+		amp-iframe {
+			margin-bottom: 10px;
+		}
+	</style>
+  </head>
+  <body>
+
+  	<!-- google analytics -->
+  	
+  	<amp-analytics type="googleanalytics" id="google-analytics">
+		<script type="application/json">
+		{
+		  "vars": {
+		    "account": "UA-39254352-1"
+		  },
+		  "triggers": {
+		    "trackPageview": {
+		      "on": "visible",
+		      "request": "pageview"
+		    }
+		  }
+		}
+		</script>
+	</amp-analytics>
+	
+
+  <header class="main-header">
+      <nav id="menu">
+          <a href="/">JMPerez Blog</a>
+          <a href="/projects/">Projects</a>
+          <a href="/talks/">Speaking</a>
+          <a href="/about-me/">About</a>
+      </nav>
+  </header>
+
+  <article>
+  	<div class="post">
+	  	<div id="page">
+
+		    <article id="post-more-progressive-image-loading" class="post wrapper">
+
+        <div class="media author">
+          <div class="img">
+            <a href="/about-me/">
+              <amp-img src="/assets/images/jmperez.jpg" class="avatar-img" alt="" height="53" width="53">
+            </a>
+          </div>
+          <div class="bd">
+            <address class="name" itemprop="author" itemscope itemtype="https://schema.org/Person"><a href="/about-me/" itemprop="name">José M. Pérez</a></address>
+            <meta class="post-data" itemprop="datePublished" content="2017-03-05T17:45:00.000Z">
+              March 05 2017
+            </meta>
+          </div>
+        </div>
+
+				<!-- entry title -->
+				<header class="entry-header">
+					
+					  <h1 class="article-title entry-title" itemprop="name">
+					    More examples of Progressive Image Loading
+					  </h1>
+					
+				</header>
+
+				<!-- entry content -->
+			    <div class="entry-content ecp">
+			  		<p>In <a href="/medium-image-progressive-loading-placeholder">a past post</a> I dissected a technique used by Medium to display images, transitioning from a blurry image to the final one. Since then I have found some more sites following a similar approach. Let&#x2019;s see how Quora, Quartz and Clicktorelease do it.</p><a id="more"></a><h2 id="Quick-Introduction"><a href="#Quick-Introduction" class="headerlink" title="Quick Introduction"></a>Quick Introduction</h2><p>Images are the largest assets on web pages and they account for two thirds of the bytes. Image optimisation and choosing the right image format is paramount. In addition, some sites are also using small thumbnails as placeholders while the final image hasn&#x2019;t loaded yet. This technique is also called <em>&#x201C;<a href="https://css-tricks.com/the-blur-up-technique-for-loading-background-images/" target="_blank" rel="noopener">blur-up</a>&#x201C;</em>. It basically tries to improve user&#x2019;s perceived performance while also saving data traffic when combined with lazy-loading.</p><p>There are other alternatives to this approach. One of them consists of using a single JPEG image, tweaking its scan script to quickly render an initial pixelated version of the image and progressively load the final image in several scans. I recommend you having a look at <a href="http://cloudinary.com/blog/progressive_jpegs_and_green_martians" target="_blank" rel="noopener">Progressive JPEGs and green Martians</a> to know more about this.</p><p>Also, if you like images optimisation, follow <a href="http://cloudinary.com/blog" target="_blank" rel="noopener">Cloudinary&#x2019;s Blog</a>, full with useful posts on this topic.</p><h3 id="Quartz"><a href="#Quartz" class="headerlink" title="Quartz"></a>Quartz</h3><p>Take a look at the following video, recorded when accessing <a href="https://qz.com/894001/theres-a-wrong-and-a-right-way-to-talk-to-your-dog-according-to-science/" target="_blank" rel="noopener">a page on QZ.com</a> with a throttled connection:</p><figure class="videoWrapper"><amp-youtube data-videoid="Cbz3V4FGCE4" width="1920" height="1080" layout="responsive"></amp-youtube></figure><p>Quartz&#x2019;s implementation follows this steps:</p><ol><li>Request a small <code>&lt;img/&gt;</code> that will be blurred. In their case, they use 50px width images, with a 80% quality.</li><li>Apply blur effect using a CSS filter.</li><li>Request the large image.</li></ol><p>One of the interesting points about Quartz is that their markup specifies the large image using the syntax for responsive images. The main difference is that they use a <code>data-srcset</code> attribute, so they control when to make the request and prevent the browser from requesting the large version of the image when the markup is parsed.</p><p>I find this approach very neat since they try to follow the &#x201C;standard&#x201D; way to serve images, adding extra bits to lazy load and animate the transition.</p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">figure</span> <span class="attr">class</span>=<span class="string">&quot;progressive-image featured-image size-extra-large&quot;</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- a picture element with intrinsic ratio --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">picture</span> <span class="attr">style</span>=<span class="string">&quot;padding-bottom: 56.1875%; background-image: url(https://qzprod.files.wordpress.com/2017/01/fish.jpg?quality=80&amp;strip=all&amp;w=50);&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- the small image that will be blurred --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;https://qzprod.files.wordpress.com/2017/01/fish.jpg?quality=80&amp;strip=all&amp;w=50&quot;</span> <span class="attr">class</span>=<span class="string">&quot;progressive-image-thumbnail&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- a lazy responsive image with data-srcset --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span></span></span><br><span class="line"><span class="tag">      <span class="attr">itemprop</span>=<span class="string">&quot;image&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">data-srcset</span>=<span class="string">&quot;https://qzprod.files.wordpress.com/2017/01/fish.jpg?quality=80&amp;strip=all&amp;w=320 320w, https://qzprod.files.wordpress.com/2017/01/fish.jpg?quality=80&amp;strip=all&amp;w=640 640w, https://qzprod.files.wordpress.com/2017/01/fish.jpg?quality=80&amp;strip=all&amp;w=940 940w, https://qzprod.files.wordpress.com/2017/01/fish.jpg?quality=80&amp;strip=all&amp;w=1600 1600w, https://qzprod.files.wordpress.com/2017/01/fish.jpg?quality=80&amp;strip=all&amp;w=3200 3200w&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">data-src</span>=<span class="string">&quot;https://qzprod.files.wordpress.com/2017/01/fish.jpg?quality=80&amp;strip=all&amp;w=320&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">class</span>=<span class="string">&quot;progressive-image-large&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;INDIA-fishermen&quot;</span>/&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- a noscript fallback --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">noscript</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">img</span></span></span><br><span class="line"><span class="tag">        <span class="attr">src</span>=<span class="string">&quot;https://qzprod.files.wordpress.com/2017/01/fish.jpg?quality=80&amp;strip=all&amp;w=320&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">alt</span>=<span class="string">&quot;INDIA-fishermen&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">noscript</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">picture</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">figcaption</span>&gt;</span>...<span class="tag">&lt;/<span class="name">figcaption</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">figure</span>&gt;</span></span><br></pre></td></tr></table></figure><h3 id="Quora"><a href="#Quora" class="headerlink" title="Quora"></a>Quora</h3><p>Quora also implements a blur-up technique for the images in their posts. To see an example <a href="https://www.quora.com/How-does-Quora-pre-load-images" target="_blank" rel="noopener">head to this page</a>.</p><p>Here we see what the page looks like when displaying the blurry placeholder:</p><p></p><p><amp-img src="https://res.cloudinary.com/jmperez/image/upload/w_auto:100:684,f_auto,c_scale/v1510477139/quora-progressive-image-loading_fze0za.png" width="700" height="784" layout="responsive"></amp-img></p><p></p><p>Let&#x2019;s dive into the code to see what&#x2019;s going on. First of all, let&#x2019;s focus on the HTML markup:</p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;qtext_image_wrapper&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- a canvas with a data-uri containing the thumbnail --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- which is in PNG format and very small (in this page 6x10 px) --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">canvas</span> <span class="attr">class</span>=<span class="string">&quot;qtext_image_placeholder portrait qtext_image zoomable_in zoomable_in_feed&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">width</span>=<span class="string">&quot;499&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">height</span>=<span class="string">&quot;874&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">data-src</span>=<span class="string">&quot;data:image/PNG;base64,UklGRmgAAABXRUJQVlA4IFwAAADwAQCdASoGAAoAAUAmJYgCdEf/g&#x2026;iD0z/yA/5ipcuk5xHSdrS38j8CkH7s+vKeZu9EwRy0f/KPIlo/+UifdfcpiRcJiRnXXAAAAA==&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- a lazy image with src set as data-src and master_src --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- data-src is a webp image (at least when requested using Chrome). --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- the size for data-src in this page is ~34kB --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- master_src is a png image. Its size in this page is ~177kB --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">class</span>=<span class="string">&quot;portrait qtext_image zoomable_in zoomable_in_feed lazy_loaded lazy_loading&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">src</span>=<span class="string">&quot;&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">data-src</span>=<span class="string">&quot;https://qph.ec.quoracdn.net/main-qimg-f35a9a38e575bfbe76806b7838eba025-p&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">master_src</span>=<span class="string">&quot;https://qph.ec.quoracdn.net/main-qimg-f35a9a38e575bfbe76806b7838eba025&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">master_w</span>=<span class="string">&quot;499&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">master_h</span>=<span class="string">&quot;874&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure><p>Why to use both <code>data-src</code> and <code>master-src</code>? The <code>master_src</code> image is the one requested when clicking on the image to get a larger view.</p><p>In Quora there is no blur effect applied. They use <a href="https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D/drawImage" target="_blank" rel="noopener"><code>canvas.drawImage()</code></a> to render the tiny thumbnail in the canvas. You can see this by inspecting their code, that lives in the <code>shared/lazy_load_images</code> module that gets bundled in the main JS file:</p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// draw the data-uri image on the canvas</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params">e</span>) </span>{</span><br><span class="line">    <span class="keyword">if</span> (e.getAttribute(<span class="string">&quot;data-src&quot;</span>)) {</span><br><span class="line">        <span class="keyword">var</span> t = <span class="keyword">new</span> Image;</span><br><span class="line">        t.src = e.getAttribute(<span class="string">&quot;data-src&quot;</span>);</span><br><span class="line">        <span class="keyword">var</span> i = e.getAttribute(<span class="string">&quot;width&quot;</span>)</span><br><span class="line">          , n = e.getAttribute(<span class="string">&quot;height&quot;</span>)</span><br><span class="line">          , o = e.getContext(<span class="string">&quot;2d&quot;</span>);</span><br><span class="line">        t.addEventListener(<span class="string">&quot;load&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{</span><br><span class="line">            o.drawImage(t, <span class="number">0</span>, <span class="number">0</span>, i, n)</span><br><span class="line">        }, <span class="literal">false</span>)</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"><span class="comment">// go through all canvas on the page with a data-src</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">r</span>(<span class="params"></span>) </span>{</span><br><span class="line">    <span class="keyword">var</span> e = <span class="built_in">document</span>.querySelectorAll(<span class="string">&quot;canvas[data-src]&quot;</span>);</span><br><span class="line">    d.insertionQ(<span class="string">&quot;canvas[data-src]&quot;</span>).every(<span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>{</span><br><span class="line">        a(e)</span><br><span class="line">    }),</span><br><span class="line">    [].forEach.call(e, a)</span><br><span class="line">}</span><br></pre></td></tr></table></figure><p>In short, Quora&#x2019;s technique consists of:</p><ol><li>Draw an inlined tiny PNG in a canvas</li><li>Request the large image using WebP (if supported) or other format.</li><li>Set the large image as source for the <code>&lt;img/&gt;</code> element, animate its opacity and hide the canvas.</li></ol><h3 id="Clicktorelease"><a href="#Clicktorelease" class="headerlink" title="Clicktorelease"></a>Clicktorelease</h3><p><a href="https://www.clicktorelease.com/" target="_blank" rel="noopener">Clicktorelease.com</a>, <a href="https://twitter.com/thespite" target="_blank" rel="noopener">@thespite</a>&#x2019;s website, has just been redesigned and he has also added lazy-loading of images.</p><amp-video width="1616" height="1204" controls layout="responsive"><source src="/assets/images/posts/clicktorelease.webm" type="video/webm"><source src="/assets/images/posts/clicktorelease.mp4" type="video/mp4"></amp-video><p>The most interesting bit here is that the thumbnail is not the image itself, but the values <a href="https://twitter.com/thespite/status/827110706642305024" target="_blank" rel="noopener">of the DCT matrix for the thumbnail</a>, which makes the payload really small.</p><p>These are the steps to load an image:</p><ol><li>Make a request for the <code>thumb-src</code> image. It is a 16x4 PNG thumbnail whose size is usually in the 300B.</li><li>Create a <code>&lt;canvas/&gt;</code> and draw the image resulting from the calculation the inverse DCT of the thumbnail.</li><li>Request the large image using the <code>original-src</code> url. If the browser supports the webp image format, then &#x201C;.webp&#x201D; is appended to the src and a webp image is requested.</li></ol><p>The initial markup looks like this:</p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;hero image&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- the lazy loaded image --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- thumb-src is a matrix of DCT coefficients --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- note that a background-color is also set so --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- it is rendered while the image is fetched --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">thumb-lazy</span></span></span><br><span class="line"><span class="tag">      <span class="attr">original-src</span>=<span class="string">&quot;/images/graphical-web-2016.jpg&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">thumb-src</span>=<span class="string">&quot;/images/graphical-web-2016-thumb.png&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">thumb-width</span>=<span class="string">&quot;2880&quot;</span> <span class="attr">thumb-height</span>=<span class="string">&quot;1800&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">style</span>=<span class="string">&quot;background-color:#121513;width:100%&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- a div with intrinsic ratio --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;padding-bottom:62.5%&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- fallback for browsers not using JS / bots --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">noscript</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;/images/graphical-web-2016.jpg&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">noscript</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure><p>I think it is a very good example of progressive enhancement, providing a <code>&lt;noscript&gt;</code> alternative, and going all the way up from a solid background-color, to a blurry gradient and finally the large image with support for webp.</p><h2 id="Wrapping-Up"><a href="#Wrapping-Up" class="headerlink" title="Wrapping Up"></a>Wrapping Up</h2><p>It&#x2019;s very interesting seeing these slightly variations for implementing progressive image loading. Some of them work without Javascript, some others are built on responsive images, some use CSS filters and others canvas.</p><p>If you want to follow a basic example, check <a href="http://codepen.io/jmperez/pen/yYjPER" target="_blank" rel="noopener">my &#x201C;Reproducing Medium loading image effect&#x201D; pen</a>. Let me know if you come across any other site implementing these techniques.</p>
+			  	</div>
+
+		  	</article>
+		</div>
+    <footer>
+        <section class="links">
+            <a href="https://twitter.com/jmperezperez">@jmperezperez</a> on Twitter · <a href="https://github.com/JMPerez">GitHub</a> · <a href="http://www.linkedin.com/in/jmperezperez">LinkedIn</a>
+        </section>
+    </footer>
+
+	</div>
+  </article>
+
+  </body>
+</html>

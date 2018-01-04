@@ -1,0 +1,730 @@
+<!doctype html>
+<html ⚡>
+  <head>
+    <meta charset="utf-8">
+    <link rel="canonical" href="https://jmperezperez.com/frontfest-moscow-2017/" >
+    <title>Speaking at FrontFest 2017 in Moscow, Russia - Web development, performance, and some other good practices.</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
+    <noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    
+    <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
+    
+    <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+    
+
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <script type="application/ld+json">
+		{
+			"@context": "http://schema.org",
+			"@type": "BlogPosting",
+			"headline": "Speaking at FrontFest 2017 in Moscow, Russia",
+			
+			"description": "I attended FrontFest 2017 conference and talked about image performance, lazy-loading, placeholders and creative SVGs.",
+			
+			"mainEntityOfPage":{
+			    "@type":"WebPage",
+			    "@id":"frontfest-moscow-2017/"
+			},
+			"datePublished": "2017-12-03T16:00:00.000Z",
+			"dateModified": "2018-01-04T11:39:58.000Z",
+			
+			"image": {
+				"@type": "ImageObject",
+				"url": "https://res.cloudinary.com/jmperez/image/upload/w_auto:100:684,f_auto,c_scale/v1512318752/frontfest/frontfest-01.jpg",
+				"width" : "700",
+				"height" : "467"
+			},
+			
+			"author": {
+			    "@type": "Person",
+			    "name": "Jose M. Perez"
+			},
+			"publisher": {
+			    "@type": "Organization",
+			    "name": "Jose M. Perez&#39;s Blog"
+			    
+			    ,
+			    "logo": {
+			      "@type": "ImageObject",
+			      "url": "https://jmperezperez.com/amp-dist/logo.png",
+			      "width": 600,
+			      "height": 60
+			    }
+			    
+			}
+		}
+	</script>
+	<style amp-custom>
+		
+			/*--RESET--*/
+* {
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+    border: none;
+    font: inherit;
+    margin: 0;
+    padding: 0;
+    vertical-align: baseline;
+}
+
+input,
+button {
+    background: none;
+}
+
+/*--BODY--*/
+
+body {
+    background: #fff;
+    color: #555;
+    font-family: Georgia, Times;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 19px;
+    line-height: 1.725;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%; /* fixes a too large font issue in horizontally scrollable <pre> on webkit */
+}
+
+@media(max-width: 800px) {
+    body {
+        font-size: 17px;
+    }
+}
+
+@media(max-width: 600px) {
+    body {
+        font-size: 15px;
+    }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    color: #212121;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 600;
+    font-size: 1em;
+    line-height: 1.3;
+    margin-bottom: 1em;
+}
+
+h2,
+h3,
+h4,
+h5 {
+    margin-top: 2em;
+}
+
+#menu a,
+.button {
+    font-size: 1em;
+    font-weight: 400;
+}
+
+p,
+.post ul,
+.post ol,
+iframe,
+video,
+amp-video,
+amp-vimeo,
+amp-youtube {
+    margin: 0;
+    margin-bottom: 1em;
+}
+
+twitterwidget {
+  margin-bottom: 1em ;
+}
+
+a {
+    color: #2a7cb2;
+    font-weight: inherit;
+    text-decoration: none;
+    transition: color .15s ease-out, border-bottom-color .15s ease-out;
+}
+
+a:hover {
+    color: #2a7cb2;
+}
+
+p a {
+    border-bottom: 1px solid #eee;
+}
+
+p a:hover {
+    border-bottom-color: #212121;
+}
+
+strong {
+    font-weight: bold;
+}
+
+em {
+    font-style: italic;
+}
+
+h1 {
+    font-size: 1.7em;
+}
+
+h2 {
+    color: #444;
+    font-size: 1.6em;
+    font-weight: 400;
+}
+
+h3 {
+    color: #666;
+    font-size: 1.4em;
+    font-weight: 400;
+}
+
+h4 {
+    font-size: 1.18em;
+}
+
+h5 {
+    font-size: 1em;
+}
+
+a h1,
+a h2,
+a h3,
+a h4,
+a h5 {
+    transition: color .15s ease-out;
+}
+
+a:hover h1,
+a:hover h2,
+a:hover h3,
+a:hover h4,
+a:hover h5 {
+    color: #3498db;
+}
+
+.quote {
+    margin: 0 0 15px 0;
+}
+
+blockquote {
+    border-left: 2px solid #ccc;
+    font-style: italic;
+    margin: 0 0 15px 0;
+    padding-left: 20px;
+}
+
+ul,
+ol {
+    margin: 0 0 15px 0;
+    padding-left: 25px;
+}
+
+ul {
+    list-style: square;
+}
+
+ol {
+    list-style: decimal;
+}
+
+hr {
+    background: #eee;
+    color: #eee;
+    clear: both;
+    display: block;
+    height: 2px;
+    margin: 30px auto;
+    width: 50%;
+}
+
+pre,
+code {
+    color: #333;
+    font-family: Courier, Menlo, Monaco;
+    font-size: 0.8em;
+    letter-spacing: 0px;
+    overflow-x: auto;
+}
+
+pre {
+    padding: 0.8em 1em;
+}
+
+code {
+    margin: 0;
+}
+
+/*--CLEARFIXES--*/
+
+.post::after {
+    display: block;
+    clear: both;
+    content: '';
+}
+
+/*--HEADER--*/
+
+.main-header {
+    background-color: #005689;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    overflow: hidden;
+    padding: 1em;
+    position: relative;
+    text-align: center;
+    width: 100%;
+}
+
+/*--MENU--*/
+
+#menu {
+    display: inline-block;
+    margin: 1px 0;
+}
+
+#menu a {
+    color: #fff;
+    font-size: 14px;
+    margin-left: 15px;
+    padding: 20px 10px;
+    text-transform: uppercase;
+}
+
+@media(max-width: 500px) {
+  #menu a {
+    margin-left: 10px;
+    padding: 10px 5px;
+  }
+}
+
+#menu a:first-child {
+    margin-left: 0;
+}
+
+#menu a[aria-current] {
+    font-weight: bold;
+}
+
+/*--PAGE--*/
+
+#page {
+    margin: 0 auto;
+    max-width: 40em;
+    padding: 3em 2em;
+    position: relative;
+}
+
+.videoWrapper {
+    height: 0;
+    margin-bottom: 1em;
+    padding-bottom: 56.25%; /* 16:9 */
+    padding-top: 25px;
+    position: relative;
+}
+
+.videoWrapper iframe,
+.videoWrapper amp-youtube {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+/*--WRAPPER--*/
+
+.wrapper {
+    border-top: 2px solid #eee;
+    padding: 3em 0;
+}
+
+.wrapper:first-child {
+    border-top: none;
+    padding-top: 5%;
+}
+
+.posts-list h2 {
+    margin-top: 0;
+}
+
+/*--POSTS--*/
+
+.post {
+    display: block;
+    width: 100%;
+}
+
+.post div[itemprop=articleBody] > p:first-child {
+    color: #333;
+}
+
+.post li {
+    margin-bottom: 0.5em;
+}
+
+.post p img {
+    border: 1px solid #eee;
+    display: block;
+    max-width: 100%;
+}
+
+.post img + .caption {
+  padding-top: 5px;
+}
+
+.post .svg-container {
+    margin-bottom: 5%;
+    max-width: 100%;
+    text-align: center;
+}
+
+video {
+    height: auto;
+    max-width: 100%;
+}
+
+.post .svg-container object {
+    width: 100%;
+}
+
+/*--PAGINATION--*/
+
+.pagination {
+    text-align: center;
+}
+
+.pagination a {
+    min-width: 30px;
+    max-height: 30px;
+    text-align: center;
+}
+
+/*--FOOTER--*/
+
+footer {
+    background: rgba(0, 0, 0, 0.05);
+    padding: 2em;
+    text-align: center;
+}
+
+/*--BUTTONS--*/
+
+.button {
+    background-color: #fff;
+    border: 1px solid #555;
+    border-radius: 20px;
+    color: #555;
+    display: inline-block;
+    font-size: 13px;
+    line-height: 10px;
+    padding: 10px 20px;
+    transition: background-color .15s ease-out;
+}
+
+.button:hover {
+    background-color: #3498db;
+    border-color: transparent;
+    color: #fff;
+}
+
+.button.inactive {
+    background-color: #ccc;
+    color: #fff;
+}
+
+/*--404--*/
+.search-goog input {
+    border: 2px solid #ddd;
+    padding: 10px;
+}
+
+.search-goog input[type=submit] {
+    background-color: #ddd;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 768px) {
+
+    /*--PAGE--*/
+
+    #page,
+    .wrapper {
+        margin: 0;
+        max-width: 100%;
+        padding: 1.5em;
+        width: 100%;
+    }
+
+    /*--WRAPPER--*/
+
+    .wrapper {
+        padding: 10% 0;
+    }
+
+    .wraper::after {
+        clear: both;
+        content: '';
+        display: block;
+    }
+
+    /*--POSTS--*/
+
+    .post {
+        margin: 0 auto;
+        max-width: 640px;
+    }
+
+}
+
+/*--ACCESSIBILITY--*/
+.outscreen {
+    height: 1px;
+    left: -1000px;
+    overflow: hidden;
+    position: absolute;
+    top: auto;
+    width: 1px;
+}
+
+/*--CALLOUT--*/
+.callout {
+    border: 1px solid #eee;
+    border-left-color: #777;
+    border-left-width: 5px;
+    border-radius: 3px;
+    font-size: 90%;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.author {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 0.8em;
+    margin-bottom: 2em;
+}
+
+.author .name {
+    line-height: 1.5;
+    padding-top: 0.35em;
+}
+
+.media, .bd {
+    overflow: hidden;
+    _overflow: visible;
+    
+}
+
+.media .img {
+    float: left;
+}
+
+.avatar-img {
+    border-radius: 100%;
+    height: 3.5em;
+    margin-right: 0.5em;
+    width: 3.5em;
+}
+
+/* SYNTAX HIGHLIGHTING */
+
+.highlight {
+    border: 1px solid #eee;
+    margin-bottom: 1em;
+    overflow-x: auto;
+}
+
+.code {
+    background:white;
+    color:#333333;
+    display: block;
+    letter-spacing: 0;
+    overflow-x: auto;
+}
+
+.code .comment,
+.code .meta {
+    color:#969896;
+}
+
+.code .string,
+.code .variable,
+.code .template-variable,
+.code .strong,
+.code .emphasis,
+.code .quote {
+    color:#df5000;
+}
+
+.code .keyword,
+.code .selector-tag,
+.code .type {
+    color:#a71d5d;
+}
+
+.code .literal,
+.code .symbol,
+.code .bullet,
+.code .attribute {
+    color:#0086b3;
+}
+
+.code .section,
+.code .name {
+    color:#63a35c;
+}
+
+.code .tag {
+    color:#333333;
+}
+
+.code .title,
+.code .attr,
+.code .selector-id,
+.code .selector-class,
+.code .selector-attr,
+.code .selector-pseudo {
+    color:#795da3;
+}
+
+.code .addition {
+    background-color:#eaffea;
+    color:#55a532;
+}
+
+.code .deletion {
+    background-color:#ffecec;
+    color:#bd2c00;
+}
+
+.code .link {
+    text-decoration: underline;
+}
+
+.code-wrap pre {
+    white-space: pre-wrap;
+}
+
+.caption {
+  display: block;
+  font-size: 0.8em;
+  text-align: center;
+}
+
+.codepen-aspect-ratio > iframe {
+    height: 100%;
+    position: absolute;
+    width: 100%;
+}
+
+.twitter-tweet {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.twitter-tweet::after {
+    content: "";
+    display: block;
+    padding-bottom: 20px;
+    width: 100%;
+}
+
+.intro-blog {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 1.5em;
+    font-weight: bold;
+    line-height: 1.3;
+    margin: 2em auto;
+    max-width: 640px;
+    text-align: center;
+}
+
+		
+		amp-iframe {
+			margin-bottom: 10px;
+		}
+	</style>
+  </head>
+  <body>
+
+  	<!-- google analytics -->
+  	
+  	<amp-analytics type="googleanalytics" id="google-analytics">
+		<script type="application/json">
+		{
+		  "vars": {
+		    "account": "UA-39254352-1"
+		  },
+		  "triggers": {
+		    "trackPageview": {
+		      "on": "visible",
+		      "request": "pageview"
+		    }
+		  }
+		}
+		</script>
+	</amp-analytics>
+	
+
+  <header class="main-header">
+      <nav id="menu">
+          <a href="/">JMPerez Blog</a>
+          <a href="/projects/">Projects</a>
+          <a href="/talks/">Speaking</a>
+          <a href="/about-me/">About</a>
+      </nav>
+  </header>
+
+  <article>
+  	<div class="post">
+	  	<div id="page">
+
+		    <article id="post-frontfest-moscow-2017" class="post wrapper">
+
+        <div class="media author">
+          <div class="img">
+            <a href="/about-me/">
+              <amp-img src="/assets/images/jmperez.jpg" class="avatar-img" alt="" height="53" width="53">
+            </a>
+          </div>
+          <div class="bd">
+            <address class="name" itemprop="author" itemscope itemtype="https://schema.org/Person"><a href="/about-me/" itemprop="name">José M. Pérez</a></address>
+            <meta class="post-data" itemprop="datePublished" content="2017-12-03T16:00:00.000Z">
+              December 03 2017
+            </meta>
+          </div>
+        </div>
+
+				<!-- entry title -->
+				<header class="entry-header">
+					
+					  <h1 class="article-title entry-title" itemprop="name">
+					    Speaking at FrontFest 2017 in Moscow, Russia
+					  </h1>
+					
+				</header>
+
+				<!-- entry content -->
+			    <div class="entry-content ecp">
+			  		<p>A couple of weeks ago I attended <a href="https://2017.frontfest.ru/" target="_blank" rel="noopener">FrontFest 2017</a> in Moscow. There were around 200 attendees at Digital October, an impressive venue. I had a lot of fun and met many local developers.</p><p></p><p><amp-img src="https://res.cloudinary.com/jmperez/image/upload/w_auto:100:684,f_auto,c_scale/v1512318752/frontfest/frontfest-01.jpg" width="700" height="467" layout="responsive"></amp-img></p><p></p><a id="more"></a><p>FrontFest is one of the several JS conferences that take place in Moscow, which has a healthy web community with several meetups that host up to 500 people.</p><p>This single-day event was comprised of 5 tracks filled with talks and workshops. Most of the talks and workshops were in Russian, though there was always one talk or workshop in English at a given time.</p><p>I especially liked <a href="https://2017.frontfest.ru/lecture/3/" target="_blank" rel="noopener">Blaine Cook&#x2019;s talk</a> about UX and developer responsibility managing user authentication. I also enjoyed Mathieu&#x2019;s <a href="https://2017.frontfest.ru/lecture/15/" target="_blank" rel="noopener">live-coding</a> and following workshop, where we coded <a href="https://github.com/p01/twinStickShooter" target="_blank" rel="noopener">a simple yet very fun game</a>.</p><h2 id="My-talk-about-&#x201C;Progressive-Image-Rendering&#x201D;"><a href="#My-talk-about-&#x201C;Progressive-Image-Rendering&#x201D;" class="headerlink" title="My talk about &#x201C;Progressive Image Rendering&#x201D;"></a>My talk about &#x201C;Progressive Image Rendering&#x201D;</h2><p>I had been playing with SVG techniques during the weeks before the event, which I had documented on <a href="/svg-placeholders/">Using SVG as placeholders&#x200A;&#x2014;&#x200A;More Image Loading Techniques</a>. Thus, it was a great opportunity to include them in the talk.</p><p>I also mentioned the <a href="https://www.chromestatus.com/feature/5637156160667648" target="_blank" rel="noopener">Image Decode API</a>. I first knew about it through <a href="https://twitter.com/p01/" target="_blank" rel="noopener">Mathieu &#x2018;p01&#x2019; Henri</a>, who told me there were early discussions to implement it when we met at <a href="/render-conf-oxford-2017">RenderConf Oxford</a>. Even though it&#x2019;s not widely supported I thought it was a good opportunity to talk about it.</p><p>This API prevents the browser from blocking the UI when decoding an image, and can be handy when doing lazy-load. Check also <a href="https://medium.com/dailyjs/image-loading-with-image-decode-b03652e7d2d2" target="_blank" rel="noopener">this post</a> for an example on how to use it.</p><h3 id="Slides"><a href="#Slides" class="headerlink" title="Slides"></a>Slides</h3><p>The slides are available on <a href="https://slides.com/jmperez/pir-frontfest" target="_blank" rel="noopener">slides.com/jmperez/pir-frontfest</a> and you can also see them right here embedded:</p><div class="videoWrapper"><amp-iframe height="420" sandbox="allow-scripts allow-same-origin allow-popups" layout="fixed-height" frameborder="0" src="https://slides.com/jmperez/pir-frontfest/embed"><amp-img layout="fill" src="/amp-dist/sample/sample-placeholder.png" placeholder=""></amp-img></amp-iframe></div>
+			  	</div>
+
+		  	</article>
+		</div>
+    <footer>
+        <section class="links">
+            <a href="https://twitter.com/jmperezperez">@jmperezperez</a> on Twitter · <a href="https://github.com/JMPerez">GitHub</a> · <a href="http://www.linkedin.com/in/jmperezperez">LinkedIn</a>
+        </section>
+    </footer>
+
+	</div>
+  </article>
+
+  </body>
+</html>

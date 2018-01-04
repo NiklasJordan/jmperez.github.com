@@ -1,0 +1,728 @@
+<!doctype html>
+<html ⚡>
+  <head>
+    <meta charset="utf-8">
+    <link rel="canonical" href="https://jmperezperez.com/ondemand-javascript-lazy-loading-stubs/" >
+    <title>Lazy loading Javascript: On-demand scripts to faster load times - Web development, performance, and some other good practices.</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
+    <noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    
+    <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+    
+
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <script type="application/ld+json">
+		{
+			"@context": "http://schema.org",
+			"@type": "BlogPosting",
+			"headline": "Lazy loading Javascript: On-demand scripts to faster load times",
+			
+			"description": "How to load JavaScript on-demand using stub functions and progressive enhancements",
+			
+			"mainEntityOfPage":{
+			    "@type":"WebPage",
+			    "@id":"ondemand-javascript-lazy-loading-stubs/"
+			},
+			"datePublished": "2010-11-13T15:14:34.000Z",
+			"dateModified": "2018-01-04T11:39:58.000Z",
+			
+			"image": {
+				"@type": "ImageObject",
+				"url": "/amp-dist/sample/sample-substituteTitleImage.png",
+				"width" : "1024",
+				"height" : "800"
+			},
+			
+			"author": {
+			    "@type": "Person",
+			    "name": "Jose M. Perez"
+			},
+			"publisher": {
+			    "@type": "Organization",
+			    "name": "Jose M. Perez&#39;s Blog"
+			    
+			    ,
+			    "logo": {
+			      "@type": "ImageObject",
+			      "url": "https://jmperezperez.com/amp-dist/logo.png",
+			      "width": 600,
+			      "height": 60
+			    }
+			    
+			}
+		}
+	</script>
+	<style amp-custom>
+		
+			/*--RESET--*/
+* {
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+    border: none;
+    font: inherit;
+    margin: 0;
+    padding: 0;
+    vertical-align: baseline;
+}
+
+input,
+button {
+    background: none;
+}
+
+/*--BODY--*/
+
+body {
+    background: #fff;
+    color: #555;
+    font-family: Georgia, Times;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 19px;
+    line-height: 1.725;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%; /* fixes a too large font issue in horizontally scrollable <pre> on webkit */
+}
+
+@media(max-width: 800px) {
+    body {
+        font-size: 17px;
+    }
+}
+
+@media(max-width: 600px) {
+    body {
+        font-size: 15px;
+    }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    color: #212121;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 600;
+    font-size: 1em;
+    line-height: 1.3;
+    margin-bottom: 1em;
+}
+
+h2,
+h3,
+h4,
+h5 {
+    margin-top: 2em;
+}
+
+#menu a,
+.button {
+    font-size: 1em;
+    font-weight: 400;
+}
+
+p,
+.post ul,
+.post ol,
+iframe,
+video,
+amp-video,
+amp-vimeo,
+amp-youtube {
+    margin: 0;
+    margin-bottom: 1em;
+}
+
+twitterwidget {
+  margin-bottom: 1em ;
+}
+
+a {
+    color: #2a7cb2;
+    font-weight: inherit;
+    text-decoration: none;
+    transition: color .15s ease-out, border-bottom-color .15s ease-out;
+}
+
+a:hover {
+    color: #2a7cb2;
+}
+
+p a {
+    border-bottom: 1px solid #eee;
+}
+
+p a:hover {
+    border-bottom-color: #212121;
+}
+
+strong {
+    font-weight: bold;
+}
+
+em {
+    font-style: italic;
+}
+
+h1 {
+    font-size: 1.7em;
+}
+
+h2 {
+    color: #444;
+    font-size: 1.6em;
+    font-weight: 400;
+}
+
+h3 {
+    color: #666;
+    font-size: 1.4em;
+    font-weight: 400;
+}
+
+h4 {
+    font-size: 1.18em;
+}
+
+h5 {
+    font-size: 1em;
+}
+
+a h1,
+a h2,
+a h3,
+a h4,
+a h5 {
+    transition: color .15s ease-out;
+}
+
+a:hover h1,
+a:hover h2,
+a:hover h3,
+a:hover h4,
+a:hover h5 {
+    color: #3498db;
+}
+
+.quote {
+    margin: 0 0 15px 0;
+}
+
+blockquote {
+    border-left: 2px solid #ccc;
+    font-style: italic;
+    margin: 0 0 15px 0;
+    padding-left: 20px;
+}
+
+ul,
+ol {
+    margin: 0 0 15px 0;
+    padding-left: 25px;
+}
+
+ul {
+    list-style: square;
+}
+
+ol {
+    list-style: decimal;
+}
+
+hr {
+    background: #eee;
+    color: #eee;
+    clear: both;
+    display: block;
+    height: 2px;
+    margin: 30px auto;
+    width: 50%;
+}
+
+pre,
+code {
+    color: #333;
+    font-family: Courier, Menlo, Monaco;
+    font-size: 0.8em;
+    letter-spacing: 0px;
+    overflow-x: auto;
+}
+
+pre {
+    padding: 0.8em 1em;
+}
+
+code {
+    margin: 0;
+}
+
+/*--CLEARFIXES--*/
+
+.post::after {
+    display: block;
+    clear: both;
+    content: '';
+}
+
+/*--HEADER--*/
+
+.main-header {
+    background-color: #005689;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    overflow: hidden;
+    padding: 1em;
+    position: relative;
+    text-align: center;
+    width: 100%;
+}
+
+/*--MENU--*/
+
+#menu {
+    display: inline-block;
+    margin: 1px 0;
+}
+
+#menu a {
+    color: #fff;
+    font-size: 14px;
+    margin-left: 15px;
+    padding: 20px 10px;
+    text-transform: uppercase;
+}
+
+@media(max-width: 500px) {
+  #menu a {
+    margin-left: 10px;
+    padding: 10px 5px;
+  }
+}
+
+#menu a:first-child {
+    margin-left: 0;
+}
+
+#menu a[aria-current] {
+    font-weight: bold;
+}
+
+/*--PAGE--*/
+
+#page {
+    margin: 0 auto;
+    max-width: 40em;
+    padding: 3em 2em;
+    position: relative;
+}
+
+.videoWrapper {
+    height: 0;
+    margin-bottom: 1em;
+    padding-bottom: 56.25%; /* 16:9 */
+    padding-top: 25px;
+    position: relative;
+}
+
+.videoWrapper iframe,
+.videoWrapper amp-youtube {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+/*--WRAPPER--*/
+
+.wrapper {
+    border-top: 2px solid #eee;
+    padding: 3em 0;
+}
+
+.wrapper:first-child {
+    border-top: none;
+    padding-top: 5%;
+}
+
+.posts-list h2 {
+    margin-top: 0;
+}
+
+/*--POSTS--*/
+
+.post {
+    display: block;
+    width: 100%;
+}
+
+.post div[itemprop=articleBody] > p:first-child {
+    color: #333;
+}
+
+.post li {
+    margin-bottom: 0.5em;
+}
+
+.post p img {
+    border: 1px solid #eee;
+    display: block;
+    max-width: 100%;
+}
+
+.post img + .caption {
+  padding-top: 5px;
+}
+
+.post .svg-container {
+    margin-bottom: 5%;
+    max-width: 100%;
+    text-align: center;
+}
+
+video {
+    height: auto;
+    max-width: 100%;
+}
+
+.post .svg-container object {
+    width: 100%;
+}
+
+/*--PAGINATION--*/
+
+.pagination {
+    text-align: center;
+}
+
+.pagination a {
+    min-width: 30px;
+    max-height: 30px;
+    text-align: center;
+}
+
+/*--FOOTER--*/
+
+footer {
+    background: rgba(0, 0, 0, 0.05);
+    padding: 2em;
+    text-align: center;
+}
+
+/*--BUTTONS--*/
+
+.button {
+    background-color: #fff;
+    border: 1px solid #555;
+    border-radius: 20px;
+    color: #555;
+    display: inline-block;
+    font-size: 13px;
+    line-height: 10px;
+    padding: 10px 20px;
+    transition: background-color .15s ease-out;
+}
+
+.button:hover {
+    background-color: #3498db;
+    border-color: transparent;
+    color: #fff;
+}
+
+.button.inactive {
+    background-color: #ccc;
+    color: #fff;
+}
+
+/*--404--*/
+.search-goog input {
+    border: 2px solid #ddd;
+    padding: 10px;
+}
+
+.search-goog input[type=submit] {
+    background-color: #ddd;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 768px) {
+
+    /*--PAGE--*/
+
+    #page,
+    .wrapper {
+        margin: 0;
+        max-width: 100%;
+        padding: 1.5em;
+        width: 100%;
+    }
+
+    /*--WRAPPER--*/
+
+    .wrapper {
+        padding: 10% 0;
+    }
+
+    .wraper::after {
+        clear: both;
+        content: '';
+        display: block;
+    }
+
+    /*--POSTS--*/
+
+    .post {
+        margin: 0 auto;
+        max-width: 640px;
+    }
+
+}
+
+/*--ACCESSIBILITY--*/
+.outscreen {
+    height: 1px;
+    left: -1000px;
+    overflow: hidden;
+    position: absolute;
+    top: auto;
+    width: 1px;
+}
+
+/*--CALLOUT--*/
+.callout {
+    border: 1px solid #eee;
+    border-left-color: #777;
+    border-left-width: 5px;
+    border-radius: 3px;
+    font-size: 90%;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.author {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 0.8em;
+    margin-bottom: 2em;
+}
+
+.author .name {
+    line-height: 1.5;
+    padding-top: 0.35em;
+}
+
+.media, .bd {
+    overflow: hidden;
+    _overflow: visible;
+    
+}
+
+.media .img {
+    float: left;
+}
+
+.avatar-img {
+    border-radius: 100%;
+    height: 3.5em;
+    margin-right: 0.5em;
+    width: 3.5em;
+}
+
+/* SYNTAX HIGHLIGHTING */
+
+.highlight {
+    border: 1px solid #eee;
+    margin-bottom: 1em;
+    overflow-x: auto;
+}
+
+.code {
+    background:white;
+    color:#333333;
+    display: block;
+    letter-spacing: 0;
+    overflow-x: auto;
+}
+
+.code .comment,
+.code .meta {
+    color:#969896;
+}
+
+.code .string,
+.code .variable,
+.code .template-variable,
+.code .strong,
+.code .emphasis,
+.code .quote {
+    color:#df5000;
+}
+
+.code .keyword,
+.code .selector-tag,
+.code .type {
+    color:#a71d5d;
+}
+
+.code .literal,
+.code .symbol,
+.code .bullet,
+.code .attribute {
+    color:#0086b3;
+}
+
+.code .section,
+.code .name {
+    color:#63a35c;
+}
+
+.code .tag {
+    color:#333333;
+}
+
+.code .title,
+.code .attr,
+.code .selector-id,
+.code .selector-class,
+.code .selector-attr,
+.code .selector-pseudo {
+    color:#795da3;
+}
+
+.code .addition {
+    background-color:#eaffea;
+    color:#55a532;
+}
+
+.code .deletion {
+    background-color:#ffecec;
+    color:#bd2c00;
+}
+
+.code .link {
+    text-decoration: underline;
+}
+
+.code-wrap pre {
+    white-space: pre-wrap;
+}
+
+.caption {
+  display: block;
+  font-size: 0.8em;
+  text-align: center;
+}
+
+.codepen-aspect-ratio > iframe {
+    height: 100%;
+    position: absolute;
+    width: 100%;
+}
+
+.twitter-tweet {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.twitter-tweet::after {
+    content: "";
+    display: block;
+    padding-bottom: 20px;
+    width: 100%;
+}
+
+.intro-blog {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 1.5em;
+    font-weight: bold;
+    line-height: 1.3;
+    margin: 2em auto;
+    max-width: 640px;
+    text-align: center;
+}
+
+		
+		amp-iframe {
+			margin-bottom: 10px;
+		}
+	</style>
+  </head>
+  <body>
+
+  	<!-- google analytics -->
+  	
+  	<amp-analytics type="googleanalytics" id="google-analytics">
+		<script type="application/json">
+		{
+		  "vars": {
+		    "account": "UA-39254352-1"
+		  },
+		  "triggers": {
+		    "trackPageview": {
+		      "on": "visible",
+		      "request": "pageview"
+		    }
+		  }
+		}
+		</script>
+	</amp-analytics>
+	
+
+  <header class="main-header">
+      <nav id="menu">
+          <a href="/">JMPerez Blog</a>
+          <a href="/projects/">Projects</a>
+          <a href="/talks/">Speaking</a>
+          <a href="/about-me/">About</a>
+      </nav>
+  </header>
+
+  <article>
+  	<div class="post">
+	  	<div id="page">
+
+		    <article id="post-ondemand-javascript-lazy-loading-stubs" class="post wrapper">
+
+        <div class="media author">
+          <div class="img">
+            <a href="/about-me/">
+              <amp-img src="/assets/images/jmperez.jpg" class="avatar-img" alt="" height="53" width="53">
+            </a>
+          </div>
+          <div class="bd">
+            <address class="name" itemprop="author" itemscope itemtype="https://schema.org/Person"><a href="/about-me/" itemprop="name">José M. Pérez</a></address>
+            <meta class="post-data" itemprop="datePublished" content="2010-11-13T15:14:34.000Z">
+              November 13 2010
+            </meta>
+          </div>
+        </div>
+
+				<!-- entry title -->
+				<header class="entry-header">
+					
+					  <h1 class="article-title entry-title" itemprop="name">
+					    Lazy loading Javascript: On-demand scripts to faster load times
+					  </h1>
+					
+				</header>
+
+				<!-- entry content -->
+			    <div class="entry-content ecp">
+			  		<p>Loading on-demand code can boost website performance in the sense that the browser does not need to request and execute Javascript code that is not needed. Depending on the script, a different approach can be taken to lazy load it.</p><a id="more"></a><h2 id="Progressive-enhancement-Javascript"><a href="#Progressive-enhancement-Javascript" class="headerlink" title="Progressive enhancement Javascript"></a>Progressive enhancement Javascript</h2><p>This is by far the best scenario. Javascript is used to improve user experience but the web page can work without Javascript (in example, browsers with Javascript disabled). In this case, script loading can be delayed to the very moment it is needed or it can be loaded after some timeout.</p><p>An example would be a form used to post a comment. This form could be ajaxify using a script that is requested when the textarea is focused. This way, this script would just be downloaded when potentially needed. Another example would be an input search that is improved using autocompletion once it is focused.</p><h2 id="Using-mocks-stubs-for-Javascript-only-functionality"><a href="#Using-mocks-stubs-for-Javascript-only-functionality" class="headerlink" title="Using mocks/stubs for Javascript-only functionality"></a>Using mocks/stubs for Javascript-only functionality</h2><p>Some times Javascript is used to allow functionality that cannot implemented other way. In this case, a mockup approach can be taken.</p><p>Mockup Javascript only defines the signatures of the functions and as little functionality as possible. We can use mocks to load the “real” Javascript and avoid calls to non-declared functions. This is similar to how <a href="http://www.stevesouders.com/blog/2009/09/08/doloto-javascript-download-optimizer/" target="_blank" rel="noopener">Microsoft Doloto</a> works. Stub functions can make as little as just preventing undefined symbols, or as much as loading real script and re-execute the javascript call so that the real script (that has just overridden the stub function) executes. Steve Souders explains this technique in his <a href="http://books.google.es/books?id=E7p-07kNfXYC&amp;lpg=PA24&amp;ots=ULjpQKecMk&amp;dq=souders%20doloto&amp;pg=PA24#v=onepage&amp;q&amp;f=false" target="_blank" rel="noopener"><em>Even faster web sites</em> book</a>.</p><p>We would have one file to functions declarations (mockup) and another file that will override mockup:</p><p><strong>functions_mock.js</strong></p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">loadJs</span>(<span class="params">url, cb</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> script = <span class="built_in">document</span>.createElement(<span class="string">'script'</span>);</span><br><span class="line">  script.setAttribute(<span class="string">'src'</span>, url);</span><br><span class="line">  script.setAttribute(<span class="string">'type'</span>, <span class="string">'text/javascript'</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> loaded = <span class="literal">false</span>;</span><br><span class="line">  <span class="keyword">var</span> loadFunction = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (loaded) <span class="keyword">return</span>;</span><br><span class="line">    loaded = <span class="literal">true</span>;</span><br><span class="line">    cb &amp;amp; cb();</span><br><span class="line">  &#125;;</span><br><span class="line">  script.onload = loadFunction;</span><br><span class="line">  script.onreadystatechange = loadFunction;</span><br><span class="line">  <span class="built_in">document</span>.getElementsByTagName(<span class="string">"head"</span>)[<span class="number">0</span>].appendChild(script);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">factorial</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">  loadJs(<span class="string">'functions.js'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    factorial(n);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><strong>functions.js</strong><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">factorial</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (n&gt;<span class="number">1</span>) <span class="keyword">return</span> n*factorial(n<span class="number">-1</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p><strong>index.html</strong><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!doctype html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"functions_mock.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">"alert(factorial(10));"</span>&gt;</span>Factorial!<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p><p>Maybe the <code>factorial</code> function is not the best one. In fact, the size of mock file is greater than the “real” JavaScript file, but the idea is that mock file would replace large functions, achieving smaller files and faster execution times, especially if we use stubs to only prevent undefined symbols and load real scripts after some delay.</p><p>In the case of stub loading real script we should take into account that some functions may need synchronous downloading of real script file. This is the case of functions that return a value that is used later. In our example, if we change the button call function to something like:<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">"var f = factorial(10); alert(f);"</span>&gt;</span>Factorial!<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure></p><p>we will get an undefined value because factorial stub function returns before calling real function. This can be solved by loading functions.js in a blocking way, though this can affect user experience.</p><p>In conclusion, we should consider what is the best way to defer JavaScript execution (and if it is worth). Personally I think that it can be useful in the case of large JavaScript files with few global variables that we can manage properly.</p>
+			  	</div>
+
+		  	</article>
+		</div>
+    <footer>
+        <section class="links">
+            <a href="https://twitter.com/jmperezperez">@jmperezperez</a> on Twitter · <a href="https://github.com/JMPerez">GitHub</a> · <a href="http://www.linkedin.com/in/jmperezperez">LinkedIn</a>
+        </section>
+    </footer>
+
+	</div>
+  </article>
+
+  </body>
+</html>
