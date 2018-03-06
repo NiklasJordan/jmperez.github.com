@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://jmperezperez.com/projects/index.html</loc>
+    
+    <lastmod>2018-03-06T13:58:59.266Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jmperezperez.com/svg-placeholders/</loc>
     
-    <lastmod>2018-02-14T22:45:53.340Z</lastmod>
+    <lastmod>2018-03-01T06:31:53.468Z</lastmod>
     
   </url>
   
@@ -58,14 +65,7 @@
   </url>
   
   <url>
-    <loc>https://jmperezperez.com/projects/index.html</loc>
-    
-    <lastmod>2018-01-04T11:39:59.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jmperezperez.com/techniques-optimize-web-sites/</loc>
+    <loc>https://jmperezperez.com/google-maps-geolocation-directions-specific-destination/</loc>
     
     <lastmod>2018-01-04T11:39:58.000Z</lastmod>
     
@@ -219,6 +219,69 @@
   </url>
   
   <url>
+    <loc>https://jmperezperez.com/gulp-js/</loc>
+    
+    <lastmod>2018-01-04T11:39:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jmperezperez.com/migrating-wordpress-jekyll-github-pages/</loc>
+    
+    <lastmod>2018-01-04T11:39:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jmperezperez.com/spotify-hack-week-2014/</loc>
+    
+    <lastmod>2018-01-04T11:39:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jmperezperez.com/mhd-paris-deezer-other-projects/</loc>
+    
+    <lastmod>2018-01-04T11:39:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jmperezperez.com/stockholm-meetups-startups-web-development/</loc>
+    
+    <lastmod>2018-01-04T11:39:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jmperezperez.com/animations-improve-ux/</loc>
+    
+    <lastmod>2018-01-04T11:39:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jmperezperez.com/implementing-polymer-element/</loc>
+    
+    <lastmod>2018-01-04T11:39:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jmperezperez.com/bpm-detection-javascript/</loc>
+    
+    <lastmod>2018-01-04T11:39:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jmperezperez.com/communicating-widgets-with-popups/</loc>
+    
+    <lastmod>2018-01-04T11:39:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jmperezperez.com/image-optimization-lossy-lossless-techniques/</loc>
     
     <lastmod>2018-01-04T11:39:58.000Z</lastmod>
@@ -282,13 +345,6 @@
   </url>
   
   <url>
-    <loc>https://jmperezperez.com/c3po-spotify-play-button/</loc>
-    
-    <lastmod>2018-01-04T11:39:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://jmperezperez.com/mobile-proxy-browsers-back/</loc>
     
     <lastmod>2018-01-04T11:39:58.000Z</lastmod>
@@ -303,7 +359,28 @@
   </url>
   
   <url>
+    <loc>https://jmperezperez.com/c3po-spotify-play-button/</loc>
+    
+    <lastmod>2018-01-04T11:39:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jmperezperez.com/giving-android-development-a-try/</loc>
+    
+    <lastmod>2018-01-04T11:39:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jmperezperez.com/spain-js-2013/</loc>
+    
+    <lastmod>2018-01-04T11:39:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jmperezperez.com/recommended-reading-j2ee-antipatterns/</loc>
     
     <lastmod>2018-01-04T11:39:58.000Z</lastmod>
     
@@ -324,7 +401,7 @@
   </url>
   
   <url>
-    <loc>https://jmperezperez.com/spain-js-2013/</loc>
+    <loc>https://jmperezperez.com/developing-spotify-apps/</loc>
     
     <lastmod>2018-01-04T11:39:58.000Z</lastmod>
     
@@ -346,83 +423,6 @@
   
   <url>
     <loc>https://jmperezperez.com/embeddable-widget/</loc>
-    
-    <lastmod>2018-01-04T11:39:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jmperezperez.com/line-height-mutiple-line-ellipsis-responsiveness/</loc>
-    
-    <lastmod>2018-01-04T11:39:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jmperezperez.com/developing-spotify-apps/</loc>
-    
-    <lastmod>2018-01-04T11:39:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jmperezperez.com/gulp-js/</loc>
-    
-    <lastmod>2018-01-04T11:39:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jmperezperez.com/migrating-wordpress-jekyll-github-pages/</loc>
-    
-    <lastmod>2018-01-04T11:39:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jmperezperez.com/google-make-web-faster/</loc>
-    
-    <lastmod>2018-01-04T11:39:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jmperezperez.com/animations-improve-ux/</loc>
-    
-    <lastmod>2018-01-04T11:39:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jmperezperez.com/spotify-hack-week-2014/</loc>
-    
-    <lastmod>2018-01-04T11:39:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jmperezperez.com/stockholm-meetups-startups-web-development/</loc>
-    
-    <lastmod>2018-01-04T11:39:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jmperezperez.com/implementing-polymer-element/</loc>
-    
-    <lastmod>2018-01-04T11:39:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jmperezperez.com/bpm-detection-javascript/</loc>
-    
-    <lastmod>2018-01-04T11:39:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jmperezperez.com/communicating-widgets-with-popups/</loc>
     
     <lastmod>2018-01-04T11:39:58.000Z</lastmod>
     
@@ -478,13 +478,6 @@
   </url>
   
   <url>
-    <loc>https://jmperezperez.com/farewell-rdio/</loc>
-    
-    <lastmod>2018-01-04T11:39:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://jmperezperez.com/webp-placeholder-images/</loc>
     
     <lastmod>2018-01-04T11:39:58.000Z</lastmod>
@@ -492,7 +485,7 @@
   </url>
   
   <url>
-    <loc>https://jmperezperez.com/optimising-svgs/</loc>
+    <loc>https://jmperezperez.com/farewell-rdio/</loc>
     
     <lastmod>2018-01-04T11:39:58.000Z</lastmod>
     
@@ -506,7 +499,21 @@
   </url>
   
   <url>
+    <loc>https://jmperezperez.com/optimising-svgs/</loc>
+    
+    <lastmod>2018-01-04T11:39:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jmperezperez.com/duotone-using-fecolormatrix/</loc>
+    
+    <lastmod>2018-01-04T11:39:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jmperezperez.com/personal-projects/</loc>
     
     <lastmod>2018-01-04T11:39:58.000Z</lastmod>
     
@@ -527,21 +534,14 @@
   </url>
   
   <url>
+    <loc>https://jmperezperez.com/ssim-jpeg-io/</loc>
+    
+    <lastmod>2018-01-04T11:39:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jmperezperez.com/cssconf-au-2016/</loc>
-    
-    <lastmod>2018-01-04T11:39:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jmperezperez.com/my-2016/</loc>
-    
-    <lastmod>2018-01-04T11:39:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jmperezperez.com/personal-projects/</loc>
     
     <lastmod>2018-01-04T11:39:58.000Z</lastmod>
     
@@ -555,21 +555,7 @@
   </url>
   
   <url>
-    <loc>https://jmperezperez.com/assessing-new-technology/</loc>
-    
-    <lastmod>2018-01-04T11:39:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jmperezperez.com/ssim-jpeg-io/</loc>
-    
-    <lastmod>2018-01-04T11:39:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jmperezperez.com/render-conf-oxford-2017/</loc>
+    <loc>https://jmperezperez.com/my-2016/</loc>
     
     <lastmod>2018-01-04T11:39:58.000Z</lastmod>
     
@@ -583,14 +569,14 @@
   </url>
   
   <url>
-    <loc>https://jmperezperez.com/my-setup-for-this-blog/</loc>
+    <loc>https://jmperezperez.com/assessing-new-technology/</loc>
     
     <lastmod>2018-01-04T11:39:58.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://jmperezperez.com/jsdayes-madrid-2017/</loc>
+    <loc>https://jmperezperez.com/my-setup-for-this-blog/</loc>
     
     <lastmod>2018-01-04T11:39:58.000Z</lastmod>
     
@@ -604,6 +590,13 @@
   </url>
   
   <url>
+    <loc>https://jmperezperez.com/render-conf-oxford-2017/</loc>
+    
+    <lastmod>2018-01-04T11:39:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jmperezperez.com/spotify-connect-api/</loc>
     
     <lastmod>2018-01-04T11:39:58.000Z</lastmod>
@@ -611,7 +604,7 @@
   </url>
   
   <url>
-    <loc>https://jmperezperez.com/web-is-back/</loc>
+    <loc>https://jmperezperez.com/jsdayes-madrid-2017/</loc>
     
     <lastmod>2018-01-04T11:39:58.000Z</lastmod>
     
@@ -619,6 +612,13 @@
   
   <url>
     <loc>https://jmperezperez.com/paint-timing-api/</loc>
+    
+    <lastmod>2018-01-04T11:39:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jmperezperez.com/web-is-back/</loc>
     
     <lastmod>2018-01-04T11:39:58.000Z</lastmod>
     
@@ -639,14 +639,14 @@
   </url>
   
   <url>
-    <loc>https://jmperezperez.com/collaborative-listening-spotify/</loc>
+    <loc>https://jmperezperez.com/speaking-alicante-frontend/</loc>
     
     <lastmod>2018-01-04T11:39:58.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://jmperezperez.com/duotone-using-css-blend-modes/</loc>
+    <loc>https://jmperezperez.com/collaborative-listening-spotify/</loc>
     
     <lastmod>2018-01-04T11:39:58.000Z</lastmod>
     
@@ -660,7 +660,14 @@
   </url>
   
   <url>
-    <loc>https://jmperezperez.com/speaking-alicante-frontend/</loc>
+    <loc>https://jmperezperez.com/duotone-using-css-blend-modes/</loc>
+    
+    <lastmod>2018-01-04T11:39:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jmperezperez.com/wecodesign-pwa/</loc>
     
     <lastmod>2018-01-04T11:39:58.000Z</lastmod>
     
@@ -681,14 +688,7 @@
   </url>
   
   <url>
-    <loc>https://jmperezperez.com/wecodesign-pwa/</loc>
-    
-    <lastmod>2018-01-04T11:39:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jmperezperez.com/recommended-reading-j2ee-antipatterns/</loc>
+    <loc>https://jmperezperez.com/google-make-web-faster/</loc>
     
     <lastmod>2018-01-04T11:39:58.000Z</lastmod>
     
@@ -709,21 +709,7 @@
   </url>
   
   <url>
-    <loc>https://jmperezperez.com/tracking-action-execution-time-in-asp-net-mvc/</loc>
-    
-    <lastmod>2018-01-04T11:39:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://jmperezperez.com/404.html</loc>
-    
-    <lastmod>2018-01-04T11:39:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jmperezperez.com/about-me/index.html</loc>
     
     <lastmod>2018-01-04T11:39:58.000Z</lastmod>
     
@@ -737,6 +723,20 @@
   </url>
   
   <url>
+    <loc>https://jmperezperez.com/about-me/index.html</loc>
+    
+    <lastmod>2018-01-04T11:39:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jmperezperez.com/tracking-action-execution-time-in-asp-net-mvc/</loc>
+    
+    <lastmod>2018-01-04T11:39:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jmperezperez.com/progressively-using-html5-features/</loc>
     
     <lastmod>2018-01-04T11:39:58.000Z</lastmod>
@@ -744,14 +744,14 @@
   </url>
   
   <url>
-    <loc>https://jmperezperez.com/google-maps-geolocation-directions-specific-destination/</loc>
+    <loc>https://jmperezperez.com/techniques-optimize-web-sites/</loc>
     
     <lastmod>2018-01-04T11:39:58.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://jmperezperez.com/mhd-paris-deezer-other-projects/</loc>
+    <loc>https://jmperezperez.com/line-height-mutiple-line-ellipsis-responsiveness/</loc>
     
     <lastmod>2018-01-04T11:39:58.000Z</lastmod>
     
