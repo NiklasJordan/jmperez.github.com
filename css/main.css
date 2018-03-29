@@ -356,6 +356,11 @@ footer {
     text-align: center;
 }
 
+.timing-stats {
+    font-size: 0.7em;
+    padding: 0.35em;
+}
+
 /*--BUTTONS--*/
 
 .button {
