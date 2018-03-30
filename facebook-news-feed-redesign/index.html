@@ -44,7 +44,7 @@
           var timingStatsHTML = 'This page loaded in ' + round2(loadTime) + ' seconds. ';
           var performanceEntries = performance.getEntriesByType('paint');
           performanceEntries.forEach(function(performanceEntry, i, entries) {
-            let name = performanceEntry.name;
+            var name = performanceEntry.name;
             if (name === 'first-paint') {
               name = '<abbr title=' + name + '>FP</abbr>';
             } else if (name === 'first-contentful-paint') {
