@@ -538,77 +538,125 @@ footer {
 
 /* SYNTAX HIGHLIGHTING */
 
-.highlight {
-    border: 1px solid #eee;
-    margin-bottom: 1em;
-    overflow-x: auto;
+code[class*="language-"],
+pre[class*="language-"] {
+    color: #393A34;
+    font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
+    direction: ltr;
+    text-align: left;
+    white-space: pre-wrap;
+    word-spacing: normal;
+    word-break: normal;
+    font-size: 0.85em;
+    line-height: 1.2em;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
 }
 
-.code {
-    background:white;
-    color:#333333;
-    display: block;
-    letter-spacing: 0;
-    overflow-x: auto;
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+    background: #b3d4fc;
 }
 
-.code .comment,
-.code .meta {
-    color:#969896;
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
+code[class*="language-"]::selection, code[class*="language-"] ::selection {
+    background: #b3d4fc;
 }
 
-.code .string,
-.code .variable,
-.code .template-variable,
-.code .strong,
-.code .emphasis,
-.code .quote {
-    color:#df5000;
+/* Code blocks */
+pre[class*="language-"] {
+    padding: 1em;
+    margin: .5em 0;
+    overflow: auto;
+    border: 1px solid #dddddd;
+    background-color: white;
 }
 
-.code .keyword,
-.code .selector-tag,
-.code .type {
-    color:#a71d5d;
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
 }
 
-.code .literal,
-.code .symbol,
-.code .bullet,
-.code .attribute {
-    color:#0086b3;
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+    padding: .2em;
+    padding-top: 1px; padding-bottom: 1px;
+    background: #f8f8f8;
+    border: 1px solid #dddddd;
 }
 
-.code .section,
-.code .name {
-    color:#63a35c;
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+    color: #999988; font-style: italic;
 }
 
-.code .tag {
-    color:#333333;
+.token.namespace {
+    opacity: .7;
 }
 
-.code .title,
-.code .attr,
-.code .selector-id,
-.code .selector-class,
-.code .selector-attr,
-.code .selector-pseudo {
-    color:#795da3;
+.token.string,
+.token.attr-value {
+    color: #e3116c;
+}
+.token.punctuation,
+.token.operator {
+    color: #393A34; /* no highlight */
 }
 
-.code .addition {
-    background-color:#eaffea;
-    color:#55a532;
+.token.entity,
+.token.url,
+.token.symbol,
+.token.number,
+.token.boolean,
+.token.variable,
+.token.constant,
+.token.property,
+.token.regex,
+.token.inserted {
+    color: #005cc5;
 }
 
-.code .deletion {
-    background-color:#ffecec;
-    color:#bd2c00;
+.token.keyword {
+    color: #d73a49;
 }
 
-.code .link {
-    text-decoration: underline;
+.token.atrule,
+.token.attr-name {
+    color: #6f42c1;
+}
+
+.token.function,
+.token.deleted {
+    color: #6f42c1;
+}
+
+.token.selector {
+    color: #00009f;
+}
+
+.token.tag {
+    color: #22863a;
+}
+
+.token.class-name {
+    color: #6f42c1;
+}
+
+.token.important,
+.token.bold {
+    font-weight: bold;
+}
+
+.token.italic {
+    font-style: italic;
 }
 
 .code-wrap pre {
@@ -716,7 +764,146 @@ footer {
 
 				<!-- entry content -->
 			    <div class="entry-content ecp">
-			  		<p>Parts of the tutorial</p><ol><li><a href="/tutorial-how-to-implement-bigpipe-using-asp-net-mvc-part-1">Introduction to BigPipe</a></li><li>How ASP.Net MVC fits in the model. Registering and generating pagelets</li><li><a href="/tutorial-how-to-implement-bigpipe-using-asp-net-mvc-part-3">Browser implementation of BigPipe. Loading pagelets and their resources effectively</a></li><li><a href="https://github.com/JMPerez/BigPipe" target="_blank" rel="noopener">Check out the demo Visual Studio solution</a></li></ol><p>In <a href="/tutorial-how-to-implement-bigpipe-using-asp-net-mvc-part-1">the previous post of this tutorial</a> I made an overview explaining how Bigpipe works and why it can improve users’ perceived speed when loading our pages.</p><a id="more"></a><p>Basically Bigpipe combines early flushing, parallel processing and a managed resources loading in the browser to prioritize showing content quickly over loading and executing JavaScript files.</p><p>In this second post I will show how ASP.Net MVC features fit in the BigPipe model. Code snippets will help to illustrate he different parts. I will upload the source code in a Visual Studio 2010 project during the next days, so you can download it and further explore this technique.</p><h2 id="View-structure"><a href="#View-structure" class="headerlink" title="View structure"></a>View structure</h2><p>Our view structure will be the usual when working with ASP.Net MVC:</p><ul><li><code>Site.Master</code>: Contains the skeleton of the HTML document. It will also fire the execution of the pagelets.</li><li><code>SomePage.aspx</code>: Fills the ContentPlaceHolders of the Site.Master. It will include the different pagelets.</li><li><code>Pagelet1.ascx</code>, <code>Pagelet2.ascx</code>… : The partial views that provides content to some areas that compose the page.</li></ul><h2 id="Pagelets-as-RenderActions"><a href="#Pagelets-as-RenderActions" class="headerlink" title="Pagelets as RenderActions"></a>Pagelets as RenderActions</h2><p>Our pagelets will be included using RenderActions. Pagelets are supposed to take some time to be executed, so it makes sense that these will need to access data in some way. These data will be retrieved in a controller to keep MVC paradigm.</p><h2 id="Registering-pagelets"><a href="#Registering-pagelets" class="headerlink" title="Registering pagelets"></a>Registering pagelets</h2><p>First of all, we will declare a Pagelet class that is going to be used to register the Pagelets. A pagelet will contain an instance of Data, that will be serialized as JSON.</p><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Data</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">string</span> Id &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">string</span> Content &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> IEnumerable&lt;<span class="keyword">string</span>&gt; Css &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> IEnumerable&lt;<span class="keyword">string</span>&gt; Js &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Pagelet</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> JavaScriptSerializer jss = <span class="keyword">new</span> JavaScriptSerializer();</span><br><span class="line"></span><br><span class="line">    Func&lt;<span class="keyword">string</span>&gt; Action &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">readonly</span> <span class="keyword">string</span> Container;</span><br><span class="line">    <span class="keyword">public</span> Data Data &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> Manages a pagelet</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=container&gt;</span>The id of the div container in which the output will be appended<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=action&gt;</span>The action to execute that will generate the output<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Pagelet</span>(<span class="params"><span class="keyword">string</span> container, Func&lt;<span class="keyword">string</span>&gt; action</span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.Container = container;</span><br><span class="line">        <span class="keyword">this</span>.Action = action;</span><br><span class="line">        <span class="keyword">this</span>.Data = <span class="keyword">new</span> Data() &#123; Id = container &#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Execute</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.Data.Content = Action();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">string</span> <span class="title">Serialize</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> &lt;script&gt; <span class="keyword">var</span> js_pagelet =</span><br><span class="line">            + jss.Serialize(Data)</span><br><span class="line">            + ; document.getElementById(\</span><br><span class="line">            + Container</span><br><span class="line">            + \).innerHTML = js_pagelet.Content; &lt;/script&gt;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>The Js and Css arrays of strings will contain the files of these types needed by the pagelet to be styled and work correctly (in the next post I will make heavier use of these fields when covering the Javascript script).</p><p>The <code>Serialize()</code> method will generate the code to make the call to inject the code into its container.</p><p>Next, we will define some helpers that will be used to register the pagelet and store the output of the RenderAction call.</p><p>We want the rendered content to be converted into a JSON object so, instead of just rendering the action (writing the output directly to the response), we will render the action storing the result in a string. For this, we will use RenderActionToString.</p><p>We need a way to get the result of the RenderAction as a string. Following a similar method to the one used to <a href="http://www.klopfenstein.net/lorenz.aspx/render-partial-view-to-string-in-asp-net-mvc" target="_blank" rel="noopener">render a partial view to a string</a>, we can declare extension methods to get the output of an action:</p><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title">RendererHelper</span> &#123;</span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span>Fake IView implementation, only used to instantiate an HtmlHelper.<span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">FakeView</span> : <span class="title">IView</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="meta">#<span class="meta-keyword">region</span> IView Members</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Render</span>(<span class="params">ViewContext viewContext, System.IO.TextWriter writer</span>)</span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> NotImplementedException();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="meta">#<span class="meta-keyword">endregion</span></span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">string</span> <span class="title">RenderActionToString</span>(<span class="params"><span class="keyword">this</span> HtmlHelper helper, HttpRequest request, <span class="keyword">string</span> controller, <span class="keyword">string</span> action</span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">//Create memory writer</span></span><br><span class="line">        <span class="keyword">var</span> sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        <span class="keyword">var</span> memWriter = <span class="keyword">new</span> StringWriter(sb);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//Create fake http context to render the view</span></span><br><span class="line">        <span class="keyword">var</span> fakeResponse = <span class="keyword">new</span> HttpResponse(memWriter);</span><br><span class="line">        <span class="keyword">var</span> fakeContext = <span class="keyword">new</span> HttpContext(request, fakeResponse);</span><br><span class="line">        <span class="keyword">var</span> fakeControllerContext = <span class="keyword">new</span> ControllerContext(</span><br><span class="line">            <span class="keyword">new</span> HttpContextWrapper(fakeContext),</span><br><span class="line">            helper.ViewContext.RouteData,</span><br><span class="line">            helper.ViewContext.Controller);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> oldContext = HttpContext.Current;</span><br><span class="line">        HttpContext.Current = fakeContext;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//Use HtmlHelper to render partial view to fake context</span></span><br><span class="line">        <span class="keyword">var</span> html = <span class="keyword">new</span> HtmlHelper(<span class="keyword">new</span> ViewContext(fakeControllerContext,</span><br><span class="line">            <span class="keyword">new</span> FakeView(), <span class="keyword">new</span> ViewDataDictionary(), <span class="keyword">new</span> TempDataDictionary(), memWriter),</span><br><span class="line">            <span class="keyword">new</span> ViewPage());</span><br><span class="line">        html.RenderAction(action, controller);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//Restore context</span></span><br><span class="line">        HttpContext.Current = oldContext;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//Flush memory and return output</span></span><br><span class="line">        memWriter.Flush();</span><br><span class="line">        <span class="keyword">return</span> sb.ToString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>HtmlHelper already has the <code>Action</code> method extension that gets the result of an action in a string, but it can be problematic when using multiple threads to execute the pagelets, as I explain in the <a href="/tutorial-how-to-implement-bigpipe-using-asp-net-mvc-part-3">third part of this tutorial</a>.<figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title">BigPipeHelper</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">RegisterPagelet</span>(<span class="params"><span class="keyword">this</span> HtmlHelper helper, Pagelet pagelet</span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> context = helper.ViewContext.HttpContext;</span><br><span class="line">        <span class="keyword">bool</span> jsEnabled = context.Request.Cookies[js] != <span class="literal">null</span> &amp;amp;&amp;amp; context.Request.Cookies[js].Value == <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!jsEnabled)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//JavaScript is not enabled, so we write the execution to the output and</span></span><br><span class="line">            <span class="comment">//not register the pagelet</span></span><br><span class="line">            <span class="keyword">if</span> (pagelet.Data.Css != <span class="literal">null</span>)</span><br><span class="line">                <span class="keyword">foreach</span> (<span class="keyword">string</span> css <span class="keyword">in</span> pagelet.Data.Css)</span><br><span class="line">                    helper.IncludeCss(css);</span><br><span class="line"></span><br><span class="line">            pagelet.Execute();</span><br><span class="line">            context.Response.Write(<span class="keyword">string</span>.Format(&lt;div id=\&#123;<span class="number">0</span>&#125;\&gt;&#123;<span class="number">1</span>&#125;&lt;/div&gt;, pagelet.Container, pagelet.Data.Content));</span><br><span class="line">            context.Response.Flush();</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        List&lt;Pagelet&gt; pagelets = (List&lt;Pagelet&gt;)context.Items[Pagelets];</span><br><span class="line">        <span class="keyword">if</span> (pagelets == <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            pagelets = <span class="keyword">new</span> List&lt;Pagelet&gt;();</span><br><span class="line">            context.Items[Pagelets] = pagelets;</span><br><span class="line">        &#125;</span><br><span class="line">        pagelets.Add(pagelet);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//write pagelet container</span></span><br><span class="line">        context.Response.Write(&lt;div id=\ + pagelet.Container + \&gt;&lt;/div&gt;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>We will use <a href="http://www.4guysfromrolla.com/articles/060904-1.aspx" target="_blank" rel="noopener">HttpContext.Items</a> to store the pagelets. The aspx page will decide to render each action or register a pagelet for later execution, depending on Javascript support. When using BigPipe we will choose the later one.</p><p>Then, in Site.Master, just before closing the body tag, we will make a flush so the browser can process the code generated so far, and then we will start executing the pagelets.</p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">  <span class="tag">&lt;<span class="name">%</span> <span class="attr">Response.Flush</span>(); %&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">%</span> <span class="attr">Html.ExecutePagelets</span>(); %&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure><p>The pagelets will be executed in a set of parallel threads. Each thread will execute the render action and will write a Javascript call to process the pagelet. After writing this response, we will flush it so the browser can start processing the code for the just generated pagelet.</p><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">readonly</span> <span class="keyword">object</span> _locker = <span class="keyword">new</span> <span class="keyword">object</span>();</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">ExecutePagelets</span>(<span class="params"><span class="keyword">this</span> HtmlHelper helper</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> context = helper.ViewContext.HttpContext;</span><br><span class="line">    List&lt;Pagelet&gt; pagelets = (List&lt;Pagelet&gt;)context.Items[Pagelets];</span><br><span class="line">    <span class="keyword">if</span> (pagelets == <span class="literal">null</span>) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">    Parallel.For(<span class="number">0</span>, pagelets.Count, (i) =&gt;</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> pagelet = pagelets[i];</span><br><span class="line">        pagelet.Execute();</span><br><span class="line">        <span class="keyword">lock</span>(_locker) &#123;</span><br><span class="line">            context.Response.Write(pagelet.Serialize());</span><br><span class="line">            context.Response.Flush();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>Parallel.For (C# 4.0) creates a set of threads and continues with the next instruction once they all have finished. For each pagelet, we store in the Content field the result of executing its Action() method, this is, the output of the RenderAction. Next we write to the output the Data object as a JSON string and flush it.</p><h3 id="Implementing-the-browser-side-of-Bigpipe"><a href="#Implementing-the-browser-side-of-Bigpipe" class="headerlink" title="Implementing the browser side of Bigpipe"></a>Implementing the browser side of Bigpipe</h3><p>I did not want to make just a proof of concept of Bigpipe, but also implement a basic system that covers this technique from the server to the browser.</p><p>In the next post I will focus on the script that will manage the loading of CSS and JavaScript resources for the pagelets. This script is independent of the technology and programming language used on server. I will also show some resources loading charts to see how BigPipe affects this.</p><p><strong>Update September 26th:</strong> I add a locker in the <code>ExecutePagelets</code> method to make response writing thread safe.</p><p><strong>Update September 27th:</strong> I add support for javascript disabled browser, generating content immediately when registering pagelets in <code>RegisterPagelet</code> method.</p>
+			  		<p>Parts of the tutorial</p><ol><li><a href="/tutorial-how-to-implement-bigpipe-using-asp-net-mvc-part-1">Introduction to BigPipe</a></li><li>How ASP.Net MVC fits in the model. Registering and generating pagelets</li><li><a href="/tutorial-how-to-implement-bigpipe-using-asp-net-mvc-part-3">Browser implementation of BigPipe. Loading pagelets and their resources effectively</a></li><li><a href="https://github.com/JMPerez/BigPipe" target="_blank" rel="noopener">Check out the demo Visual Studio solution</a></li></ol><p>In <a href="/tutorial-how-to-implement-bigpipe-using-asp-net-mvc-part-1">the previous post of this tutorial</a> I made an overview explaining how Bigpipe works and why it can improve users’ perceived speed when loading our pages.</p><a id="more"></a><p>Basically Bigpipe combines early flushing, parallel processing and a managed resources loading in the browser to prioritize showing content quickly over loading and executing JavaScript files.</p><p>In this second post I will show how ASP.Net MVC features fit in the BigPipe model. Code snippets will help to illustrate he different parts. I will upload the source code in a Visual Studio 2010 project during the next days, so you can download it and further explore this technique.</p><h2 id="View-structure"><a href="#View-structure" class="headerlink" title="View structure"></a>View structure</h2><p>Our view structure will be the usual when working with ASP.Net MVC:</p><ul><li><code>Site.Master</code>: Contains the skeleton of the HTML document. It will also fire the execution of the pagelets.</li><li><code>SomePage.aspx</code>: Fills the ContentPlaceHolders of the Site.Master. It will include the different pagelets.</li><li><code>Pagelet1.ascx</code>, <code>Pagelet2.ascx</code>… : The partial views that provides content to some areas that compose the page.</li></ul><h2 id="Pagelets-as-RenderActions"><a href="#Pagelets-as-RenderActions" class="headerlink" title="Pagelets as RenderActions"></a>Pagelets as RenderActions</h2><p>Our pagelets will be included using RenderActions. Pagelets are supposed to take some time to be executed, so it makes sense that these will need to access data in some way. These data will be retrieved in a controller to keep MVC paradigm.</p><h2 id="Registering-pagelets"><a href="#Registering-pagelets" class="headerlink" title="Registering pagelets"></a>Registering pagelets</h2><p>First of all, we will declare a Pagelet class that is going to be used to register the Pagelets. A pagelet will contain an instance of Data, that will be serialized as JSON.</p><pre class=" language-csharp"><code class="language-csharp"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Data</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">string</span> Id <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token keyword">set</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token keyword">string</span> Content <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token keyword">set</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> IEnumerable<span class="token operator">&lt;</span><span class="token keyword">string</span><span class="token operator">></span> Css <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token keyword">set</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> IEnumerable<span class="token operator">&lt;</span><span class="token keyword">string</span><span class="token operator">></span> Js <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token keyword">set</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Pagelet</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> JavaScriptSerializer jss <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">JavaScriptSerializer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    Func<span class="token operator">&lt;</span><span class="token keyword">string</span><span class="token operator">></span> Action <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token keyword">set</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token keyword">readonly</span> <span class="token keyword">string</span> Container<span class="token punctuation">;</span>
+    <span class="token keyword">public</span> Data Data <span class="token punctuation">{</span> <span class="token keyword">get</span><span class="token punctuation">;</span> <span class="token keyword">set</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/// &lt;summary></span>
+    <span class="token comment" spellcheck="true">/// Manages a pagelet</span>
+    <span class="token comment" spellcheck="true">/// &lt;/summary></span>
+    <span class="token comment" spellcheck="true">/// &lt;param name=container>The id of the div container in which the output will be appended&lt;/param></span>
+    <span class="token comment" spellcheck="true">/// &lt;param name=action>The action to execute that will generate the output&lt;/param></span>
+    <span class="token keyword">public</span> <span class="token function">Pagelet</span><span class="token punctuation">(</span><span class="token keyword">string</span> container<span class="token punctuation">,</span> Func<span class="token operator">&lt;</span><span class="token keyword">string</span><span class="token operator">></span> action<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>Container <span class="token operator">=</span> container<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>Action <span class="token operator">=</span> action<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>Data <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> Id <span class="token operator">=</span> container <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">Execute</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>Data<span class="token punctuation">.</span>Content <span class="token operator">=</span> <span class="token function">Action</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">string</span> <span class="token function">Serialize</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token operator">&lt;</span>script<span class="token operator">></span> <span class="token keyword">var</span> js_pagelet <span class="token operator">=</span>
+            <span class="token operator">+</span> jss<span class="token punctuation">.</span><span class="token function">Serialize</span><span class="token punctuation">(</span>Data<span class="token punctuation">)</span>
+            <span class="token operator">+</span> <span class="token punctuation">;</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span>\
+            <span class="token operator">+</span> Container
+            <span class="token operator">+</span> \<span class="token punctuation">)</span><span class="token punctuation">.</span>innerHTML <span class="token operator">=</span> js_pagelet<span class="token punctuation">.</span>Content<span class="token punctuation">;</span> <span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre><p>The Js and Css arrays of strings will contain the files of these types needed by the pagelet to be styled and work correctly (in the next post I will make heavier use of these fields when covering the Javascript script).</p><p>The <code>Serialize()</code> method will generate the code to make the call to inject the code into its container.</p><p>Next, we will define some helpers that will be used to register the pagelet and store the output of the RenderAction call.</p><p>We want the rendered content to be converted into a JSON object so, instead of just rendering the action (writing the output directly to the response), we will render the action storing the result in a string. For this, we will use RenderActionToString.</p><p>We need a way to get the result of the RenderAction as a string. Following a similar method to the one used to <a href="http://www.klopfenstein.net/lorenz.aspx/render-partial-view-to-string-in-asp-net-mvc" target="_blank" rel="noopener">render a partial view to a string</a>, we can declare extension methods to get the output of an action:</p><pre class=" language-csharp"><code class="language-csharp"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">RendererHelper</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">/// &lt;summary>Fake IView implementation, only used to instantiate an HtmlHelper.&lt;/summary></span>
+    <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">FakeView</span> <span class="token punctuation">:</span> IView
+    <span class="token punctuation">{</span>
+        <span class="token preprocessor property">#<span class="token directive keyword">region</span> IView Members</span>
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">Render</span><span class="token punctuation">(</span>ViewContext viewContext<span class="token punctuation">,</span> System<span class="token punctuation">.</span>IO<span class="token punctuation">.</span>TextWriter writer<span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">NotImplementedException</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token preprocessor property">#<span class="token directive keyword">endregion</span></span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">string</span> <span class="token function">RenderActionToString</span><span class="token punctuation">(</span><span class="token keyword">this</span> HtmlHelper helper<span class="token punctuation">,</span> HttpRequest request<span class="token punctuation">,</span> <span class="token keyword">string</span> controller<span class="token punctuation">,</span> <span class="token keyword">string</span> action<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//Create memory writer</span>
+        <span class="token keyword">var</span> sb <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StringBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">var</span> memWriter <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StringWriter</span><span class="token punctuation">(</span>sb<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">//Create fake http context to render the view</span>
+        <span class="token keyword">var</span> fakeResponse <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HttpResponse</span><span class="token punctuation">(</span>memWriter<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">var</span> fakeContext <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HttpContext</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> fakeResponse<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">var</span> fakeControllerContext <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ControllerContext</span><span class="token punctuation">(</span>
+            <span class="token keyword">new</span> <span class="token class-name">HttpContextWrapper</span><span class="token punctuation">(</span>fakeContext<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            helper<span class="token punctuation">.</span>ViewContext<span class="token punctuation">.</span>RouteData<span class="token punctuation">,</span>
+            helper<span class="token punctuation">.</span>ViewContext<span class="token punctuation">.</span>Controller<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">var</span> oldContext <span class="token operator">=</span> HttpContext<span class="token punctuation">.</span>Current<span class="token punctuation">;</span>
+        HttpContext<span class="token punctuation">.</span>Current <span class="token operator">=</span> fakeContext<span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">//Use HtmlHelper to render partial view to fake context</span>
+        <span class="token keyword">var</span> html <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HtmlHelper</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">ViewContext</span><span class="token punctuation">(</span>fakeControllerContext<span class="token punctuation">,</span>
+            <span class="token keyword">new</span> <span class="token class-name">FakeView</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">ViewDataDictionary</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">TempDataDictionary</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> memWriter<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token keyword">new</span> <span class="token class-name">ViewPage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        html<span class="token punctuation">.</span><span class="token function">RenderAction</span><span class="token punctuation">(</span>action<span class="token punctuation">,</span> controller<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">//Restore context</span>
+        HttpContext<span class="token punctuation">.</span>Current <span class="token operator">=</span> oldContext<span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">//Flush memory and return output</span>
+        memWriter<span class="token punctuation">.</span><span class="token function">Flush</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> sb<span class="token punctuation">.</span><span class="token function">ToString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre><p>HtmlHelper already has the <code>Action</code> method extension that gets the result of an action in a string, but it can be problematic when using multiple threads to execute the pagelets, as I explain in the <a href="/tutorial-how-to-implement-bigpipe-using-asp-net-mvc-part-3">third part of this tutorial</a>.</p><pre class=" language-csharp"><code class="language-csharp"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">BigPipeHelper</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">RegisterPagelet</span><span class="token punctuation">(</span><span class="token keyword">this</span> HtmlHelper helper<span class="token punctuation">,</span> Pagelet pagelet<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">var</span> context <span class="token operator">=</span> helper<span class="token punctuation">.</span>ViewContext<span class="token punctuation">.</span>HttpContext<span class="token punctuation">;</span>
+        <span class="token keyword">bool</span> jsEnabled <span class="token operator">=</span> context<span class="token punctuation">.</span>Request<span class="token punctuation">.</span>Cookies<span class="token punctuation">[</span>js<span class="token punctuation">]</span> <span class="token operator">!=</span> <span class="token keyword">null</span> <span class="token operator">&amp;</span>amp<span class="token punctuation">;</span><span class="token operator">&amp;</span>amp<span class="token punctuation">;</span> context<span class="token punctuation">.</span>Request<span class="token punctuation">.</span>Cookies<span class="token punctuation">[</span>js<span class="token punctuation">]</span><span class="token punctuation">.</span>Value <span class="token operator">==</span> <span class="token keyword">true</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>jsEnabled<span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">//JavaScript is not enabled, so we write the execution to the output and</span>
+            <span class="token comment" spellcheck="true">//not register the pagelet</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>pagelet<span class="token punctuation">.</span>Data<span class="token punctuation">.</span>Css <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span>
+                <span class="token keyword">foreach</span> <span class="token punctuation">(</span><span class="token keyword">string</span> css <span class="token keyword">in</span> pagelet<span class="token punctuation">.</span>Data<span class="token punctuation">.</span>Css<span class="token punctuation">)</span>
+                    helper<span class="token punctuation">.</span><span class="token function">IncludeCss</span><span class="token punctuation">(</span>css<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            pagelet<span class="token punctuation">.</span><span class="token function">Execute</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            context<span class="token punctuation">.</span>Response<span class="token punctuation">.</span><span class="token function">Write</span><span class="token punctuation">(</span><span class="token keyword">string</span><span class="token punctuation">.</span><span class="token function">Format</span><span class="token punctuation">(</span><span class="token operator">&lt;</span>div id<span class="token operator">=</span>\<span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">}</span>\<span class="token operator">></span><span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span><span class="token punctuation">,</span> pagelet<span class="token punctuation">.</span>Container<span class="token punctuation">,</span> pagelet<span class="token punctuation">.</span>Data<span class="token punctuation">.</span>Content<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            context<span class="token punctuation">.</span>Response<span class="token punctuation">.</span><span class="token function">Flush</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        List<span class="token operator">&lt;</span>Pagelet<span class="token operator">></span> pagelets <span class="token operator">=</span> <span class="token punctuation">(</span>List<span class="token operator">&lt;</span>Pagelet<span class="token operator">></span><span class="token punctuation">)</span>context<span class="token punctuation">.</span>Items<span class="token punctuation">[</span>Pagelets<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>pagelets <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            pagelets <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">List</span><span class="token operator">&lt;</span>Pagelet<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            context<span class="token punctuation">.</span>Items<span class="token punctuation">[</span>Pagelets<span class="token punctuation">]</span> <span class="token operator">=</span> pagelets<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        pagelets<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span>pagelet<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">//write pagelet container</span>
+        context<span class="token punctuation">.</span>Response<span class="token punctuation">.</span><span class="token function">Write</span><span class="token punctuation">(</span><span class="token operator">&lt;</span>div id<span class="token operator">=</span>\ <span class="token operator">+</span> pagelet<span class="token punctuation">.</span>Container <span class="token operator">+</span> \<span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre><p>We will use <a href="http://www.4guysfromrolla.com/articles/060904-1.aspx" target="_blank" rel="noopener">HttpContext.Items</a> to store the pagelets. The aspx page will decide to render each action or register a pagelet for later execution, depending on Javascript support. When using BigPipe we will choose the later one.</p><p>Then, in Site.Master, just before closing the body tag, we will make a flush so the browser can process the code generated so far, and then we will start executing the pagelets.</p><pre class=" language-html"><code class="language-html">  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>%</span> <span class="token attr-name">Response.Flush();</span> <span class="token attr-name">%</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>%</span> <span class="token attr-name">Html.ExecutePagelets();</span> <span class="token attr-name">%</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
+</code></pre><p>The pagelets will be executed in a set of parallel threads. Each thread will execute the render action and will write a Javascript call to process the pagelet. After writing this response, we will flush it so the browser can start processing the code for the just generated pagelet.</p><pre class=" language-csharp"><code class="language-csharp"><span class="token keyword">static</span> <span class="token keyword">readonly</span> <span class="token keyword">object</span> _locker <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">object</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">ExecutePagelets</span><span class="token punctuation">(</span><span class="token keyword">this</span> HtmlHelper helper<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">var</span> context <span class="token operator">=</span> helper<span class="token punctuation">.</span>ViewContext<span class="token punctuation">.</span>HttpContext<span class="token punctuation">;</span>
+    List<span class="token operator">&lt;</span>Pagelet<span class="token operator">></span> pagelets <span class="token operator">=</span> <span class="token punctuation">(</span>List<span class="token operator">&lt;</span>Pagelet<span class="token operator">></span><span class="token punctuation">)</span>context<span class="token punctuation">.</span>Items<span class="token punctuation">[</span>Pagelets<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>pagelets <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+
+    Parallel<span class="token punctuation">.</span><span class="token function">For</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> pagelets<span class="token punctuation">.</span>Count<span class="token punctuation">,</span> <span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">var</span> pagelet <span class="token operator">=</span> pagelets<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        pagelet<span class="token punctuation">.</span><span class="token function">Execute</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">lock</span><span class="token punctuation">(</span>_locker<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            context<span class="token punctuation">.</span>Response<span class="token punctuation">.</span><span class="token function">Write</span><span class="token punctuation">(</span>pagelet<span class="token punctuation">.</span><span class="token function">Serialize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            context<span class="token punctuation">.</span>Response<span class="token punctuation">.</span><span class="token function">Flush</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre><p>Parallel.For (C# 4.0) creates a set of threads and continues with the next instruction once they all have finished. For each pagelet, we store in the Content field the result of executing its Action() method, this is, the output of the RenderAction. Next we write to the output the Data object as a JSON string and flush it.</p><h3 id="Implementing-the-browser-side-of-Bigpipe"><a href="#Implementing-the-browser-side-of-Bigpipe" class="headerlink" title="Implementing the browser side of Bigpipe"></a>Implementing the browser side of Bigpipe</h3><p>I did not want to make just a proof of concept of Bigpipe, but also implement a basic system that covers this technique from the server to the browser.</p><p>In the next post I will focus on the script that will manage the loading of CSS and JavaScript resources for the pagelets. This script is independent of the technology and programming language used on server. I will also show some resources loading charts to see how BigPipe affects this.</p><p><strong>Update September 26th:</strong> I add a locker in the <code>ExecutePagelets</code> method to make response writing thread safe.</p><p><strong>Update September 27th:</strong> I add support for javascript disabled browser, generating content immediately when registering pagelets in <code>RegisterPagelet</code> method.</p>
 			  	</div>
 
 		  	</article>

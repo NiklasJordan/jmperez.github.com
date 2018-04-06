@@ -538,77 +538,125 @@ footer {
 
 /* SYNTAX HIGHLIGHTING */
 
-.highlight {
-    border: 1px solid #eee;
-    margin-bottom: 1em;
-    overflow-x: auto;
+code[class*="language-"],
+pre[class*="language-"] {
+    color: #393A34;
+    font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
+    direction: ltr;
+    text-align: left;
+    white-space: pre-wrap;
+    word-spacing: normal;
+    word-break: normal;
+    font-size: 0.85em;
+    line-height: 1.2em;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
 }
 
-.code {
-    background:white;
-    color:#333333;
-    display: block;
-    letter-spacing: 0;
-    overflow-x: auto;
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+    background: #b3d4fc;
 }
 
-.code .comment,
-.code .meta {
-    color:#969896;
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
+code[class*="language-"]::selection, code[class*="language-"] ::selection {
+    background: #b3d4fc;
 }
 
-.code .string,
-.code .variable,
-.code .template-variable,
-.code .strong,
-.code .emphasis,
-.code .quote {
-    color:#df5000;
+/* Code blocks */
+pre[class*="language-"] {
+    padding: 1em;
+    margin: .5em 0;
+    overflow: auto;
+    border: 1px solid #dddddd;
+    background-color: white;
 }
 
-.code .keyword,
-.code .selector-tag,
-.code .type {
-    color:#a71d5d;
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
 }
 
-.code .literal,
-.code .symbol,
-.code .bullet,
-.code .attribute {
-    color:#0086b3;
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+    padding: .2em;
+    padding-top: 1px; padding-bottom: 1px;
+    background: #f8f8f8;
+    border: 1px solid #dddddd;
 }
 
-.code .section,
-.code .name {
-    color:#63a35c;
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+    color: #999988; font-style: italic;
 }
 
-.code .tag {
-    color:#333333;
+.token.namespace {
+    opacity: .7;
 }
 
-.code .title,
-.code .attr,
-.code .selector-id,
-.code .selector-class,
-.code .selector-attr,
-.code .selector-pseudo {
-    color:#795da3;
+.token.string,
+.token.attr-value {
+    color: #e3116c;
+}
+.token.punctuation,
+.token.operator {
+    color: #393A34; /* no highlight */
 }
 
-.code .addition {
-    background-color:#eaffea;
-    color:#55a532;
+.token.entity,
+.token.url,
+.token.symbol,
+.token.number,
+.token.boolean,
+.token.variable,
+.token.constant,
+.token.property,
+.token.regex,
+.token.inserted {
+    color: #005cc5;
 }
 
-.code .deletion {
-    background-color:#ffecec;
-    color:#bd2c00;
+.token.keyword {
+    color: #d73a49;
 }
 
-.code .link {
-    text-decoration: underline;
+.token.atrule,
+.token.attr-name {
+    color: #6f42c1;
+}
+
+.token.function,
+.token.deleted {
+    color: #6f42c1;
+}
+
+.token.selector {
+    color: #00009f;
+}
+
+.token.tag {
+    color: #22863a;
+}
+
+.token.class-name {
+    color: #6f42c1;
+}
+
+.token.important,
+.token.bold {
+    font-weight: bold;
+}
+
+.token.italic {
+    font-style: italic;
 }
 
 .code-wrap pre {
@@ -716,7 +764,23 @@ footer {
 
 				<!-- entry content -->
 			    <div class="entry-content ecp">
-			  		<p>Today I have implemented an action in ASP.Net MVC that generates a sitemap containing the images of a website we are developing, just to check how this affects to the amount of images indexed in google images.</p><p>The XML structure, as well as the optional parameters, are defined on <a href="http://www.google.com/support/webmasters/bin/answer.py?answer=178636" target="_blank" rel="noopener">Adding image information to a Sitemap</a> on Google Webmaster central.</p><a id="more"></a><p>The code I use is the following one:</p><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line">XNamespace ns = <span class="string">"http://www.sitemaps.org/schemas/sitemap/0.9"</span>;</span><br><span class="line">XNamespace nsImage = <span class="string">"http://www.google.com/schemas/sitemap-image/1.1"</span>;</span><br><span class="line">XDocument xmlDoc =</span><br><span class="line">  <span class="keyword">new</span> XDocument(</span><br><span class="line">    <span class="keyword">new</span> XDeclaration(<span class="string">"1.0"</span>, <span class="string">"UTF-8"</span>, <span class="literal">null</span>),</span><br><span class="line">    <span class="keyword">new</span> XElement(ns + <span class="string">"urlset"</span>,</span><br><span class="line">      <span class="keyword">new</span> XAttribute(XNamespace.Xmlns + <span class="string">"image"</span>, nsImage.NamespaceName),</span><br><span class="line">        <span class="keyword">from</span> image <span class="keyword">in</span> images</span><br><span class="line">        <span class="keyword">select</span></span><br><span class="line">          <span class="keyword">new</span> XElement(ns + <span class="string">"url"</span>,</span><br><span class="line">            <span class="keyword">new</span> XElement(ns + <span class="string">"loc"</span>, image.UrlImage),</span><br><span class="line">            <span class="keyword">new</span> XElement(nsImage + <span class="string">"image"</span>,</span><br><span class="line">              <span class="keyword">new</span> XElement(nsImage + <span class="string">"loc"</span>, image.UrlPage)))</span><br><span class="line">          ));</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> Content(xmlDoc.ToString());</span><br></pre></td></tr></table></figure><p>where <strong>images</strong> is a list of objects that contains the url of the page where the image appears (UrlPage) as well as the url for the source image file (UrlImage). In this example, each page would contain just one image.</p><p>Optional parameters can be added:</p><ul><li><strong>Title</strong>: It would be equivalent to the alt text of the image</li><li><strong>Caption</strong>: A brief description of the image</li><li><strong>Geo_location</strong>: From the documentation, it seems it is the name of the place / city depicted in the picture or where it was taken, and not the geo coordinates.</li><li><strong>License</strong></li></ul><p>I hope this can help those people willing to try this feature from Google.</p>
+			  		<p>Today I have implemented an action in ASP.Net MVC that generates a sitemap containing the images of a website we are developing, just to check how this affects to the amount of images indexed in google images.</p><p>The XML structure, as well as the optional parameters, are defined on <a href="http://www.google.com/support/webmasters/bin/answer.py?answer=178636" target="_blank" rel="noopener">Adding image information to a Sitemap</a> on Google Webmaster central.</p><a id="more"></a><p>The code I use is the following one:</p><pre class=" language-csharp"><code class="language-csharp">XNamespace ns <span class="token operator">=</span> <span class="token string">"http://www.sitemaps.org/schemas/sitemap/0.9"</span><span class="token punctuation">;</span>
+XNamespace nsImage <span class="token operator">=</span> <span class="token string">"http://www.google.com/schemas/sitemap-image/1.1"</span><span class="token punctuation">;</span>
+XDocument xmlDoc <span class="token operator">=</span>
+  <span class="token keyword">new</span> <span class="token class-name">XDocument</span><span class="token punctuation">(</span>
+    <span class="token keyword">new</span> <span class="token class-name">XDeclaration</span><span class="token punctuation">(</span><span class="token string">"1.0"</span><span class="token punctuation">,</span> <span class="token string">"UTF-8"</span><span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token keyword">new</span> <span class="token class-name">XElement</span><span class="token punctuation">(</span>ns <span class="token operator">+</span> <span class="token string">"urlset"</span><span class="token punctuation">,</span>
+      <span class="token keyword">new</span> <span class="token class-name">XAttribute</span><span class="token punctuation">(</span>XNamespace<span class="token punctuation">.</span>Xmlns <span class="token operator">+</span> <span class="token string">"image"</span><span class="token punctuation">,</span> nsImage<span class="token punctuation">.</span>NamespaceName<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token keyword">from</span> image <span class="token keyword">in</span> images
+        <span class="token keyword">select</span>
+          <span class="token keyword">new</span> <span class="token class-name">XElement</span><span class="token punctuation">(</span>ns <span class="token operator">+</span> <span class="token string">"url"</span><span class="token punctuation">,</span>
+            <span class="token keyword">new</span> <span class="token class-name">XElement</span><span class="token punctuation">(</span>ns <span class="token operator">+</span> <span class="token string">"loc"</span><span class="token punctuation">,</span> image<span class="token punctuation">.</span>UrlImage<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token keyword">new</span> <span class="token class-name">XElement</span><span class="token punctuation">(</span>nsImage <span class="token operator">+</span> <span class="token string">"image"</span><span class="token punctuation">,</span>
+              <span class="token keyword">new</span> <span class="token class-name">XElement</span><span class="token punctuation">(</span>nsImage <span class="token operator">+</span> <span class="token string">"loc"</span><span class="token punctuation">,</span> image<span class="token punctuation">.</span>UrlPage<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+          <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">return</span> <span class="token function">Content</span><span class="token punctuation">(</span>xmlDoc<span class="token punctuation">.</span><span class="token function">ToString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre><p>where <strong>images</strong> is a list of objects that contains the url of the page where the image appears (UrlPage) as well as the url for the source image file (UrlImage). In this example, each page would contain just one image.</p><p>Optional parameters can be added:</p><ul><li><strong>Title</strong>: It would be equivalent to the alt text of the image</li><li><strong>Caption</strong>: A brief description of the image</li><li><strong>Geo_location</strong>: From the documentation, it seems it is the name of the place / city depicted in the picture or where it was taken, and not the geo coordinates.</li><li><strong>License</strong></li></ul><p>I hope this can help those people willing to try this feature from Google.</p>
 			  	</div>
 
 		  	</article>

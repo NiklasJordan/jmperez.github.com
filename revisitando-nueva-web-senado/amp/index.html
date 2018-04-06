@@ -538,77 +538,125 @@ footer {
 
 /* SYNTAX HIGHLIGHTING */
 
-.highlight {
-    border: 1px solid #eee;
-    margin-bottom: 1em;
-    overflow-x: auto;
+code[class*="language-"],
+pre[class*="language-"] {
+    color: #393A34;
+    font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
+    direction: ltr;
+    text-align: left;
+    white-space: pre-wrap;
+    word-spacing: normal;
+    word-break: normal;
+    font-size: 0.85em;
+    line-height: 1.2em;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
 }
 
-.code {
-    background:white;
-    color:#333333;
-    display: block;
-    letter-spacing: 0;
-    overflow-x: auto;
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+    background: #b3d4fc;
 }
 
-.code .comment,
-.code .meta {
-    color:#969896;
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
+code[class*="language-"]::selection, code[class*="language-"] ::selection {
+    background: #b3d4fc;
 }
 
-.code .string,
-.code .variable,
-.code .template-variable,
-.code .strong,
-.code .emphasis,
-.code .quote {
-    color:#df5000;
+/* Code blocks */
+pre[class*="language-"] {
+    padding: 1em;
+    margin: .5em 0;
+    overflow: auto;
+    border: 1px solid #dddddd;
+    background-color: white;
 }
 
-.code .keyword,
-.code .selector-tag,
-.code .type {
-    color:#a71d5d;
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
 }
 
-.code .literal,
-.code .symbol,
-.code .bullet,
-.code .attribute {
-    color:#0086b3;
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+    padding: .2em;
+    padding-top: 1px; padding-bottom: 1px;
+    background: #f8f8f8;
+    border: 1px solid #dddddd;
 }
 
-.code .section,
-.code .name {
-    color:#63a35c;
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+    color: #999988; font-style: italic;
 }
 
-.code .tag {
-    color:#333333;
+.token.namespace {
+    opacity: .7;
 }
 
-.code .title,
-.code .attr,
-.code .selector-id,
-.code .selector-class,
-.code .selector-attr,
-.code .selector-pseudo {
-    color:#795da3;
+.token.string,
+.token.attr-value {
+    color: #e3116c;
+}
+.token.punctuation,
+.token.operator {
+    color: #393A34; /* no highlight */
 }
 
-.code .addition {
-    background-color:#eaffea;
-    color:#55a532;
+.token.entity,
+.token.url,
+.token.symbol,
+.token.number,
+.token.boolean,
+.token.variable,
+.token.constant,
+.token.property,
+.token.regex,
+.token.inserted {
+    color: #005cc5;
 }
 
-.code .deletion {
-    background-color:#ffecec;
-    color:#bd2c00;
+.token.keyword {
+    color: #d73a49;
 }
 
-.code .link {
-    text-decoration: underline;
+.token.atrule,
+.token.attr-name {
+    color: #6f42c1;
+}
+
+.token.function,
+.token.deleted {
+    color: #6f42c1;
+}
+
+.token.selector {
+    color: #00009f;
+}
+
+.token.tag {
+    color: #22863a;
+}
+
+.token.class-name {
+    color: #6f42c1;
+}
+
+.token.important,
+.token.bold {
+    font-weight: bold;
+}
+
+.token.italic {
+    font-style: italic;
 }
 
 .code-wrap pre {
@@ -716,7 +764,25 @@ footer {
 
 				<!-- entry content -->
 			    <div class="entry-content ecp">
-			  		<p>Hace unos días hacía un <a href="/estudiando-el-rediseno-de-la-web-del-senado-de-espana/">análisis del rediseño de la web del Senado</a>, justo tras su lanzamiento, desde el punto de vista de rendimiento web y mejores prácticas a la hora de desarrollar sitios web. La nueva web del Senado sufría múltiples problemas poco más que inaceptables para un proyecto tan reciente y con tal presupuesto.</p><a id="more"></a><p>Pero al igual que destacaba dichos problemas, unas semanas después debo mencionar que varios de ellos han sido resueltos. Aunque aún quedan algunos por resolver, es de destacar que hayan seguido trabajando en el sitio. <p><amp-img src="/assets/images/posts/web-senado.jpg" width="500" height="313" layout="responsive"></amp-img></p></p><h2 id="Mejoras"><a href="#Mejoras" class="headerlink" title="Mejoras"></a>Mejoras</h2><h3 id="Senado-es-ya-funciona-sin-www"><a href="#Senado-es-ya-funciona-sin-www" class="headerlink" title="Senado.es ya funciona sin www"></a>Senado.es ya funciona sin www</h3><p>Ahora, la URL <a href="http://senado.es" target="_blank" rel="noopener">senado.es</a> redirecciona a <a href="http://www.senado.es" target="_blank" rel="noopener">www.senado.es</a> (<a href="http://www.webpagetest.org/result/121203_ZZ_4QD/1/details/" target="_blank" rel="noopener">fuente</a>)</p><h3 id="Indexable-por-robots"><a href="#Indexable-por-robots" class="headerlink" title="Indexable por robots"></a>Indexable por robots</h3><p>Su <a href="http://www.senado.es/robots.txt" target="_blank" rel="noopener">robots.txt</a> ha cambiado y ahora permite a los buscadores indexar el contenido del sitio.</p><h3 id="Compresi-243-n-Gzip"><a href="#Compresi-243-n-Gzip" class="headerlink" title="Compresi&#243;n Gzip"></a>Compresi&#243;n Gzip</h3><p>Ahora los recursos se sirven con compresión GZIP habilitada (<a href="http://gtmetrix.com/compare/BN8ZgvCB/3gwi5Qp4" target="_blank" rel="noopener">fuente</a>). Entre otras mejoras, la página principal <em>pesa</em> ahora menos de la mitad, y han mejorado considerablemente el índica PageSpeed y YSlow (<a href="http://gtmetrix.com/reports/www.senado.es/eS68ECWL" target="_blank" rel="noopener">fuente</a>).</p><h3 id="Errores-404"><a href="#Errores-404" class="headerlink" title="Errores 404"></a>Errores 404</h3><p>Ahora en la página principal, ya sólo hay 1 request que da error 404 (<a href="http://www.webpagetest.org/result/121203_ZZ_4QD/1/details/" target="_blank" rel="noopener">fuente</a>).</p><h2 id="Todav-237-a-hay-algunos-problemas-que-solucionar"><a href="#Todav-237-a-hay-algunos-problemas-que-solucionar" class="headerlink" title="Todav&#237;a hay algunos problemas que solucionar"></a>Todav&#237;a hay algunos problemas que solucionar</h2><p>Pese a todo, aún quedan mejoras por hacer, como la minificación de ficheros, optimización de imágenes, tratar de reducir el número de peticiones y corregir el Mime Type devuelto por el servidor.</p><p>Además, con la modificación del fichero <a href="http://www.senado.es/robots.txt" target="_blank" rel="noopener">robots.txt</a> existen detalles dignos de mención. El fichero actual tiene este contenido:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">User-agent: *</span><br><span class="line">Disallow: /cgi-bin/</span><br><span class="line">Disallow: /detalleiniciativa/</span><br><span class="line">Disallow: /expedientappendixblobservlet/</span><br><span class="line">Disallow: /expedientdocblobservlet/</span><br><span class="line">Disallow: /fichasenador/</span><br><span class="line">Disallow: /resultadobuscador/</span><br><span class="line">Disallow: /senstream/</span><br><span class="line">Disallow: /*senstream*</span><br><span class="line">Disallow: /legis9/publicaciones/html/textos/CG_B015.html</span><br><span class="line">Disallow: /legis9/publicaciones/pdf/cortes/bocg/CG_B015.PDF</span><br><span class="line">Disallow: /legis9/publicaciones/html/textos/CG_B100.html</span><br><span class="line">Disallow: /legis9/publicaciones/pdf/cortes/bocg/CG_B100.PDF</span><br><span class="line">Disallow: /legis4/publicaciones/pdf/senado/bocg/l0019.PDF</span><br><span class="line">Disallow: /legis3/publicaciones/pdf/senado/bocg/l0342.PDF</span><br><span class="line">Disallow: /legis3/publicaciones/pdf/senado/bocg/l0347.PDF</span><br><span class="line">Disallow: /legis2/publicaciones/pdf/senado/bocg/l0140.PDF</span><br><span class="line">Visit-time: 0200-0600</span><br></pre></td></tr></table></figure><p>Si lo comparamos con <a href="/estudiando-el-rediseno-de-la-web-del-senado-de-espana/#no-indexable">la versión del mismo fichero</a> cuando publicaron el rediseño, ahora vemos nuevas direcciones bloqueadas.</p><p>Que se pretenda evitar el indexado de las iniciativas parlamentarias y fichas de los senadores atenta directamente contra la transparencia de información y el servicio que pretende dar esta web. Además, el bloqueo se realiza sobre una dirección que ni siquiera es la dirección donde está dicho contenido.</p><p>¿Por qué se evita el indexado del contenido más útil para el ciudadano?</p><p>Aunque en ese caso, en lugar de restringir /detalleiniciativa/, /web/actividadparlamentaria/iniciativas/detalleiniciativa/</p><p>Y en vez de /fichasenador/ deberían haber restringido algo como /web/composicionorganizacion/senadores/composicionsenado/fichasenador/</p><p>Por otra parte, se evita el indexado de una serie de documentos PDF y páginas HTML, también por alguna razón que me supera. Pero es casi peor el hecho de que de los 6 documentos, sólo 2 existen y las 2 páginas HTML tampoco existen.</p><p>Por último, han introducido la limitación del indexado de páginas para que se haga entre las 02:00 y 06:00 AM GMT. A mí me parece un poco extraño querer limitar el rastreo a las horas de menos tráfico. Un documento creado durante el día no podrá aparecer en los resultados de búsqueda hasta el día siguiente como mínimo. Y no deja de ser una señal de que el sitio no se comporta bien con un tráfico normal más el tráfico que puedan generar los bots de los buscadores.</p><h2 id="Conclusiones"><a href="#Conclusiones" class="headerlink" title="Conclusiones"></a>Conclusiones</h2><p>En general, está bien que hayan continuado haciendo mejoras en el sitio, aunque por el camino han tomado decisiones ciertamente discutibles.</p>
+			  		<p>Hace unos días hacía un <a href="/estudiando-el-rediseno-de-la-web-del-senado-de-espana/">análisis del rediseño de la web del Senado</a>, justo tras su lanzamiento, desde el punto de vista de rendimiento web y mejores prácticas a la hora de desarrollar sitios web. La nueva web del Senado sufría múltiples problemas poco más que inaceptables para un proyecto tan reciente y con tal presupuesto.</p><a id="more"></a><p>Pero al igual que destacaba dichos problemas, unas semanas después debo mencionar que varios de ellos han sido resueltos. Aunque aún quedan algunos por resolver, es de destacar que hayan seguido trabajando en el sitio. <p><amp-img src="/assets/images/posts/web-senado.jpg" width="500" height="313" layout="responsive"></amp-img></p></p><h2 id="Mejoras"><a href="#Mejoras" class="headerlink" title="Mejoras"></a>Mejoras</h2><h3 id="Senado-es-ya-funciona-sin-www"><a href="#Senado-es-ya-funciona-sin-www" class="headerlink" title="Senado.es ya funciona sin www"></a>Senado.es ya funciona sin www</h3><p>Ahora, la URL <a href="http://senado.es" target="_blank" rel="noopener">senado.es</a> redirecciona a <a href="http://www.senado.es" target="_blank" rel="noopener">www.senado.es</a> (<a href="http://www.webpagetest.org/result/121203_ZZ_4QD/1/details/" target="_blank" rel="noopener">fuente</a>)</p><h3 id="Indexable-por-robots"><a href="#Indexable-por-robots" class="headerlink" title="Indexable por robots"></a>Indexable por robots</h3><p>Su <a href="http://www.senado.es/robots.txt" target="_blank" rel="noopener">robots.txt</a> ha cambiado y ahora permite a los buscadores indexar el contenido del sitio.</p><h3 id="Compresi-243-n-Gzip"><a href="#Compresi-243-n-Gzip" class="headerlink" title="Compresi&#243;n Gzip"></a>Compresi&#243;n Gzip</h3><p>Ahora los recursos se sirven con compresión GZIP habilitada (<a href="http://gtmetrix.com/compare/BN8ZgvCB/3gwi5Qp4" target="_blank" rel="noopener">fuente</a>). Entre otras mejoras, la página principal <em>pesa</em> ahora menos de la mitad, y han mejorado considerablemente el índica PageSpeed y YSlow (<a href="http://gtmetrix.com/reports/www.senado.es/eS68ECWL" target="_blank" rel="noopener">fuente</a>).</p><h3 id="Errores-404"><a href="#Errores-404" class="headerlink" title="Errores 404"></a>Errores 404</h3><p>Ahora en la página principal, ya sólo hay 1 request que da error 404 (<a href="http://www.webpagetest.org/result/121203_ZZ_4QD/1/details/" target="_blank" rel="noopener">fuente</a>).</p><h2 id="Todav-237-a-hay-algunos-problemas-que-solucionar"><a href="#Todav-237-a-hay-algunos-problemas-que-solucionar" class="headerlink" title="Todav&#237;a hay algunos problemas que solucionar"></a>Todav&#237;a hay algunos problemas que solucionar</h2><p>Pese a todo, aún quedan mejoras por hacer, como la minificación de ficheros, optimización de imágenes, tratar de reducir el número de peticiones y corregir el Mime Type devuelto por el servidor.</p><p>Además, con la modificación del fichero <a href="http://www.senado.es/robots.txt" target="_blank" rel="noopener">robots.txt</a> existen detalles dignos de mención. El fichero actual tiene este contenido:</p><pre><code>User-agent: *
+Disallow: /cgi-bin/
+Disallow: /detalleiniciativa/
+Disallow: /expedientappendixblobservlet/
+Disallow: /expedientdocblobservlet/
+Disallow: /fichasenador/
+Disallow: /resultadobuscador/
+Disallow: /senstream/
+Disallow: /*senstream*
+Disallow: /legis9/publicaciones/html/textos/CG_B015.html
+Disallow: /legis9/publicaciones/pdf/cortes/bocg/CG_B015.PDF
+Disallow: /legis9/publicaciones/html/textos/CG_B100.html
+Disallow: /legis9/publicaciones/pdf/cortes/bocg/CG_B100.PDF
+Disallow: /legis4/publicaciones/pdf/senado/bocg/l0019.PDF
+Disallow: /legis3/publicaciones/pdf/senado/bocg/l0342.PDF
+Disallow: /legis3/publicaciones/pdf/senado/bocg/l0347.PDF
+Disallow: /legis2/publicaciones/pdf/senado/bocg/l0140.PDF
+Visit-time: 0200-0600
+</code></pre><p>Si lo comparamos con <a href="/estudiando-el-rediseno-de-la-web-del-senado-de-espana/#no-indexable">la versión del mismo fichero</a> cuando publicaron el rediseño, ahora vemos nuevas direcciones bloqueadas.</p><p>Que se pretenda evitar el indexado de las iniciativas parlamentarias y fichas de los senadores atenta directamente contra la transparencia de información y el servicio que pretende dar esta web. Además, el bloqueo se realiza sobre una dirección que ni siquiera es la dirección donde está dicho contenido.</p><p>¿Por qué se evita el indexado del contenido más útil para el ciudadano?</p><p>Aunque en ese caso, en lugar de restringir /detalleiniciativa/, /web/actividadparlamentaria/iniciativas/detalleiniciativa/</p><p>Y en vez de /fichasenador/ deberían haber restringido algo como /web/composicionorganizacion/senadores/composicionsenado/fichasenador/</p><p>Por otra parte, se evita el indexado de una serie de documentos PDF y páginas HTML, también por alguna razón que me supera. Pero es casi peor el hecho de que de los 6 documentos, sólo 2 existen y las 2 páginas HTML tampoco existen.</p><p>Por último, han introducido la limitación del indexado de páginas para que se haga entre las 02:00 y 06:00 AM GMT. A mí me parece un poco extraño querer limitar el rastreo a las horas de menos tráfico. Un documento creado durante el día no podrá aparecer en los resultados de búsqueda hasta el día siguiente como mínimo. Y no deja de ser una señal de que el sitio no se comporta bien con un tráfico normal más el tráfico que puedan generar los bots de los buscadores.</p><h2 id="Conclusiones"><a href="#Conclusiones" class="headerlink" title="Conclusiones"></a>Conclusiones</h2><p>En general, está bien que hayan continuado haciendo mejoras en el sitio, aunque por el camino han tomado decisiones ciertamente discutibles.</p>
 			  	</div>
 
 		  	</article>

@@ -538,77 +538,125 @@ footer {
 
 /* SYNTAX HIGHLIGHTING */
 
-.highlight {
-    border: 1px solid #eee;
-    margin-bottom: 1em;
-    overflow-x: auto;
+code[class*="language-"],
+pre[class*="language-"] {
+    color: #393A34;
+    font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
+    direction: ltr;
+    text-align: left;
+    white-space: pre-wrap;
+    word-spacing: normal;
+    word-break: normal;
+    font-size: 0.85em;
+    line-height: 1.2em;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
 }
 
-.code {
-    background:white;
-    color:#333333;
-    display: block;
-    letter-spacing: 0;
-    overflow-x: auto;
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+    background: #b3d4fc;
 }
 
-.code .comment,
-.code .meta {
-    color:#969896;
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
+code[class*="language-"]::selection, code[class*="language-"] ::selection {
+    background: #b3d4fc;
 }
 
-.code .string,
-.code .variable,
-.code .template-variable,
-.code .strong,
-.code .emphasis,
-.code .quote {
-    color:#df5000;
+/* Code blocks */
+pre[class*="language-"] {
+    padding: 1em;
+    margin: .5em 0;
+    overflow: auto;
+    border: 1px solid #dddddd;
+    background-color: white;
 }
 
-.code .keyword,
-.code .selector-tag,
-.code .type {
-    color:#a71d5d;
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
 }
 
-.code .literal,
-.code .symbol,
-.code .bullet,
-.code .attribute {
-    color:#0086b3;
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+    padding: .2em;
+    padding-top: 1px; padding-bottom: 1px;
+    background: #f8f8f8;
+    border: 1px solid #dddddd;
 }
 
-.code .section,
-.code .name {
-    color:#63a35c;
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+    color: #999988; font-style: italic;
 }
 
-.code .tag {
-    color:#333333;
+.token.namespace {
+    opacity: .7;
 }
 
-.code .title,
-.code .attr,
-.code .selector-id,
-.code .selector-class,
-.code .selector-attr,
-.code .selector-pseudo {
-    color:#795da3;
+.token.string,
+.token.attr-value {
+    color: #e3116c;
+}
+.token.punctuation,
+.token.operator {
+    color: #393A34; /* no highlight */
 }
 
-.code .addition {
-    background-color:#eaffea;
-    color:#55a532;
+.token.entity,
+.token.url,
+.token.symbol,
+.token.number,
+.token.boolean,
+.token.variable,
+.token.constant,
+.token.property,
+.token.regex,
+.token.inserted {
+    color: #005cc5;
 }
 
-.code .deletion {
-    background-color:#ffecec;
-    color:#bd2c00;
+.token.keyword {
+    color: #d73a49;
 }
 
-.code .link {
-    text-decoration: underline;
+.token.atrule,
+.token.attr-name {
+    color: #6f42c1;
+}
+
+.token.function,
+.token.deleted {
+    color: #6f42c1;
+}
+
+.token.selector {
+    color: #00009f;
+}
+
+.token.tag {
+    color: #22863a;
+}
+
+.token.class-name {
+    color: #6f42c1;
+}
+
+.token.important,
+.token.bold {
+    font-weight: bold;
+}
+
+.token.italic {
+    font-style: italic;
 }
 
 .code-wrap pre {
@@ -716,7 +764,39 @@ footer {
 
 				<!-- entry content -->
 			    <div class="entry-content ecp">
-			  		<p>In <a href="https://blog.chromium.org/2017/06/chrome-60-beta-paint-timing-api-css.html" target="_blank" rel="noopener">a recent post about Chrome 60 Beta</a>, Google announced the support of the Paint Timing API to get metrics on when your page starts rendering and when the user gets content that can be consumed (more info on the definition of the events below). Here I’m going to describe this new API a bit and show you how to use it.</p><a id="more"></a><p><p><amp-img src="https://res.cloudinary.com/jmperez/image/upload/w_auto:100:684,f_auto,c_scale/v1510494808/paint-timing-example_byc6z2.png" width="700" height="477" layout="responsive"></amp-img></p> <small class="caption">Image taken from the <a href="https://blog.chromium.org/2017/06/chrome-60-beta-paint-timing-api-css.html" target="_blank" rel="noopener">Chrome 60 blog post</a>, which first appeared in <a href="https://youtu.be/6Ljq-Jn-EgU" target="_blank" rel="noopener">“Web Performance: Leveraging the Metrics that Most Affect User Experience”</a> at Google I/O 2017</small></p><p>Up until now we have been measuring performance through other metrics, mostly using the <a href="https://developer.mozilla.org/docs/Web/API/Navigation_timing_API" target="_blank" rel="noopener">Navigation Timing API</a>, which is also what Google Analytics uses for their <a href="http://www.ericmobley.net/measuring-performance-google-analytics/" target="_blank" rel="noopener">Site Speed report</a>. Yet those metrics don’t tell us the whole picture about the rendering experience.</p><p>The <a href="https://github.com/WICG/paint-timing" target="_blank" rel="noopener">Paint Timing API</a> aims to improve this by exposing metrics on paint events that are grouped in two types of entries. By <a href="https://w3c.github.io/paint-timing/#sec-terminology" target="_blank" rel="noopener">its definition</a>:</p><ul><li><code>&quot;first-paint&quot;</code> entries contain a <code>DOMHighResTimeStamp</code> reporting the time when the browser first rendered after navigation. This excludes the default background paint, but includes non-default background paint. This is the first key moment developers care about in page load – when the browser has started to render the page.</li><li><code>&quot;first-contentful-paint&quot;</code> contain a <code>DOMHighResTimestamp</code> reporting the time when the browser first rendered any text, image (including background images), non-white canvas or SVG. This includes text with pending webfonts. This is the first time users could start consuming page content.</li></ul><p>A picture is worth a thousand words, so let’s see how these entries would be reported by some real web sites:</p><p><p><amp-img src="https://res.cloudinary.com/jmperez/image/upload/w_auto:100:684,f_auto,c_scale/v1510476598/paint-timing-filmstrip_anq3pv.png" width="700" height="648" layout="responsive"></amp-img></p> <small class="caption">Image taken from the <a href="https://github.com/WICG/paint-timing#examples" target="_blank" rel="noopener">Paint timing API repo on WICG</a>.</small></p><h4 id="Hacking-on-it"><a href="#Hacking-on-it" class="headerlink" title="Hacking on it"></a>Hacking on it</h4><p>As a hack project I decided to give it a try and implement it on a web site. You have a basic example <a href="https://github.com/WICG/paint-timing#usage" target="_blank" rel="noopener">on the Paint timing page</a>:</p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> observer = <span class="keyword">new</span> PerformanceObserver(<span class="function"><span class="keyword">function</span>(<span class="params">list</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> perfEntries = list.getEntries();</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; perfEntries.length; i++) &#123;</span><br><span class="line">     <span class="comment">// Process entries</span></span><br><span class="line">     <span class="comment">// report back for analytics and monitoring</span></span><br><span class="line">     <span class="comment">// ...</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// register observer for long task notifications</span></span><br><span class="line">observer.observe(&#123;<span class="attr">entryTypes</span>: [<span class="string">"paint"</span>]&#125;);</span><br></pre></td></tr></table></figure><p>In practice you will probably want to report the information somewhere you can track it. If you are using Google Analytics, you can use <a href="https://developers.google.com/web/updates/2017/06/user-centric-performance-metrics#tracking_fpfcp" target="_blank" rel="noopener">this snippet from Google’s Developer site</a> (ES6):</p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> observer = <span class="keyword">new</span> PerformanceObserver(<span class="function">(<span class="params">list</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">const</span> entry <span class="keyword">of</span> list.getEntries()) &#123;</span><br><span class="line">    <span class="comment">// `name` will be either 'first-paint' or 'first-contentful-paint'.</span></span><br><span class="line">    <span class="keyword">const</span> metricName = entry.name;</span><br><span class="line">    <span class="keyword">const</span> time = <span class="built_in">Math</span>.round(entry.startTime + entry.duration);</span><br><span class="line"></span><br><span class="line">    ga(<span class="string">'send'</span>, <span class="string">'event'</span>, &#123;</span><br><span class="line">      eventCategory: <span class="string">'Performance Metrics'</span>,</span><br><span class="line">      eventAction: metricName,</span><br><span class="line">      eventValue: time,</span><br><span class="line">      nonInteraction: <span class="literal">true</span>,</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Start observing paint entries.</span></span><br><span class="line">observer.observe(&#123;<span class="attr">entryTypes</span>: [<span class="string">'paint'</span>]&#125;);</span><br></pre></td></tr></table></figure><h4 id="Word-of-Caution"><a href="#Word-of-Caution" class="headerlink" title="Word of Caution"></a>Word of Caution</h4><p>The API is still experimental and <a href="https://developer.mozilla.org/en-US/docs/Web/API/PerformanceObserver" target="_blank" rel="noopener">in “Editor’s Draft” state</a>. Also, the fact that a browser supports PerformanceObserver doesn’t mean that it supports the Paint events.</p><p>In the quick test I run, the above snippet would throw an exception:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Uncaught TypeError: Failed to execute ‘observe’ on</span><br><span class="line">‘PerformanceObserver’: A Performance Observer MUST</span><br><span class="line">have at least one valid entryType in its entryTypes</span><br><span class="line">attribute.</span><br></pre></td></tr></table></figure><p>It turns out that if you only observe the <code>paint</code> entryType and this is not supported in the browser, <strong>it will throw an exception</strong>. According to <a href="https://w3c.github.io/performance-timeline/#dom-performanceobserverinit-entrytypes" target="_blank" rel="noopener">the specification</a>:</p><blockquote><p><code>entryTypes</code>: A list of entry names to be observed. The list must not be empty and types not recognized by the user agent must be ignored.</p></blockquote><p>In short, if you are giving this API a try, make sure you <code>try...catch</code> the <code>observer.observe()</code> call.</p><h4 id="Conclusions"><a href="#Conclusions" class="headerlink" title="Conclusions"></a>Conclusions</h4><p>This is a bit in early stages but I’m looking forward to see how the API evolves and we can use it to track Web Performance even better. This will also be a great addition to <a href="https://developers.google.com/web/tools/lighthouse/" target="_blank" rel="noopener">LightHouse</a>, <a href="http://www.webpagetest.org" target="_blank" rel="noopener">WebPageTest</a>, <a href="https://calibreapp.com" target="_blank" rel="noopener">Calibre</a> and the rest of tools we use to monitor metrics on our sites.</p>
+			  		<p>In <a href="https://blog.chromium.org/2017/06/chrome-60-beta-paint-timing-api-css.html" target="_blank" rel="noopener">a recent post about Chrome 60 Beta</a>, Google announced the support of the Paint Timing API to get metrics on when your page starts rendering and when the user gets content that can be consumed (more info on the definition of the events below). Here I’m going to describe this new API a bit and show you how to use it.</p><a id="more"></a><p><p><amp-img src="https://res.cloudinary.com/jmperez/image/upload/w_auto:100:684,f_auto,c_scale/v1510494808/paint-timing-example_byc6z2.png" width="700" height="477" layout="responsive"></amp-img></p> <small class="caption">Image taken from the <a href="https://blog.chromium.org/2017/06/chrome-60-beta-paint-timing-api-css.html" target="_blank" rel="noopener">Chrome 60 blog post</a>, which first appeared in <a href="https://youtu.be/6Ljq-Jn-EgU" target="_blank" rel="noopener">“Web Performance: Leveraging the Metrics that Most Affect User Experience”</a> at Google I/O 2017</small></p><p>Up until now we have been measuring performance through other metrics, mostly using the <a href="https://developer.mozilla.org/docs/Web/API/Navigation_timing_API" target="_blank" rel="noopener">Navigation Timing API</a>, which is also what Google Analytics uses for their <a href="http://www.ericmobley.net/measuring-performance-google-analytics/" target="_blank" rel="noopener">Site Speed report</a>. Yet those metrics don’t tell us the whole picture about the rendering experience.</p><p>The <a href="https://github.com/WICG/paint-timing" target="_blank" rel="noopener">Paint Timing API</a> aims to improve this by exposing metrics on paint events that are grouped in two types of entries. By <a href="https://w3c.github.io/paint-timing/#sec-terminology" target="_blank" rel="noopener">its definition</a>:</p><ul><li><code>&quot;first-paint&quot;</code> entries contain a <code>DOMHighResTimeStamp</code> reporting the time when the browser first rendered after navigation. This excludes the default background paint, but includes non-default background paint. This is the first key moment developers care about in page load – when the browser has started to render the page.</li><li><code>&quot;first-contentful-paint&quot;</code> contain a <code>DOMHighResTimestamp</code> reporting the time when the browser first rendered any text, image (including background images), non-white canvas or SVG. This includes text with pending webfonts. This is the first time users could start consuming page content.</li></ul><p>A picture is worth a thousand words, so let’s see how these entries would be reported by some real web sites:</p><p><p><amp-img src="https://res.cloudinary.com/jmperez/image/upload/w_auto:100:684,f_auto,c_scale/v1510476598/paint-timing-filmstrip_anq3pv.png" width="700" height="648" layout="responsive"></amp-img></p> <small class="caption">Image taken from the <a href="https://github.com/WICG/paint-timing#examples" target="_blank" rel="noopener">Paint timing API repo on WICG</a>.</small></p><h4 id="Hacking-on-it"><a href="#Hacking-on-it" class="headerlink" title="Hacking on it"></a>Hacking on it</h4><p>As a hack project I decided to give it a try and implement it on a web site. You have a basic example <a href="https://github.com/WICG/paint-timing#usage" target="_blank" rel="noopener">on the Paint timing page</a>:</p><pre class=" language-js"><code class="language-js"><span class="token keyword">var</span> observer <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">PerformanceObserver</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>list<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> perfEntries <span class="token operator">=</span> list<span class="token punctuation">.</span><span class="token function">getEntries</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> perfEntries<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+     <span class="token comment" spellcheck="true">// Process entries</span>
+     <span class="token comment" spellcheck="true">// report back for analytics and monitoring</span>
+     <span class="token comment" spellcheck="true">// ...</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// register observer for long task notifications</span>
+observer<span class="token punctuation">.</span><span class="token function">observe</span><span class="token punctuation">(</span><span class="token punctuation">{</span>entryTypes<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"paint"</span><span class="token punctuation">]</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre><p>In practice you will probably want to report the information somewhere you can track it. If you are using Google Analytics, you can use <a href="https://developers.google.com/web/updates/2017/06/user-centric-performance-metrics#tracking_fpfcp" target="_blank" rel="noopener">this snippet from Google’s Developer site</a> (ES6):</p><pre class=" language-js"><code class="language-js"><span class="token keyword">const</span> observer <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">PerformanceObserver</span><span class="token punctuation">(</span><span class="token punctuation">(</span>list<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">const</span> entry <span class="token keyword">of</span> list<span class="token punctuation">.</span><span class="token function">getEntries</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// `name` will be either 'first-paint' or 'first-contentful-paint'.</span>
+    <span class="token keyword">const</span> metricName <span class="token operator">=</span> entry<span class="token punctuation">.</span>name<span class="token punctuation">;</span>
+    <span class="token keyword">const</span> time <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">round</span><span class="token punctuation">(</span>entry<span class="token punctuation">.</span>startTime <span class="token operator">+</span> entry<span class="token punctuation">.</span>duration<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token function">ga</span><span class="token punctuation">(</span><span class="token string">'send'</span><span class="token punctuation">,</span> <span class="token string">'event'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+      eventCategory<span class="token punctuation">:</span> <span class="token string">'Performance Metrics'</span><span class="token punctuation">,</span>
+      eventAction<span class="token punctuation">:</span> metricName<span class="token punctuation">,</span>
+      eventValue<span class="token punctuation">:</span> time<span class="token punctuation">,</span>
+      nonInteraction<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// Start observing paint entries.</span>
+observer<span class="token punctuation">.</span><span class="token function">observe</span><span class="token punctuation">(</span><span class="token punctuation">{</span>entryTypes<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'paint'</span><span class="token punctuation">]</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre><h4 id="Word-of-Caution"><a href="#Word-of-Caution" class="headerlink" title="Word of Caution"></a>Word of Caution</h4><p>The API is still experimental and <a href="https://developer.mozilla.org/en-US/docs/Web/API/PerformanceObserver" target="_blank" rel="noopener">in “Editor’s Draft” state</a>. Also, the fact that a browser supports PerformanceObserver doesn’t mean that it supports the Paint events.</p><p>In the quick test I run, the above snippet would throw an exception:</p><pre><code>Uncaught TypeError: Failed to execute ‘observe’ on
+‘PerformanceObserver’: A Performance Observer MUST
+have at least one valid entryType in its entryTypes
+attribute.
+</code></pre><p>It turns out that if you only observe the <code>paint</code> entryType and this is not supported in the browser, <strong>it will throw an exception</strong>. According to <a href="https://w3c.github.io/performance-timeline/#dom-performanceobserverinit-entrytypes" target="_blank" rel="noopener">the specification</a>:</p><blockquote><p><code>entryTypes</code>: A list of entry names to be observed. The list must not be empty and types not recognized by the user agent must be ignored.</p></blockquote><p>In short, if you are giving this API a try, make sure you <code>try...catch</code> the <code>observer.observe()</code> call.</p><h4 id="Conclusions"><a href="#Conclusions" class="headerlink" title="Conclusions"></a>Conclusions</h4><p>This is a bit in early stages but I’m looking forward to see how the API evolves and we can use it to track Web Performance even better. This will also be a great addition to <a href="https://developers.google.com/web/tools/lighthouse/" target="_blank" rel="noopener">LightHouse</a>, <a href="http://www.webpagetest.org" target="_blank" rel="noopener">WebPageTest</a>, <a href="https://calibreapp.com" target="_blank" rel="noopener">Calibre</a> and the rest of tools we use to monitor metrics on our sites.</p>
 			  	</div>
 
 		  	</article>

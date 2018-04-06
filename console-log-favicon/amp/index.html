@@ -538,77 +538,125 @@ footer {
 
 /* SYNTAX HIGHLIGHTING */
 
-.highlight {
-    border: 1px solid #eee;
-    margin-bottom: 1em;
-    overflow-x: auto;
+code[class*="language-"],
+pre[class*="language-"] {
+    color: #393A34;
+    font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
+    direction: ltr;
+    text-align: left;
+    white-space: pre-wrap;
+    word-spacing: normal;
+    word-break: normal;
+    font-size: 0.85em;
+    line-height: 1.2em;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
 }
 
-.code {
-    background:white;
-    color:#333333;
-    display: block;
-    letter-spacing: 0;
-    overflow-x: auto;
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+    background: #b3d4fc;
 }
 
-.code .comment,
-.code .meta {
-    color:#969896;
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
+code[class*="language-"]::selection, code[class*="language-"] ::selection {
+    background: #b3d4fc;
 }
 
-.code .string,
-.code .variable,
-.code .template-variable,
-.code .strong,
-.code .emphasis,
-.code .quote {
-    color:#df5000;
+/* Code blocks */
+pre[class*="language-"] {
+    padding: 1em;
+    margin: .5em 0;
+    overflow: auto;
+    border: 1px solid #dddddd;
+    background-color: white;
 }
 
-.code .keyword,
-.code .selector-tag,
-.code .type {
-    color:#a71d5d;
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
 }
 
-.code .literal,
-.code .symbol,
-.code .bullet,
-.code .attribute {
-    color:#0086b3;
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+    padding: .2em;
+    padding-top: 1px; padding-bottom: 1px;
+    background: #f8f8f8;
+    border: 1px solid #dddddd;
 }
 
-.code .section,
-.code .name {
-    color:#63a35c;
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+    color: #999988; font-style: italic;
 }
 
-.code .tag {
-    color:#333333;
+.token.namespace {
+    opacity: .7;
 }
 
-.code .title,
-.code .attr,
-.code .selector-id,
-.code .selector-class,
-.code .selector-attr,
-.code .selector-pseudo {
-    color:#795da3;
+.token.string,
+.token.attr-value {
+    color: #e3116c;
+}
+.token.punctuation,
+.token.operator {
+    color: #393A34; /* no highlight */
 }
 
-.code .addition {
-    background-color:#eaffea;
-    color:#55a532;
+.token.entity,
+.token.url,
+.token.symbol,
+.token.number,
+.token.boolean,
+.token.variable,
+.token.constant,
+.token.property,
+.token.regex,
+.token.inserted {
+    color: #005cc5;
 }
 
-.code .deletion {
-    background-color:#ffecec;
-    color:#bd2c00;
+.token.keyword {
+    color: #d73a49;
 }
 
-.code .link {
-    text-decoration: underline;
+.token.atrule,
+.token.attr-name {
+    color: #6f42c1;
+}
+
+.token.function,
+.token.deleted {
+    color: #6f42c1;
+}
+
+.token.selector {
+    color: #00009f;
+}
+
+.token.tag {
+    color: #22863a;
+}
+
+.token.class-name {
+    color: #6f42c1;
+}
+
+.token.important,
+.token.bold {
+    font-weight: bold;
+}
+
+.token.italic {
+    font-style: italic;
 }
 
 .code-wrap pre {
@@ -716,7 +764,22 @@ footer {
 
 				<!-- entry content -->
 			    <div class="entry-content ecp">
-			  		<p>I recently read <a href="https://twitter.com/souders/status/378587712543944704/photo/1" target="_blank" rel="noopener">this Steve Souder’s tweet</a> about a <code>console.log()</code> message that Etsy is printing out to catch developer’s attention. You can see it by visiting <a href="http://www.etsy.com" target="_blank" rel="noopener">Etsy.com</a> and opening the console from the developer tools. Another good one is <a href="https://twitter.com/rosariomgomez/status/466254762367655936" target="_blank" rel="noopener">Pinterest</a>.</p><p>But I thought it would be even better to show the logo of the site next to the message.</p><a id="more"></a><h2 id="What-we-will-be-achieving"><a href="#What-we-will-be-achieving" class="headerlink" title="What we will be achieving"></a>What we will be achieving</h2><p><p><amp-img src="/assets/images/posts/console-log-favicon-final.jpg" width="525" height="70" layout="responsive"></amp-img></p></p><p>Continue reading to know how to achieve it, or have a look <a href="http://jsfiddle.net/J3yZP/" target="_blank" rel="noopener">at this jsFiddle</a>.</p><h2 id="Basic-idea-compatibility-and-limitations-of-the-different-consoles"><a href="#Basic-idea-compatibility-and-limitations-of-the-different-consoles" class="headerlink" title="Basic idea, compatibility and limitations of the different consoles"></a>Basic idea, compatibility and limitations of the different consoles</h2><p>You can use styles in the printed messages in the console, at least on Google Chrome and Firebug (support in Firefox is limited, see below). Each of them have a limitation when trying to render the favicon. The idea is to use a style that sets the logo as the background image. Then, set its size and add some margin between the logo and the text.</p><h3 id="Google-Chrome"><a href="#Google-Chrome" class="headerlink" title="Google Chrome"></a>Google Chrome</h3><p>You can check out the <a href="https://developers.google.com/chrome-developer-tools/docs/console#styling_console_output_with_css" target="_blank" rel="noopener">section about styling the console</a> on Google Chrome. It works, but <a href="https://plus.google.com/+AddyOsmani/posts/TanDFKEN9Kn#z12wstwg0wr5g1xoy04cepzz1lamdxbqjjg#1365803568707861" target="_blank" rel="noopener">it doesn’t seem to support <code>background-repeat: no-repeat</code></a>. So if we use <code>&quot;%c text&quot;</code>, the logo repeats all the way until the end of the string. Thus, we have to place the logo on the right side by doing <code>&quot;text %c&quot;</code>. <p><amp-img src="/assets/images/posts/console-log-favicon-repeat-chrome.jpg" width="516" height="62" layout="responsive"></amp-img></p></p><h3 id="Firebug"><a href="#Firebug" class="headerlink" title="Firebug"></a>Firebug</h3><p>Firebug, however, doesn’t support custom styles using <code>%c</code> in a position other than the start of the string, so we need to use <code>&quot;%c text&quot;</code>. In addition, neither margin-left, padding-left or text-indent push the string towards the right side to leave place to the logo, rendering the text on top of the logo. The hacky solution is to add whitespaces between the style and the text: <code>&quot;%c text&quot;</code>.</p><h2 id="A-solution-that-works-on-both-browsers"><a href="#A-solution-that-works-on-both-browsers" class="headerlink" title="A solution that works on both browsers"></a>A solution that works on both browsers</h2><p>I haven’t found a proper way to detect that the browser is using Firebug. Even if there was, we don’t know whether the user opened the Firebug console or the built-in one. Although Firebug also runs on Chrome, most developers use Chrome Developer Tools on Chrome, so with some user agent sniffing (I hate it, but I can’t find a more suitable way) we can use one or the other version depending on whether the browser is Chrome or not.</p><p>Final result showing a console.log message together with a favicon: <p><amp-img src="/assets/images/posts/console-log-favicon-final.jpg" width="525" height="70" layout="responsive"></amp-img></p></p><p>In Firebug, the image needs to be left-aligned: <p><amp-img src="/assets/images/posts/console-log-favicon-firebug.jpg" width="336" height="19" layout="responsive"></amp-img></p></p><p>Below is the code I am using to render the message together with a favicon, in this case Spotify’s. You can see it in action <a href="http://jsfiddle.net/J3yZP/" target="_blank" rel="noopener">in this jsFiddle</a>.</p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> faviconUrl = <span class="string">"http://d2c87l0yth4zbw.cloudfront.net/i/_global/favicon.png"</span>,</span><br><span class="line">      css = <span class="string">"background-image: url('"</span> + faviconUrl + <span class="string">"');"</span> +</span><br><span class="line">            <span class="string">"background-repeat: no-repeat;"</span> +</span><br><span class="line">            <span class="string">"display: block;"</span> +</span><br><span class="line">            <span class="string">"background-size: 13px 13px;"</span> +</span><br><span class="line">            <span class="string">"padding-left: 13px;"</span> +</span><br><span class="line">            <span class="string">"margin-left: 5px;"</span>,</span><br><span class="line">      text = <span class="string">"Do you like coding? Visit www.spotify.com/jobs"</span>;</span><br><span class="line">  <span class="keyword">if</span> (navigator.userAgent.match(<span class="regexp">/chrome/i</span>)) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(text + <span class="string">'%c'</span>, css);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'%c   '</span> + text, css);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure><p><strong>Update May 8th 2014</strong>: <a href="https://developer.mozilla.org/en/docs/Tools/Web_Console#Styling_messages" target="_blank" rel="noopener">Firefox 31 supports basic styling</a> in its console, without the need of using Firebug. However, it only allows a <a href="https://bugzilla.mozilla.org/attachment.cgi?id=8404667&amp;action=diff#a/browser/devtools/webconsole/console-output.js_sec2" target="_blank" rel="noopener">subset of CSS rules</a> that doesn’t include <code>background-image</code>. However, even though <code>background</code> is supported, <code>url()</code> <a href="https://bugzilla.mozilla.org/attachment.cgi?id=8404667&amp;action=diff#a/browser/devtools/webconsole/test/browser_webconsole_console_custom_styles.js_sec1" target="_blank" rel="noopener">is not supported</a>.</p>
+			  		<p>I recently read <a href="https://twitter.com/souders/status/378587712543944704/photo/1" target="_blank" rel="noopener">this Steve Souder’s tweet</a> about a <code>console.log()</code> message that Etsy is printing out to catch developer’s attention. You can see it by visiting <a href="http://www.etsy.com" target="_blank" rel="noopener">Etsy.com</a> and opening the console from the developer tools. Another good one is <a href="https://twitter.com/rosariomgomez/status/466254762367655936" target="_blank" rel="noopener">Pinterest</a>.</p><p>But I thought it would be even better to show the logo of the site next to the message.</p><a id="more"></a><h2 id="What-we-will-be-achieving"><a href="#What-we-will-be-achieving" class="headerlink" title="What we will be achieving"></a>What we will be achieving</h2><p><p><amp-img src="/assets/images/posts/console-log-favicon-final.jpg" width="525" height="70" layout="responsive"></amp-img></p></p><p>Continue reading to know how to achieve it, or have a look <a href="http://jsfiddle.net/J3yZP/" target="_blank" rel="noopener">at this jsFiddle</a>.</p><h2 id="Basic-idea-compatibility-and-limitations-of-the-different-consoles"><a href="#Basic-idea-compatibility-and-limitations-of-the-different-consoles" class="headerlink" title="Basic idea, compatibility and limitations of the different consoles"></a>Basic idea, compatibility and limitations of the different consoles</h2><p>You can use styles in the printed messages in the console, at least on Google Chrome and Firebug (support in Firefox is limited, see below). Each of them have a limitation when trying to render the favicon. The idea is to use a style that sets the logo as the background image. Then, set its size and add some margin between the logo and the text.</p><h3 id="Google-Chrome"><a href="#Google-Chrome" class="headerlink" title="Google Chrome"></a>Google Chrome</h3><p>You can check out the <a href="https://developers.google.com/chrome-developer-tools/docs/console#styling_console_output_with_css" target="_blank" rel="noopener">section about styling the console</a> on Google Chrome. It works, but <a href="https://plus.google.com/+AddyOsmani/posts/TanDFKEN9Kn#z12wstwg0wr5g1xoy04cepzz1lamdxbqjjg#1365803568707861" target="_blank" rel="noopener">it doesn’t seem to support <code>background-repeat: no-repeat</code></a>. So if we use <code>&quot;%c text&quot;</code>, the logo repeats all the way until the end of the string. Thus, we have to place the logo on the right side by doing <code>&quot;text %c&quot;</code>. <p><amp-img src="/assets/images/posts/console-log-favicon-repeat-chrome.jpg" width="516" height="62" layout="responsive"></amp-img></p></p><h3 id="Firebug"><a href="#Firebug" class="headerlink" title="Firebug"></a>Firebug</h3><p>Firebug, however, doesn’t support custom styles using <code>%c</code> in a position other than the start of the string, so we need to use <code>&quot;%c text&quot;</code>. In addition, neither margin-left, padding-left or text-indent push the string towards the right side to leave place to the logo, rendering the text on top of the logo. The hacky solution is to add whitespaces between the style and the text: <code>&quot;%c text&quot;</code>.</p><h2 id="A-solution-that-works-on-both-browsers"><a href="#A-solution-that-works-on-both-browsers" class="headerlink" title="A solution that works on both browsers"></a>A solution that works on both browsers</h2><p>I haven’t found a proper way to detect that the browser is using Firebug. Even if there was, we don’t know whether the user opened the Firebug console or the built-in one. Although Firebug also runs on Chrome, most developers use Chrome Developer Tools on Chrome, so with some user agent sniffing (I hate it, but I can’t find a more suitable way) we can use one or the other version depending on whether the browser is Chrome or not.</p><p>Final result showing a console.log message together with a favicon: <p><amp-img src="/assets/images/posts/console-log-favicon-final.jpg" width="525" height="70" layout="responsive"></amp-img></p></p><p>In Firebug, the image needs to be left-aligned: <p><amp-img src="/assets/images/posts/console-log-favicon-firebug.jpg" width="336" height="19" layout="responsive"></amp-img></p></p><p>Below is the code I am using to render the message together with a favicon, in this case Spotify’s. You can see it in action <a href="http://jsfiddle.net/J3yZP/" target="_blank" rel="noopener">in this jsFiddle</a>.</p><pre class=" language-js"><code class="language-js"><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> faviconUrl <span class="token operator">=</span> <span class="token string">"http://d2c87l0yth4zbw.cloudfront.net/i/_global/favicon.png"</span><span class="token punctuation">,</span>
+      css <span class="token operator">=</span> <span class="token string">"background-image: url('"</span> <span class="token operator">+</span> faviconUrl <span class="token operator">+</span> <span class="token string">"');"</span> <span class="token operator">+</span>
+            <span class="token string">"background-repeat: no-repeat;"</span> <span class="token operator">+</span>
+            <span class="token string">"display: block;"</span> <span class="token operator">+</span>
+            <span class="token string">"background-size: 13px 13px;"</span> <span class="token operator">+</span>
+            <span class="token string">"padding-left: 13px;"</span> <span class="token operator">+</span>
+            <span class="token string">"margin-left: 5px;"</span><span class="token punctuation">,</span>
+      text <span class="token operator">=</span> <span class="token string">"Do you like coding? Visit www.spotify.com/jobs"</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>navigator<span class="token punctuation">.</span>userAgent<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span><span class="token regex">/chrome/i</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>text <span class="token operator">+</span> <span class="token string">'%c'</span><span class="token punctuation">,</span> css<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'%c   '</span> <span class="token operator">+</span> text<span class="token punctuation">,</span> css<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre><p><strong>Update May 8th 2014</strong>: <a href="https://developer.mozilla.org/en/docs/Tools/Web_Console#Styling_messages" target="_blank" rel="noopener">Firefox 31 supports basic styling</a> in its console, without the need of using Firebug. However, it only allows a <a href="https://bugzilla.mozilla.org/attachment.cgi?id=8404667&amp;action=diff#a/browser/devtools/webconsole/console-output.js_sec2" target="_blank" rel="noopener">subset of CSS rules</a> that doesn’t include <code>background-image</code>. However, even though <code>background</code> is supported, <code>url()</code> <a href="https://bugzilla.mozilla.org/attachment.cgi?id=8404667&amp;action=diff#a/browser/devtools/webconsole/test/browser_webconsole_console_custom_styles.js_sec1" target="_blank" rel="noopener">is not supported</a>.</p>
 			  	</div>
 
 		  	</article>

@@ -538,77 +538,125 @@ footer {
 
 /* SYNTAX HIGHLIGHTING */
 
-.highlight {
-    border: 1px solid #eee;
-    margin-bottom: 1em;
-    overflow-x: auto;
+code[class*="language-"],
+pre[class*="language-"] {
+    color: #393A34;
+    font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
+    direction: ltr;
+    text-align: left;
+    white-space: pre-wrap;
+    word-spacing: normal;
+    word-break: normal;
+    font-size: 0.85em;
+    line-height: 1.2em;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
 }
 
-.code {
-    background:white;
-    color:#333333;
-    display: block;
-    letter-spacing: 0;
-    overflow-x: auto;
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+    background: #b3d4fc;
 }
 
-.code .comment,
-.code .meta {
-    color:#969896;
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
+code[class*="language-"]::selection, code[class*="language-"] ::selection {
+    background: #b3d4fc;
 }
 
-.code .string,
-.code .variable,
-.code .template-variable,
-.code .strong,
-.code .emphasis,
-.code .quote {
-    color:#df5000;
+/* Code blocks */
+pre[class*="language-"] {
+    padding: 1em;
+    margin: .5em 0;
+    overflow: auto;
+    border: 1px solid #dddddd;
+    background-color: white;
 }
 
-.code .keyword,
-.code .selector-tag,
-.code .type {
-    color:#a71d5d;
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
 }
 
-.code .literal,
-.code .symbol,
-.code .bullet,
-.code .attribute {
-    color:#0086b3;
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+    padding: .2em;
+    padding-top: 1px; padding-bottom: 1px;
+    background: #f8f8f8;
+    border: 1px solid #dddddd;
 }
 
-.code .section,
-.code .name {
-    color:#63a35c;
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+    color: #999988; font-style: italic;
 }
 
-.code .tag {
-    color:#333333;
+.token.namespace {
+    opacity: .7;
 }
 
-.code .title,
-.code .attr,
-.code .selector-id,
-.code .selector-class,
-.code .selector-attr,
-.code .selector-pseudo {
-    color:#795da3;
+.token.string,
+.token.attr-value {
+    color: #e3116c;
+}
+.token.punctuation,
+.token.operator {
+    color: #393A34; /* no highlight */
 }
 
-.code .addition {
-    background-color:#eaffea;
-    color:#55a532;
+.token.entity,
+.token.url,
+.token.symbol,
+.token.number,
+.token.boolean,
+.token.variable,
+.token.constant,
+.token.property,
+.token.regex,
+.token.inserted {
+    color: #005cc5;
 }
 
-.code .deletion {
-    background-color:#ffecec;
-    color:#bd2c00;
+.token.keyword {
+    color: #d73a49;
 }
 
-.code .link {
-    text-decoration: underline;
+.token.atrule,
+.token.attr-name {
+    color: #6f42c1;
+}
+
+.token.function,
+.token.deleted {
+    color: #6f42c1;
+}
+
+.token.selector {
+    color: #00009f;
+}
+
+.token.tag {
+    color: #22863a;
+}
+
+.token.class-name {
+    color: #6f42c1;
+}
+
+.token.important,
+.token.bold {
+    font-weight: bold;
+}
+
+.token.italic {
+    font-style: italic;
 }
 
 .code-wrap pre {
@@ -716,7 +764,30 @@ footer {
 
 				<!-- entry content -->
 			    <div class="entry-content ecp">
-			  		<p>It’s been a few weeks since I last posted. Rather than being on vacations resting on a beach, I have be been busy trying out some things I had in my backlog, and one of them is <strong><a href="http://www.polymer-project.org/" target="_blank" rel="noopener">Polymer</a></strong>. Read below about what Polymer is and my impressions after creating some elements.</p><a id="more"></a><h2 id="Polymer"><a href="#Polymer" class="headerlink" title="Polymer"></a>Polymer</h2><p>Web components are a collection of standards that allow the creation of custom HTML elements. These elements encapsulate HTML, CSS and Javascript which is not accessible from external code. Browser support at the moment is limited, so until web components are widely supported, there are polyfills such as Polymer or <a href="http://www.x-tags.org/" target="_blank" rel="noopener">X-Tag</a> to get started.</p><p>Google has launched a bunch of Polymer elements, both <a href="http://www.polymer-project.org/docs/elements/core-elements.html" target="_blank" rel="noopener">Core elements</a> and <a href="http://www.polymer-project.org/docs/elements/paper-elements.html" target="_blank" rel="noopener">Paper elements</a>, which follow their concept of Material Design. As a developer hearing about new things being released every day, I have started to appreciate a proper documentation accompanying the code, and I think the developers in charge of Polymer have made a great work.</p><p>I encourage you to check out their site, which is also a great example of a Jekyll site and <a href="https://github.com/Polymer/docs" target="_blank" rel="noopener">is available on GitHub</a>. They even have “Edit on GitHub” links to fork the project and send pull requests to improve it. The documentation contains lots of examples of already made elements, a tutorial about creating one from scratch (called seed-element) and an awesome drag&amp;drop <a href="http://www.polymer-project.org/tools/designer/" target="_blank" rel="noopener">designer</a> that is open source and supports, right from the start, importing your own Polymer elements.</p><h3 id="Seed-Element"><a href="#Seed-Element" class="headerlink" title="Seed Element"></a>Seed Element</h3><p>The seed-element is a basic component you can use as the boilerplate for yours. Even better, it generates a documentation page based on the JSDoc comments of the code, describing the attributes, properties and events of the element. In addition, you can provide a demo page. This page is very handy for showing how the element works, and making use og GitHub pages it is straightforward to serve the page from the element’s GitHub repo. Did I mention it also contains a basic test spec plus a test runner?</p><p>Following the seed-element file structure has another advantage. There exist sites that index web components that developers are building. So far, I know about these ones:</p><ul><li><a href="http://customelements.io/" target="_blank" rel="noopener">Custom Elements</a></li><li><a href="http://component.kitchen" target="_blank" rel="noopener">Component Kitchen</a></li></ul><p>It’s enough with adding a <code>&quot;web-components&quot;</code> keyword in the <code>bower.json</code> manifest:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&quot;keywords&quot;: [</span><br><span class="line">  &quot;web-components&quot;</span><br><span class="line">]</span><br></pre></td></tr></table></figure><p><em>Note: The <code>seed-element</code> project defines the <code>&quot;keywords&quot;</code> value as a comma separated string (i.e. <code>&quot;seed, polymer, web-components&quot;</code>). If you see that your web component is not indexed in those sites, try rewriting it as an array of strings instead.</em></p><p>I have been developing myself some components using Polymer, since I like the concept of a self contained piece of HTML, CSS and Javascript. It feels a bit like an AngularJS directive (except for the CSS) and a bit like a great replacement for <code>iframe</code>s.</p><h3 id="Replacement-for-iframes"><a href="#Replacement-for-iframes" class="headerlink" title="Replacement for iframes?"></a>Replacement for iframes?</h3><p>Yes. We have used iframes for isolating some functionality or for preventing the style of the outer page from affecting the design of a component. Some widgets had to be implemented as iframes, and this would lead to problems for communicating back and forth between the widget and the hosting page, or the impossibility of detecting changes in window size and resize the iframe accordingly.</p><p>Although web components don’t fix all the issues, they present themselves as a good candidate to replace iframes in certain use cases.</p><h3 id="A-bless-and-a-curse"><a href="#A-bless-and-a-curse" class="headerlink" title="A bless and a curse"></a>A bless and a curse</h3><p>Web components are the new kids on the block. Expect overuse and misuse of them in the coming months. Have you heard about jQuery plugins? There are plugins for everything. Some of them very useful, some of them easily replaced by a short snippet.</p><p>I foresee we will have web components for lots of applications that can be solved with little extra markup and a bit of Javascript. Why would I use a <code>div</code> with a <code>class</code> when I can use my own HTML tag?</p><p>As a developer be aware of that. Assess the impact of every element you introduce in your site.</p><h3 id="Performance-impact-of-a-Polymer-component"><a href="#Performance-impact-of-a-Polymer-component" class="headerlink" title="Performance impact of a Polymer component"></a>Performance impact of a Polymer component</h3><p>Components are included using an import directive in your page:</p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"import"</span> <span class="attr">href</span>=<span class="string">"my-component.html"</span>&gt;</span></span><br></pre></td></tr></table></figure><p>This result in one request. But a component can request other resources such as images, CSS and Javascript, in the same way a regular web page does. This may require extra requests. And not only that, since a key point about components is that they should behave like small composable pieces that can be used to create larger components.</p><p>Take a look at the following example, which uses 3 components:</p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"../platform/platform.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"import"</span> <span class="attr">href</span>=<span class="string">"../components/core-input.html"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"import"</span> <span class="attr">href</span>=<span class="string">"../components/spotify-search.html"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"import"</span> <span class="attr">href</span>=<span class="string">"../components/spotify-previewbutton.html"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">template</span> <span class="attr">is</span>=<span class="string">"auto-binding"</span>&gt;</span></span><br><span class="line">		    <span class="tag">&lt;<span class="name">core-input</span> <span class="attr">id</span>=<span class="string">"input"</span> <span class="attr">placeholder</span>=<span class="string">"Type the name of a track"</span> /&gt;</span></span><br><span class="line">		    <span class="tag">&lt;<span class="name">spotify-search</span> <span class="attr">query</span>=<span class="string">"&#123;&#123; $.input.value &#125;&#125;"</span> <span class="attr">id</span>=<span class="string">"search"</span> <span class="attr">type</span>=<span class="string">"track"</span> /&gt;</span></span><br><span class="line">		    <span class="tag">&lt;<span class="name">spotify-previewbutton</span> <span class="attr">uri</span>=<span class="string">"&#123;&#123; $.search.result[0].uri &#125;&#125;"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">			...</span></span><br><span class="line"><span class="undefined">		</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure><p>The <code>core-input</code> renders an <code>input</code> HTML element where the user can type the name of a track. The <code>spotify-search</code> component takes the track name and searches for tracks in Spotify matching that name. The <code>spotify-previewbutton</code> renders a player with a “play” button to play the track. There are 3 requests to fetch the components, and depending on their implementation they will trigger even more requests.</p><h3 id="Inlining-dependencies"><a href="#Inlining-dependencies" class="headerlink" title="Inlining dependencies"></a>Inlining dependencies</h3><p>Should components inline their dependencies? This is a bit unclear at the moment. The <code>seed-element</code> project inlines the Javascript code in its <code>seed-element.html</code> file, but it doesn’t inline the CSS, which lives in <code>seed-element.css</code>. If you choose not to inline the JS code, the <code>index.html</code> of the project, which shows basic documentation about the usage of the component, will not process the JSDoc comments in the code, not rendering this useful information.</p><p>Including several components may incur in lots of requests. It’s turn to <strong>vulcanize</strong>.</p><h3 id="Vulcanize"><a href="#Vulcanize" class="headerlink" title="Vulcanize"></a>Vulcanize</h3><p><a href="https://github.com/Polymer/vulcanize" target="_blank" rel="noopener">Vulcanize</a> is used to concatenate a set of Web Components into one file.</p><p>It recursively pulls in all your imports, flattens their dependencies and spits out something that can potentially reduce the number of network requests your app makes.</p><p>I recommend you to have a look at <a href="http://www.polymer-project.org/articles/concatenating-web-components.html" target="_blank" rel="noopener">Concatenating Web Components with Vulcanize</a>, where Addy Osmani explains how to use this tool.</p><h2 id="Go-and-experiment-with-it"><a href="#Go-and-experiment-with-it" class="headerlink" title="Go and experiment with it"></a>Go and experiment with it</h2><p>The best way of learning a library is to use it. Build a simple web component, try to use it, share it on Github, and publish it on Bower. It will not only help you understand how to create one of these components, but also understand better what happens when you use this paradigm in your site.</p>
+			  		<p>It’s been a few weeks since I last posted. Rather than being on vacations resting on a beach, I have be been busy trying out some things I had in my backlog, and one of them is <strong><a href="http://www.polymer-project.org/" target="_blank" rel="noopener">Polymer</a></strong>. Read below about what Polymer is and my impressions after creating some elements.</p><a id="more"></a><h2 id="Polymer"><a href="#Polymer" class="headerlink" title="Polymer"></a>Polymer</h2><p>Web components are a collection of standards that allow the creation of custom HTML elements. These elements encapsulate HTML, CSS and Javascript which is not accessible from external code. Browser support at the moment is limited, so until web components are widely supported, there are polyfills such as Polymer or <a href="http://www.x-tags.org/" target="_blank" rel="noopener">X-Tag</a> to get started.</p><p>Google has launched a bunch of Polymer elements, both <a href="http://www.polymer-project.org/docs/elements/core-elements.html" target="_blank" rel="noopener">Core elements</a> and <a href="http://www.polymer-project.org/docs/elements/paper-elements.html" target="_blank" rel="noopener">Paper elements</a>, which follow their concept of Material Design. As a developer hearing about new things being released every day, I have started to appreciate a proper documentation accompanying the code, and I think the developers in charge of Polymer have made a great work.</p><p>I encourage you to check out their site, which is also a great example of a Jekyll site and <a href="https://github.com/Polymer/docs" target="_blank" rel="noopener">is available on GitHub</a>. They even have “Edit on GitHub” links to fork the project and send pull requests to improve it. The documentation contains lots of examples of already made elements, a tutorial about creating one from scratch (called seed-element) and an awesome drag&amp;drop <a href="http://www.polymer-project.org/tools/designer/" target="_blank" rel="noopener">designer</a> that is open source and supports, right from the start, importing your own Polymer elements.</p><h3 id="Seed-Element"><a href="#Seed-Element" class="headerlink" title="Seed Element"></a>Seed Element</h3><p>The seed-element is a basic component you can use as the boilerplate for yours. Even better, it generates a documentation page based on the JSDoc comments of the code, describing the attributes, properties and events of the element. In addition, you can provide a demo page. This page is very handy for showing how the element works, and making use og GitHub pages it is straightforward to serve the page from the element’s GitHub repo. Did I mention it also contains a basic test spec plus a test runner?</p><p>Following the seed-element file structure has another advantage. There exist sites that index web components that developers are building. So far, I know about these ones:</p><ul><li><a href="http://customelements.io/" target="_blank" rel="noopener">Custom Elements</a></li><li><a href="http://component.kitchen" target="_blank" rel="noopener">Component Kitchen</a></li></ul><p>It’s enough with adding a <code>&quot;web-components&quot;</code> keyword in the <code>bower.json</code> manifest:</p><pre><code>&quot;keywords&quot;: [
+  &quot;web-components&quot;
+]
+</code></pre><p><em>Note: The <code>seed-element</code> project defines the <code>&quot;keywords&quot;</code> value as a comma separated string (i.e. <code>&quot;seed, polymer, web-components&quot;</code>). If you see that your web component is not indexed in those sites, try rewriting it as an array of strings instead.</em></p><p>I have been developing myself some components using Polymer, since I like the concept of a self contained piece of HTML, CSS and Javascript. It feels a bit like an AngularJS directive (except for the CSS) and a bit like a great replacement for <code>iframe</code>s.</p><h3 id="Replacement-for-iframes"><a href="#Replacement-for-iframes" class="headerlink" title="Replacement for iframes?"></a>Replacement for iframes?</h3><p>Yes. We have used iframes for isolating some functionality or for preventing the style of the outer page from affecting the design of a component. Some widgets had to be implemented as iframes, and this would lead to problems for communicating back and forth between the widget and the hosting page, or the impossibility of detecting changes in window size and resize the iframe accordingly.</p><p>Although web components don’t fix all the issues, they present themselves as a good candidate to replace iframes in certain use cases.</p><h3 id="A-bless-and-a-curse"><a href="#A-bless-and-a-curse" class="headerlink" title="A bless and a curse"></a>A bless and a curse</h3><p>Web components are the new kids on the block. Expect overuse and misuse of them in the coming months. Have you heard about jQuery plugins? There are plugins for everything. Some of them very useful, some of them easily replaced by a short snippet.</p><p>I foresee we will have web components for lots of applications that can be solved with little extra markup and a bit of Javascript. Why would I use a <code>div</code> with a <code>class</code> when I can use my own HTML tag?</p><p>As a developer be aware of that. Assess the impact of every element you introduce in your site.</p><h3 id="Performance-impact-of-a-Polymer-component"><a href="#Performance-impact-of-a-Polymer-component" class="headerlink" title="Performance impact of a Polymer component"></a>Performance impact of a Polymer component</h3><p>Components are included using an import directive in your page:</p><pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>import<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>my-component.html<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+</code></pre><p>This result in one request. But a component can request other resources such as images, CSS and Javascript, in the same way a regular web page does. This may require extra requests. And not only that, since a key point about components is that they should behave like small composable pieces that can be used to create larger components.</p><p>Take a look at the following example, which uses 3 components:</p><pre class=" language-html"><code class="language-html"><span class="token doctype">&lt;!DOCTYPE html></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>../platform/platform.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>import<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>../components/core-input.html<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>import<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>../components/spotify-search.html<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>import<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>../components/spotify-previewbutton.html<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span> <span class="token attr-name">is</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>auto-binding<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>core-input</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>input<span class="token punctuation">"</span></span> <span class="token attr-name">placeholder</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Type the name of a track<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>spotify-search</span> <span class="token attr-name">query</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{{ $.input.value }}<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>search<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>track<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>spotify-previewbutton</span> <span class="token attr-name">uri</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{{ $.search.result[0].uri }}<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span>
+            ...
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
+</code></pre><p>The <code>core-input</code> renders an <code>input</code> HTML element where the user can type the name of a track. The <code>spotify-search</code> component takes the track name and searches for tracks in Spotify matching that name. The <code>spotify-previewbutton</code> renders a player with a “play” button to play the track. There are 3 requests to fetch the components, and depending on their implementation they will trigger even more requests.</p><h3 id="Inlining-dependencies"><a href="#Inlining-dependencies" class="headerlink" title="Inlining dependencies"></a>Inlining dependencies</h3><p>Should components inline their dependencies? This is a bit unclear at the moment. The <code>seed-element</code> project inlines the Javascript code in its <code>seed-element.html</code> file, but it doesn’t inline the CSS, which lives in <code>seed-element.css</code>. If you choose not to inline the JS code, the <code>index.html</code> of the project, which shows basic documentation about the usage of the component, will not process the JSDoc comments in the code, not rendering this useful information.</p><p>Including several components may incur in lots of requests. It’s turn to <strong>vulcanize</strong>.</p><h3 id="Vulcanize"><a href="#Vulcanize" class="headerlink" title="Vulcanize"></a>Vulcanize</h3><p><a href="https://github.com/Polymer/vulcanize" target="_blank" rel="noopener">Vulcanize</a> is used to concatenate a set of Web Components into one file.</p><p>It recursively pulls in all your imports, flattens their dependencies and spits out something that can potentially reduce the number of network requests your app makes.</p><p>I recommend you to have a look at <a href="http://www.polymer-project.org/articles/concatenating-web-components.html" target="_blank" rel="noopener">Concatenating Web Components with Vulcanize</a>, where Addy Osmani explains how to use this tool.</p><h2 id="Go-and-experiment-with-it"><a href="#Go-and-experiment-with-it" class="headerlink" title="Go and experiment with it"></a>Go and experiment with it</h2><p>The best way of learning a library is to use it. Build a simple web component, try to use it, share it on Github, and publish it on Bower. It will not only help you understand how to create one of these components, but also understand better what happens when you use this paradigm in your site.</p>
 			  	</div>
 
 		  	</article>

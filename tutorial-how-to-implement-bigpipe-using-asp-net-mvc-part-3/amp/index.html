@@ -538,77 +538,125 @@ footer {
 
 /* SYNTAX HIGHLIGHTING */
 
-.highlight {
-    border: 1px solid #eee;
-    margin-bottom: 1em;
-    overflow-x: auto;
+code[class*="language-"],
+pre[class*="language-"] {
+    color: #393A34;
+    font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
+    direction: ltr;
+    text-align: left;
+    white-space: pre-wrap;
+    word-spacing: normal;
+    word-break: normal;
+    font-size: 0.85em;
+    line-height: 1.2em;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
 }
 
-.code {
-    background:white;
-    color:#333333;
-    display: block;
-    letter-spacing: 0;
-    overflow-x: auto;
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+    background: #b3d4fc;
 }
 
-.code .comment,
-.code .meta {
-    color:#969896;
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
+code[class*="language-"]::selection, code[class*="language-"] ::selection {
+    background: #b3d4fc;
 }
 
-.code .string,
-.code .variable,
-.code .template-variable,
-.code .strong,
-.code .emphasis,
-.code .quote {
-    color:#df5000;
+/* Code blocks */
+pre[class*="language-"] {
+    padding: 1em;
+    margin: .5em 0;
+    overflow: auto;
+    border: 1px solid #dddddd;
+    background-color: white;
 }
 
-.code .keyword,
-.code .selector-tag,
-.code .type {
-    color:#a71d5d;
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
 }
 
-.code .literal,
-.code .symbol,
-.code .bullet,
-.code .attribute {
-    color:#0086b3;
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+    padding: .2em;
+    padding-top: 1px; padding-bottom: 1px;
+    background: #f8f8f8;
+    border: 1px solid #dddddd;
 }
 
-.code .section,
-.code .name {
-    color:#63a35c;
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+    color: #999988; font-style: italic;
 }
 
-.code .tag {
-    color:#333333;
+.token.namespace {
+    opacity: .7;
 }
 
-.code .title,
-.code .attr,
-.code .selector-id,
-.code .selector-class,
-.code .selector-attr,
-.code .selector-pseudo {
-    color:#795da3;
+.token.string,
+.token.attr-value {
+    color: #e3116c;
+}
+.token.punctuation,
+.token.operator {
+    color: #393A34; /* no highlight */
 }
 
-.code .addition {
-    background-color:#eaffea;
-    color:#55a532;
+.token.entity,
+.token.url,
+.token.symbol,
+.token.number,
+.token.boolean,
+.token.variable,
+.token.constant,
+.token.property,
+.token.regex,
+.token.inserted {
+    color: #005cc5;
 }
 
-.code .deletion {
-    background-color:#ffecec;
-    color:#bd2c00;
+.token.keyword {
+    color: #d73a49;
 }
 
-.code .link {
-    text-decoration: underline;
+.token.atrule,
+.token.attr-name {
+    color: #6f42c1;
+}
+
+.token.function,
+.token.deleted {
+    color: #6f42c1;
+}
+
+.token.selector {
+    color: #00009f;
+}
+
+.token.tag {
+    color: #22863a;
+}
+
+.token.class-name {
+    color: #6f42c1;
+}
+
+.token.important,
+.token.bold {
+    font-weight: bold;
+}
+
+.token.italic {
+    font-style: italic;
 }
 
 .code-wrap pre {
@@ -716,7 +764,212 @@ footer {
 
 				<!-- entry content -->
 			    <div class="entry-content ecp">
-			  		<p>Parts of the tutorial</p><ol><li><a href="/tutorial-how-to-implement-bigpipe-using-asp-net-mvc-part-1">Introduction to BigPipe</a></li><li><a href="/tutorial-how-to-implement-bigpipe-using-asp-net-mvc-part-2">How ASP.Net MVC fits in the model. Registering and generating pagelets</a></li><li>Browser implementation of BigPipe. Loading pagelets and their resources effectively</li><li><a href="https://github.com/JMPerez/BigPipe" target="_blank" rel="noopener">Check out the demo Visual Studio solution</a></li></ol><p>In this third part of the tutorial to carry out a technique similar to BigPipe I will cover the browser side. BigPipe is not only focused on server side, but it also sets how the different resources that our pagelets need have to be requested and loaded in the document.</p><a id="more"></a><h2 id="Registering-a-pagelet-and-its-resources"><a href="#Registering-a-pagelet-and-its-resources" class="headerlink" title="Registering a pagelet and its resources"></a>Registering a pagelet and its resources</h2><p>In the Pagelet class I will declare a constructor that accepts a list of CSS files and a list of JavaScript files needed by the pagelet:<figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Pagelet</span>(<span class="params"><span class="keyword">string</span> container, Func&lt;<span class="keyword">string</span>&gt; action, IEnumerable&lt;<span class="keyword">string</span>&gt; css, IEnumerable&lt;<span class="keyword">string</span>&gt; js</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.Container = container;</span><br><span class="line">    <span class="keyword">this</span>.Action = action;</span><br><span class="line">    <span class="keyword">this</span>.Data = <span class="keyword">new</span> Data()</span><br><span class="line">    &#123;</span><br><span class="line">        Id = container,</span><br><span class="line">        Css = css,</span><br><span class="line">        Js = js</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>In my sample code I am registering two pagelets in the View:<figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line">&lt;%  HttpRequest req = HttpContext.Current.Request;</span><br><span class="line">    Html.RegisterPagelet(<span class="keyword">new</span> Pagelet(</span><br><span class="line">        <span class="string">"pagelet1-pagelet"</span>,</span><br><span class="line">        () =&gt; Html.RenderActionToString(req, <span class="string">"home"</span>, <span class="string">"pagelet1"</span>),</span><br><span class="line">        <span class="keyword">new</span> []&#123;<span class="string">"../../Content/Pagelet1.css"</span>&#125;,</span><br><span class="line">        <span class="keyword">new</span> []&#123;<span class="string">"http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"</span>,</span><br><span class="line">                <span class="string">"../../Scripts/Pagelet1.js"</span>&#125;</span><br><span class="line">    )); %&gt;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">&lt;% Html.RegisterPagelet(<span class="keyword">new</span> Pagelet(</span><br><span class="line">    <span class="string">"pagelet2-pagelet"</span>,</span><br><span class="line">    () =&gt; Html.RenderActionToString(req, <span class="string">"home"</span>, <span class="string">"pagelet2"</span>),</span><br><span class="line">    <span class="keyword">new</span>[] &#123; <span class="string">"../../Content/Pagelet2.css"</span> &#125;,</span><br><span class="line">    <span class="literal">null</span></span><br><span class="line">    )); %&gt;</span><br></pre></td></tr></table></figure></p><p>As I said before, <code>Html.Action()</code> method can be used to store the result of an action in a string. However, it may throw exception if you use multi-threading to execute the different pagelets since it doesn’t keep a reference to original request. In fact, we are storing the current request in the <code>req</code> variable to avoid this exception when using <code>Html.RenderActionToString</code>. If you’d rather use a single-threaded <code>for</code> to go through the pagelets in the <code>ExecutePagelets</code> method (i.e. if you see that parallel <code>for</code> implies too much overload), then go for the <code>Action</code> method.</p><h2 id="Facebook’s-approach"><a href="#Facebook’s-approach" class="headerlink" title="Facebook’s approach"></a>Facebook’s approach</h2><p>In this tutorial I am implementing a simple solution covering BigPipe principles from server to browser. However, Facebook’s implementation is far more complex, taking into account resource dependencies and events. If we have a look at a sample call to their <code>onPageletArrive</code> Javascript function, we can see that they pass a JSON object similar to this one:<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"id"</span>: <span class="string">",</span></span><br><span class="line"><span class="string">    "</span>phase<span class="string">": 4,</span></span><br><span class="line"><span class="string">    "</span>is_last<span class="string">": true,</span></span><br><span class="line"><span class="string">    "</span>append<span class="string">": false,</span></span><br><span class="line"><span class="string">    "</span>bootloadable<span class="string">": [</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    ],</span></span><br><span class="line"><span class="string">    "</span>css<span class="string">": [</span></span><br><span class="line"><span class="string">        "</span>MPQqY<span class="string">",</span></span><br><span class="line"><span class="string">        "</span>uwtW6<span class="string">",</span></span><br><span class="line"><span class="string">        "</span>wWhUT<span class="string">"</span></span><br><span class="line"><span class="string">    ],</span></span><br><span class="line"><span class="string">    "</span>js<span class="string">": [</span></span><br><span class="line"><span class="string">        "</span>RpPeo<span class="string">",</span></span><br><span class="line"><span class="string">        "</span>C9ueD<span class="string">",</span></span><br><span class="line"><span class="string">        "</span>q+PxV<span class="string">",</span></span><br><span class="line"><span class="string">        "</span>Ok1Y0<span class="string">",</span></span><br><span class="line"><span class="string">        "</span>dOwRG<span class="string">"</span></span><br><span class="line"><span class="string">    ],</span></span><br><span class="line"><span class="string">    "</span>resource_map<span class="string">": [</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    ],</span></span><br><span class="line"><span class="string">    "</span>requires<span class="string">": [</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    ],</span></span><br><span class="line"><span class="string">    "</span>provides<span class="string">": [</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    ],</span></span><br><span class="line"><span class="string">    "</span>onload<span class="string">": [</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    ],</span></span><br><span class="line"><span class="string">    "</span>onafterload<span class="string">": [</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    ],</span></span><br><span class="line"><span class="string">    "</span>onpagecache<span class="string">": [</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    ],</span></span><br><span class="line"><span class="string">    "</span>onafterpagecache<span class="string">": [</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    ],</span></span><br><span class="line"><span class="string">    "</span>refresh_pagelets<span class="string">": [</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    ],</span></span><br><span class="line"><span class="string">    "</span>invalidate_cache<span class="string">": [</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    ],</span></span><br><span class="line"><span class="string">    "</span>content<span class="string">": [</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    ],</span></span><br><span class="line"><span class="string">    "</span>page_cache<span class="string">": false</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure></p><p>From there, we will cover <code>id</code>, <code>css</code>, <code>js</code> and <code>content</code> fields. Most of the rest of fields are self-explainable, and they could be implemented easily on our basic BigPipe implementation.</p><h2 id="Javascript-detection"><a href="#Javascript-detection" class="headerlink" title="Javascript detection"></a>Javascript detection</h2><p>We will detect Javascript using a cookie that will be written using Javascript. The first request to our page will not send that cookie, so we will serve a non-BigPipe version. I prefer this to making a redirection to the same page if Javascript is enabled.</p><p>In the Site.Master, just before ending body tag we can add the Javascript detection code:<figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line">&lt;% <span class="keyword">if</span> (Request.Cookies[<span class="string">"js"</span>] == <span class="literal">null</span>) &#123; %&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line"><span class="keyword">var</span> exdate=<span class="keyword">new</span> Date();</span><br><span class="line">exdate.setDate(exdate.getDate()+<span class="number">90</span>);</span><br><span class="line">document.cookie = <span class="string">"js=true;expires="</span> + exdate.toUTCString();</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure></p><h2 id="Loading-CSS-and-JS"><a href="#Loading-CSS-and-JS" class="headerlink" title="Loading CSS and JS"></a>Loading CSS and JS</h2><p>We will need a basic Javascript script that allows us:</p><ul><li>Load in parallel the set of CSS resources needed by each pagelet</li><li>Append the HTML code of a pagelet inside its container</li><li>Request in parallel all the Javascript files needed by the set of pagelets, once they all have been appended to the document, and execute them</li></ul><p>Moreover, the size of the script has to be as small as possible, since it will be a blocking script.</p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> Loader = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> d = <span class="built_in">document</span>,</span><br><span class="line">        head = d.getElementsByTagName(<span class="string">"head"</span>)[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> loadJs = <span class="function"><span class="keyword">function</span> (<span class="params">url, cb</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> script = d.createElement(<span class="string">'script'</span>);</span><br><span class="line">        script.setAttribute(<span class="string">'src'</span>, url);</span><br><span class="line">        script.setAttribute(<span class="string">'type'</span>, <span class="string">'text/javascript'</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> loaded = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">var</span> loadFunction = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (loaded) <span class="keyword">return</span>;</span><br><span class="line">            loaded = <span class="literal">true</span>;</span><br><span class="line">            cb &amp;amp;&amp;amp; cb();</span><br><span class="line">        &#125;;</span><br><span class="line">        script.onload = loadFunction;</span><br><span class="line">        script.onreadystatechange = loadFunction;</span><br><span class="line">        head.appendChild(script);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> cachedBrowser;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> browser = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!cachedBrowser) &#123;</span><br><span class="line">            <span class="keyword">var</span> ua = navigator.userAgent.toLowerCase();</span><br><span class="line">            <span class="keyword">var</span> match = <span class="regexp">/(webkit)[ \/]([\w.]+)/</span>.exec(ua) ||</span><br><span class="line">			/(opera)(?:.*version)?[ \/]([\w.]+)/.exec(ua) ||</span><br><span class="line">			/(msie) ([\w.]+)/.exec(ua) ||</span><br><span class="line">			!<span class="regexp">/compatible/</span>.test(ua) &amp;amp;&amp;amp; <span class="regexp">/(mozilla)(?:.*? rv:([\w.]+))?/</span>.exec(ua) ||</span><br><span class="line">			[];</span><br><span class="line">            cachedBrowser = match[<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> cachedBrowser;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> loadCss = <span class="function"><span class="keyword">function</span> (<span class="params">url, cb</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> link = d.createElement(<span class="string">"link"</span>);</span><br><span class="line">        link.type = <span class="string">"text/css"</span>;</span><br><span class="line">        link.rel = <span class="string">"stylesheet"</span>;</span><br><span class="line">        link.href = url;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (browser() == <span class="string">"msie"</span>)</span><br><span class="line">            link.onreadystatechange = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                /loaded|complete/.test(link.readyState) &amp;amp;&amp;amp; cb();</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (browser() == <span class="string">"opera"</span>)</span><br><span class="line">            link.onload = cb;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        <span class="comment">//FF, Safari, Chrome</span></span><br><span class="line">            (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    link.sheet.cssRule;</span><br><span class="line">                &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">                    setTimeout(<span class="built_in">arguments</span>.callee, <span class="number">20</span>);</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125;;</span><br><span class="line">                cb();</span><br><span class="line">            &#125;)();</span><br><span class="line"></span><br><span class="line">        head.appendChild(link);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123; <span class="attr">loadCss</span>: loadCss, <span class="attr">loadJs</span>: loadJs &#125;;</span><br><span class="line"></span><br><span class="line">&#125; ();</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">PageLet</span>(<span class="params">p, domInserted</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> data = p,</span><br><span class="line">	remainingCss = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> loadCss = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">//load css</span></span><br><span class="line">        <span class="keyword">if</span> (data.Css &amp;amp;&amp;amp; data.Css.length) &#123;</span><br><span class="line">            remainingCss = data.Css.length;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">var</span> i = remainingCss; i--; )</span><br><span class="line">                Loader.loadCss(data.Css[i], <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                    ! --remainingCss &amp;amp;&amp;amp; insertDom();</span><br><span class="line">                &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            insertDom();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> insertDom = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">document</span>.getElementById(p.Id).innerHTML = p.Content;</span><br><span class="line">        domInserted();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> loadJs = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!data.Js) <span class="keyword">return</span>;</span><br><span class="line">        <span class="comment">//load js</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; data.Js.length; i++)</span><br><span class="line">            Loader.loadJs(data.Js[i]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123; <span class="attr">loadCss</span>: loadCss, <span class="attr">loadJs</span>: loadJs &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> BigPipe = <span class="function"><span class="keyword">function</span> (<span class="params">count</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> d = <span class="built_in">document</span>,</span><br><span class="line">       pagelets = []; 		<span class="comment">/* registered pagelets */</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> onPageletArrive = <span class="function"><span class="keyword">function</span> (<span class="params">p</span>) </span>&#123;</span><br><span class="line">        count = count || p.count;</span><br><span class="line">        <span class="keyword">var</span> pagelet = <span class="keyword">new</span> PageLet(p, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (! --count) &#123;</span><br><span class="line">                <span class="comment">//load js</span></span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; pagelets.length; i++)</span><br><span class="line">                    pagelets[i].loadJs();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        pagelets.push(pagelet);</span><br><span class="line">        pagelet.loadCss();</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123; <span class="attr">onPageletArrive</span>: onPageletArrive &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>Once minimized using Google Closure, the size is 1.27KB (666 bytes gzipped), so we have a very small script that fits our requirements.</p><h2 id="Resources-chart"><a href="#Resources-chart" class="headerlink" title="Resources chart"></a>Resources chart</h2><p>The following chart shows how resources are loaded: <p><amp-img src="/assets/images/posts/bigpipe-02.jpg" width="677" height="760" layout="responsive"></amp-img></p></p><p>We can see that the main document flushes early, starting the requests for Site.css and BigPipe.js, which are in the head section of our view. When pagelets are executed (I have set a Thread.Sleep in both pagelets) their CSS resources are requested and only after they have been appended to the document their Javascript resources are downloaded and executed.</p><h2 id="Further-improvements"><a href="#Further-improvements" class="headerlink" title="Further improvements"></a>Further improvements</h2><p>There are a lot of points that can be improved. I have thought of several of them, what could lead to a more complex solution that can provide BigPipe to ASP.Net MVC in a not so experimental way.</p><h3 id="Fire-event-before-starting-loading-js-for-pagelets"><a href="#Fire-event-before-starting-loading-js-for-pagelets" class="headerlink" title="Fire event before starting loading js for pagelets"></a>Fire event before starting loading js for pagelets</h3><p>Scripts that are needed by the page but do not need to be loaded before executing pagelets can be delayed and be requested when the pagelets’ scripts are.</p><h3 id="Manage-dependencies-between-scripts"><a href="#Manage-dependencies-between-scripts" class="headerlink" title="Manage dependencies between scripts"></a>Manage dependencies between scripts</h3><p>As Facebook does, it can be a good idea to incorporate dependencies solving logic to request and execute JavaScript resources in the best order.</p><p>Avoid double insertion. If two pagelets require the same script, it is only necessary to request once.</p><h3 id="Manage-pagelets-resources-in-a-unique-place"><a href="#Manage-pagelets-resources-in-a-unique-place" class="headerlink" title="Manage pagelets resources in a unique place"></a>Manage pagelets resources in a unique place</h3><p>In my solution, pagelets’ resources are specified in the view that is including them. If we decide to change the implementation of a pagelet and now we need a different set of resources (i.e. an extra JS resource)</p><h2 id="Drawbacks-of-this-implementation"><a href="#Drawbacks-of-this-implementation" class="headerlink" title="Drawbacks of this implementation"></a>Drawbacks of this implementation</h2><p>At first I see a performance problem when the browser does not support Javascript. As we are registering pagelets as PartialViews rendered inside the body ContentPlaceHolder, we have no way to include CSS resources back to the head section, since it has already been generated. So we have to include the CSS link elements inside the body, blocking renderization.</p><p>The good thing is that we save bytes not writing script elements when we detect the browser has JavaScript disabled.</p>
+			  		<p>Parts of the tutorial</p><ol><li><a href="/tutorial-how-to-implement-bigpipe-using-asp-net-mvc-part-1">Introduction to BigPipe</a></li><li><a href="/tutorial-how-to-implement-bigpipe-using-asp-net-mvc-part-2">How ASP.Net MVC fits in the model. Registering and generating pagelets</a></li><li>Browser implementation of BigPipe. Loading pagelets and their resources effectively</li><li><a href="https://github.com/JMPerez/BigPipe" target="_blank" rel="noopener">Check out the demo Visual Studio solution</a></li></ol><p>In this third part of the tutorial to carry out a technique similar to BigPipe I will cover the browser side. BigPipe is not only focused on server side, but it also sets how the different resources that our pagelets need have to be requested and loaded in the document.</p><a id="more"></a><h2 id="Registering-a-pagelet-and-its-resources"><a href="#Registering-a-pagelet-and-its-resources" class="headerlink" title="Registering a pagelet and its resources"></a>Registering a pagelet and its resources</h2><p>In the Pagelet class I will declare a constructor that accepts a list of CSS files and a list of JavaScript files needed by the pagelet:</p><pre class=" language-csharp"><code class="language-csharp"><span class="token keyword">public</span> <span class="token function">Pagelet</span><span class="token punctuation">(</span><span class="token keyword">string</span> container<span class="token punctuation">,</span> Func<span class="token operator">&lt;</span><span class="token keyword">string</span><span class="token operator">></span> action<span class="token punctuation">,</span> IEnumerable<span class="token operator">&lt;</span><span class="token keyword">string</span><span class="token operator">></span> css<span class="token punctuation">,</span> IEnumerable<span class="token operator">&lt;</span><span class="token keyword">string</span><span class="token operator">></span> js<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>Container <span class="token operator">=</span> container<span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>Action <span class="token operator">=</span> action<span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>Data <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Data</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        Id <span class="token operator">=</span> container<span class="token punctuation">,</span>
+        Css <span class="token operator">=</span> css<span class="token punctuation">,</span>
+        Js <span class="token operator">=</span> js
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre><p>In my sample code I am registering two pagelets in the View:</p><pre class=" language-csharp"><code class="language-csharp"><span class="token operator">&lt;</span><span class="token operator">%</span>  HttpRequest req <span class="token operator">=</span> HttpContext<span class="token punctuation">.</span>Current<span class="token punctuation">.</span>Request<span class="token punctuation">;</span>
+    Html<span class="token punctuation">.</span><span class="token function">RegisterPagelet</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Pagelet</span><span class="token punctuation">(</span>
+        <span class="token string">"pagelet1-pagelet"</span><span class="token punctuation">,</span>
+        <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> Html<span class="token punctuation">.</span><span class="token function">RenderActionToString</span><span class="token punctuation">(</span>req<span class="token punctuation">,</span> <span class="token string">"home"</span><span class="token punctuation">,</span> <span class="token string">"pagelet1"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token keyword">new</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token string">"../../Content/Pagelet1.css"</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token keyword">new</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token string">"http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"</span><span class="token punctuation">,</span>
+                <span class="token string">"../../Scripts/Pagelet1.js"</span><span class="token punctuation">}</span>
+    <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token operator">%</span><span class="token operator">></span>
+
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token operator">&lt;</span><span class="token operator">%</span> Html<span class="token punctuation">.</span><span class="token function">RegisterPagelet</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Pagelet</span><span class="token punctuation">(</span>
+    <span class="token string">"pagelet2-pagelet"</span><span class="token punctuation">,</span>
+    <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> Html<span class="token punctuation">.</span><span class="token function">RenderActionToString</span><span class="token punctuation">(</span>req<span class="token punctuation">,</span> <span class="token string">"home"</span><span class="token punctuation">,</span> <span class="token string">"pagelet2"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token keyword">new</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token punctuation">{</span> <span class="token string">"../../Content/Pagelet2.css"</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token keyword">null</span>
+    <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token operator">%</span><span class="token operator">></span>
+</code></pre><p>As I said before, <code>Html.Action()</code> method can be used to store the result of an action in a string. However, it may throw exception if you use multi-threading to execute the different pagelets since it doesn’t keep a reference to original request. In fact, we are storing the current request in the <code>req</code> variable to avoid this exception when using <code>Html.RenderActionToString</code>. If you’d rather use a single-threaded <code>for</code> to go through the pagelets in the <code>ExecutePagelets</code> method (i.e. if you see that parallel <code>for</code> implies too much overload), then go for the <code>Action</code> method.</p><h2 id="Facebook’s-approach"><a href="#Facebook’s-approach" class="headerlink" title="Facebook’s approach"></a>Facebook’s approach</h2><p>In this tutorial I am implementing a simple solution covering BigPipe principles from server to browser. However, Facebook’s implementation is far more complex, taking into account resource dependencies and events. If we have a look at a sample call to their <code>onPageletArrive</code> Javascript function, we can see that they pass a JSON object similar to this one:</p><pre class=" language-json"><code class="language-json"><span class="token punctuation">{</span>
+    <span class="token property">"id"</span><span class="token operator">:</span> "<span class="token punctuation">,</span>
+    <span class="token property">"phase"</span><span class="token operator">:</span> <span class="token number">4</span><span class="token punctuation">,</span>
+    <span class="token property">"is_last"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token property">"append"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token property">"bootloadable"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"css"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"MPQqY"</span><span class="token punctuation">,</span>
+        <span class="token string">"uwtW6"</span><span class="token punctuation">,</span>
+        <span class="token string">"wWhUT"</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"js"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"RpPeo"</span><span class="token punctuation">,</span>
+        <span class="token string">"C9ueD"</span><span class="token punctuation">,</span>
+        <span class="token string">"q+PxV"</span><span class="token punctuation">,</span>
+        <span class="token string">"Ok1Y0"</span><span class="token punctuation">,</span>
+        <span class="token string">"dOwRG"</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"resource_map"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"requires"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"provides"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"onload"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"onafterload"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"onpagecache"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"onafterpagecache"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"refresh_pagelets"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"invalidate_cache"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"content"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"page_cache"</span><span class="token operator">:</span> <span class="token boolean">false</span>
+<span class="token punctuation">}</span>
+</code></pre><p>From there, we will cover <code>id</code>, <code>css</code>, <code>js</code> and <code>content</code> fields. Most of the rest of fields are self-explainable, and they could be implemented easily on our basic BigPipe implementation.</p><h2 id="Javascript-detection"><a href="#Javascript-detection" class="headerlink" title="Javascript detection"></a>Javascript detection</h2><p>We will detect Javascript using a cookie that will be written using Javascript. The first request to our page will not send that cookie, so we will serve a non-BigPipe version. I prefer this to making a redirection to the same page if Javascript is enabled.</p><p>In the Site.Master, just before ending body tag we can add the Javascript detection code:</p><pre class=" language-csharp"><code class="language-csharp">    <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>Request<span class="token punctuation">.</span>Cookies<span class="token punctuation">[</span><span class="token string">"js"</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token operator">%</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span>script<span class="token operator">></span>
+    <span class="token keyword">var</span> exdate<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    exdate<span class="token punctuation">.</span><span class="token function">setDate</span><span class="token punctuation">(</span>exdate<span class="token punctuation">.</span><span class="token function">getDate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">+</span><span class="token number">90</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    document<span class="token punctuation">.</span>cookie <span class="token operator">=</span> <span class="token string">"js=true;expires="</span> <span class="token operator">+</span> exdate<span class="token punctuation">.</span><span class="token function">toUTCString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">%</span> <span class="token punctuation">}</span> <span class="token operator">%</span><span class="token operator">></span>
+</code></pre><h2 id="Loading-CSS-and-JS"><a href="#Loading-CSS-and-JS" class="headerlink" title="Loading CSS and JS"></a>Loading CSS and JS</h2><p>We will need a basic Javascript script that allows us:</p><ul><li>Load in parallel the set of CSS resources needed by each pagelet</li><li>Append the HTML code of a pagelet inside its container</li><li>Request in parallel all the Javascript files needed by the set of pagelets, once they all have been appended to the document, and execute them</li></ul><p>Moreover, the size of the script has to be as small as possible, since it will be a blocking script.</p><pre class=" language-js"><code class="language-js"> <span class="token keyword">var</span> Loader <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+     <span class="token keyword">var</span> d <span class="token operator">=</span> document<span class="token punctuation">,</span>
+         head <span class="token operator">=</span> d<span class="token punctuation">.</span><span class="token function">getElementsByTagName</span><span class="token punctuation">(</span><span class="token string">"head"</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+     <span class="token keyword">var</span> loadJs <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>url<span class="token punctuation">,</span> cb<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+         <span class="token keyword">var</span> script <span class="token operator">=</span> d<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'script'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+         script<span class="token punctuation">.</span><span class="token function">setAttribute</span><span class="token punctuation">(</span><span class="token string">'src'</span><span class="token punctuation">,</span> url<span class="token punctuation">)</span><span class="token punctuation">;</span>
+         script<span class="token punctuation">.</span><span class="token function">setAttribute</span><span class="token punctuation">(</span><span class="token string">'type'</span><span class="token punctuation">,</span> <span class="token string">'text/javascript'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+         <span class="token keyword">var</span> loaded <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+         <span class="token keyword">var</span> loadFunction <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+             <span class="token keyword">if</span> <span class="token punctuation">(</span>loaded<span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+             loaded <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+             cb <span class="token operator">&amp;</span>amp<span class="token punctuation">;</span><span class="token operator">&amp;</span>amp<span class="token punctuation">;</span> <span class="token function">cb</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token punctuation">}</span><span class="token punctuation">;</span>
+         script<span class="token punctuation">.</span>onload <span class="token operator">=</span> loadFunction<span class="token punctuation">;</span>
+         script<span class="token punctuation">.</span>onreadystatechange <span class="token operator">=</span> loadFunction<span class="token punctuation">;</span>
+         head<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>script<span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+     <span class="token keyword">var</span> cachedBrowser<span class="token punctuation">;</span>
+
+     <span class="token keyword">var</span> browser <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+         <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>cachedBrowser<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+             <span class="token keyword">var</span> ua <span class="token operator">=</span> navigator<span class="token punctuation">.</span>userAgent<span class="token punctuation">.</span><span class="token function">toLowerCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+             <span class="token keyword">var</span> match <span class="token operator">=</span> <span class="token regex">/(webkit)[ \/]([\w.]+)/</span><span class="token punctuation">.</span><span class="token function">exec</span><span class="token punctuation">(</span>ua<span class="token punctuation">)</span> <span class="token operator">||</span>
+                <span class="token regex">/(opera)(?:.*version)?[ \/]([\w.]+)/</span><span class="token punctuation">.</span><span class="token function">exec</span><span class="token punctuation">(</span>ua<span class="token punctuation">)</span> <span class="token operator">||</span>
+                <span class="token regex">/(msie) ([\w.]+)/</span><span class="token punctuation">.</span><span class="token function">exec</span><span class="token punctuation">(</span>ua<span class="token punctuation">)</span> <span class="token operator">||</span>
+                <span class="token operator">!</span><span class="token regex">/compatible/</span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>ua<span class="token punctuation">)</span> <span class="token operator">&amp;</span>amp<span class="token punctuation">;</span><span class="token operator">&amp;</span>amp<span class="token punctuation">;</span> <span class="token regex">/(mozilla)(?:.*? rv:([\w.]+))?/</span><span class="token punctuation">.</span><span class="token function">exec</span><span class="token punctuation">(</span>ua<span class="token punctuation">)</span> <span class="token operator">||</span>
+                <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+             cachedBrowser <span class="token operator">=</span> match<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+         <span class="token punctuation">}</span>
+         <span class="token keyword">return</span> cachedBrowser<span class="token punctuation">;</span>
+     <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+     <span class="token keyword">var</span> loadCss <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>url<span class="token punctuation">,</span> cb<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+         <span class="token keyword">var</span> link <span class="token operator">=</span> d<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">"link"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+         link<span class="token punctuation">.</span>type <span class="token operator">=</span> <span class="token string">"text/css"</span><span class="token punctuation">;</span>
+         link<span class="token punctuation">.</span>rel <span class="token operator">=</span> <span class="token string">"stylesheet"</span><span class="token punctuation">;</span>
+         link<span class="token punctuation">.</span>href <span class="token operator">=</span> url<span class="token punctuation">;</span>
+
+         <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">browser</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token string">"msie"</span><span class="token punctuation">)</span>
+             link<span class="token punctuation">.</span>onreadystatechange <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                 <span class="token regex">/loaded|complete/</span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>link<span class="token punctuation">.</span>readyState<span class="token punctuation">)</span> <span class="token operator">&amp;</span>amp<span class="token punctuation">;</span><span class="token operator">&amp;</span>amp<span class="token punctuation">;</span> <span class="token function">cb</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+             <span class="token punctuation">}</span>
+         <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">browser</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token string">"opera"</span><span class="token punctuation">)</span>
+             link<span class="token punctuation">.</span>onload <span class="token operator">=</span> cb<span class="token punctuation">;</span>
+         <span class="token keyword">else</span>
+         <span class="token comment" spellcheck="true">//FF, Safari, Chrome</span>
+             <span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                 <span class="token keyword">try</span> <span class="token punctuation">{</span>
+                     link<span class="token punctuation">.</span>sheet<span class="token punctuation">.</span>cssRule<span class="token punctuation">;</span>
+                 <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">e</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                     <span class="token function">setTimeout</span><span class="token punctuation">(</span>arguments<span class="token punctuation">.</span>callee<span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                     <span class="token keyword">return</span><span class="token punctuation">;</span>
+                 <span class="token punctuation">}</span><span class="token punctuation">;</span>
+                 <span class="token function">cb</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+             <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+         head<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>link<span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+     <span class="token keyword">return</span> <span class="token punctuation">{</span> loadCss<span class="token punctuation">:</span> loadCss<span class="token punctuation">,</span> loadJs<span class="token punctuation">:</span> loadJs <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+ <span class="token punctuation">}</span> <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+ <span class="token keyword">function</span> <span class="token function">PageLet</span><span class="token punctuation">(</span>p<span class="token punctuation">,</span> domInserted<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+     <span class="token keyword">var</span> data <span class="token operator">=</span> p<span class="token punctuation">,</span>
+        remainingCss <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+     <span class="token keyword">var</span> loadCss <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+         <span class="token comment" spellcheck="true">//load css</span>
+         <span class="token keyword">if</span> <span class="token punctuation">(</span>data<span class="token punctuation">.</span>Css <span class="token operator">&amp;</span>amp<span class="token punctuation">;</span><span class="token operator">&amp;</span>amp<span class="token punctuation">;</span> data<span class="token punctuation">.</span>Css<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+             remainingCss <span class="token operator">=</span> data<span class="token punctuation">.</span>Css<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+             <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> remainingCss<span class="token punctuation">;</span> i<span class="token operator">--</span><span class="token punctuation">;</span> <span class="token punctuation">)</span>
+                 Loader<span class="token punctuation">.</span><span class="token function">loadCss</span><span class="token punctuation">(</span>data<span class="token punctuation">.</span>Css<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                     <span class="token operator">!</span> <span class="token operator">--</span>remainingCss <span class="token operator">&amp;</span>amp<span class="token punctuation">;</span><span class="token operator">&amp;</span>amp<span class="token punctuation">;</span> <span class="token function">insertDom</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token punctuation">}</span>
+         <span class="token keyword">else</span>
+             <span class="token function">insertDom</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token punctuation">}</span>
+
+     <span class="token keyword">var</span> insertDom <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+         document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span>p<span class="token punctuation">.</span>Id<span class="token punctuation">)</span><span class="token punctuation">.</span>innerHTML <span class="token operator">=</span> p<span class="token punctuation">.</span>Content<span class="token punctuation">;</span>
+         <span class="token function">domInserted</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token punctuation">}</span>
+
+     <span class="token keyword">var</span> loadJs <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+         <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>data<span class="token punctuation">.</span>Js<span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+         <span class="token comment" spellcheck="true">//load js</span>
+         <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> data<span class="token punctuation">.</span>Js<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+             Loader<span class="token punctuation">.</span><span class="token function">loadJs</span><span class="token punctuation">(</span>data<span class="token punctuation">.</span>Js<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token punctuation">}</span>
+
+     <span class="token keyword">return</span> <span class="token punctuation">{</span> loadCss<span class="token punctuation">:</span> loadCss<span class="token punctuation">,</span> loadJs<span class="token punctuation">:</span> loadJs <span class="token punctuation">}</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span>
+
+ <span class="token keyword">var</span> BigPipe <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>count<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+     <span class="token keyword">var</span> d <span class="token operator">=</span> document<span class="token punctuation">,</span>
+        pagelets <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>         <span class="token comment" spellcheck="true">/* registered pagelets */</span>
+
+     <span class="token keyword">var</span> onPageletArrive <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>p<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+         count <span class="token operator">=</span> count <span class="token operator">||</span> p<span class="token punctuation">.</span>count<span class="token punctuation">;</span>
+         <span class="token keyword">var</span> pagelet <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">PageLet</span><span class="token punctuation">(</span>p<span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+             <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span> <span class="token operator">--</span>count<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                 <span class="token comment" spellcheck="true">//load js</span>
+                 <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> pagelets<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+                     pagelets<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">loadJs</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+             <span class="token punctuation">}</span>
+         <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+         pagelets<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>pagelet<span class="token punctuation">)</span><span class="token punctuation">;</span>
+         pagelet<span class="token punctuation">.</span><span class="token function">loadCss</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+     <span class="token keyword">return</span> <span class="token punctuation">{</span> onPageletArrive<span class="token punctuation">:</span> onPageletArrive <span class="token punctuation">}</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+</code></pre><p>Once minimized using Google Closure, the size is 1.27KB (666 bytes gzipped), so we have a very small script that fits our requirements.</p><h2 id="Resources-chart"><a href="#Resources-chart" class="headerlink" title="Resources chart"></a>Resources chart</h2><p>The following chart shows how resources are loaded: <p><amp-img src="/assets/images/posts/bigpipe-02.jpg" width="677" height="760" layout="responsive"></amp-img></p></p><p>We can see that the main document flushes early, starting the requests for Site.css and BigPipe.js, which are in the head section of our view. When pagelets are executed (I have set a Thread.Sleep in both pagelets) their CSS resources are requested and only after they have been appended to the document their Javascript resources are downloaded and executed.</p><h2 id="Further-improvements"><a href="#Further-improvements" class="headerlink" title="Further improvements"></a>Further improvements</h2><p>There are a lot of points that can be improved. I have thought of several of them, what could lead to a more complex solution that can provide BigPipe to ASP.Net MVC in a not so experimental way.</p><h3 id="Fire-event-before-starting-loading-js-for-pagelets"><a href="#Fire-event-before-starting-loading-js-for-pagelets" class="headerlink" title="Fire event before starting loading js for pagelets"></a>Fire event before starting loading js for pagelets</h3><p>Scripts that are needed by the page but do not need to be loaded before executing pagelets can be delayed and be requested when the pagelets’ scripts are.</p><h3 id="Manage-dependencies-between-scripts"><a href="#Manage-dependencies-between-scripts" class="headerlink" title="Manage dependencies between scripts"></a>Manage dependencies between scripts</h3><p>As Facebook does, it can be a good idea to incorporate dependencies solving logic to request and execute JavaScript resources in the best order.</p><p>Avoid double insertion. If two pagelets require the same script, it is only necessary to request once.</p><h3 id="Manage-pagelets-resources-in-a-unique-place"><a href="#Manage-pagelets-resources-in-a-unique-place" class="headerlink" title="Manage pagelets resources in a unique place"></a>Manage pagelets resources in a unique place</h3><p>In my solution, pagelets’ resources are specified in the view that is including them. If we decide to change the implementation of a pagelet and now we need a different set of resources (i.e. an extra JS resource)</p><h2 id="Drawbacks-of-this-implementation"><a href="#Drawbacks-of-this-implementation" class="headerlink" title="Drawbacks of this implementation"></a>Drawbacks of this implementation</h2><p>At first I see a performance problem when the browser does not support Javascript. As we are registering pagelets as PartialViews rendered inside the body ContentPlaceHolder, we have no way to include CSS resources back to the head section, since it has already been generated. So we have to include the CSS link elements inside the body, blocking renderization.</p><p>The good thing is that we save bytes not writing script elements when we detect the browser has JavaScript disabled.</p>
 			  	</div>
 
 		  	</article>

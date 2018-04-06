@@ -538,77 +538,125 @@ footer {
 
 /* SYNTAX HIGHLIGHTING */
 
-.highlight {
-    border: 1px solid #eee;
-    margin-bottom: 1em;
-    overflow-x: auto;
+code[class*="language-"],
+pre[class*="language-"] {
+    color: #393A34;
+    font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
+    direction: ltr;
+    text-align: left;
+    white-space: pre-wrap;
+    word-spacing: normal;
+    word-break: normal;
+    font-size: 0.85em;
+    line-height: 1.2em;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
 }
 
-.code {
-    background:white;
-    color:#333333;
-    display: block;
-    letter-spacing: 0;
-    overflow-x: auto;
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+    background: #b3d4fc;
 }
 
-.code .comment,
-.code .meta {
-    color:#969896;
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
+code[class*="language-"]::selection, code[class*="language-"] ::selection {
+    background: #b3d4fc;
 }
 
-.code .string,
-.code .variable,
-.code .template-variable,
-.code .strong,
-.code .emphasis,
-.code .quote {
-    color:#df5000;
+/* Code blocks */
+pre[class*="language-"] {
+    padding: 1em;
+    margin: .5em 0;
+    overflow: auto;
+    border: 1px solid #dddddd;
+    background-color: white;
 }
 
-.code .keyword,
-.code .selector-tag,
-.code .type {
-    color:#a71d5d;
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
 }
 
-.code .literal,
-.code .symbol,
-.code .bullet,
-.code .attribute {
-    color:#0086b3;
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+    padding: .2em;
+    padding-top: 1px; padding-bottom: 1px;
+    background: #f8f8f8;
+    border: 1px solid #dddddd;
 }
 
-.code .section,
-.code .name {
-    color:#63a35c;
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+    color: #999988; font-style: italic;
 }
 
-.code .tag {
-    color:#333333;
+.token.namespace {
+    opacity: .7;
 }
 
-.code .title,
-.code .attr,
-.code .selector-id,
-.code .selector-class,
-.code .selector-attr,
-.code .selector-pseudo {
-    color:#795da3;
+.token.string,
+.token.attr-value {
+    color: #e3116c;
+}
+.token.punctuation,
+.token.operator {
+    color: #393A34; /* no highlight */
 }
 
-.code .addition {
-    background-color:#eaffea;
-    color:#55a532;
+.token.entity,
+.token.url,
+.token.symbol,
+.token.number,
+.token.boolean,
+.token.variable,
+.token.constant,
+.token.property,
+.token.regex,
+.token.inserted {
+    color: #005cc5;
 }
 
-.code .deletion {
-    background-color:#ffecec;
-    color:#bd2c00;
+.token.keyword {
+    color: #d73a49;
 }
 
-.code .link {
-    text-decoration: underline;
+.token.atrule,
+.token.attr-name {
+    color: #6f42c1;
+}
+
+.token.function,
+.token.deleted {
+    color: #6f42c1;
+}
+
+.token.selector {
+    color: #00009f;
+}
+
+.token.tag {
+    color: #22863a;
+}
+
+.token.class-name {
+    color: #6f42c1;
+}
+
+.token.important,
+.token.bold {
+    font-weight: bold;
+}
+
+.token.italic {
+    font-style: italic;
 }
 
 .code-wrap pre {
@@ -716,7 +764,121 @@ footer {
 
 				<!-- entry content -->
 			    <div class="entry-content ecp">
-			  		<p>While helping in the redesign of Signum’s website I took a look at Google Maps. It’s been almost 2 years since I last used the API for my end career project.</p><p>Now I wanted to know if I could make use of geolocalization and directions to show a visitor the way to get to our headquarters from wherever he/she is, instead of just showing with a marker where we are. Thanks to geolocation we can find out with precision the position coordinates of the visitor. <a href="/assets/images/posts/google-maps-geolocation-directions.jpg"><p><amp-img src="/assets/images/posts/google-maps-geolocation-directions-300x187.jpg" width="300" height="187" layout="responsive"></amp-img></p></a> <a href="/demos/geoposition">View demo</a></p><a id="more"></a><p>The code makes use of HTML5 and Google geolocation services, as well as the new Google Maps API v3.</p><p>Some time ago I would have done this (in fact in the project I did this way) querying an IP address to Location database to get the position, having to update data almost every month, as IP addresses were reassigned.</p><p>Now you can get it done by using HTML5 geolocation feature primarily an then use an alternative service as a fallback in case the browser does not support HTML5 or it throws an error when getting the location.</p><p>Here is the JS code (also as <a href="https://gist.github.com/4587682" target="_blank" rel="noopener">a Gist on Github</a>). To see a complete working sample <a href="/demos/geoposition">visit the demo</a>:</p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="meta">  'use strict'</span>;</span><br><span class="line">  <span class="keyword">var</span> map, <span class="comment">//the google map</span></span><br><span class="line">  directionsService, <span class="comment">//service that provides directions to reach our destination</span></span><br><span class="line">  directionsDisplay, <span class="comment">//renderer that draws directions on map</span></span><br><span class="line">  destinationName = <span class="string">'Ventorro del Cano, Madrid'</span>; <span class="comment">//our destination. Set yours!</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// providers</span></span><br><span class="line">  <span class="keyword">var</span> html5Provider = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="string">'type'</span>: <span class="string">'HTML5'</span>,</span><br><span class="line">      <span class="string">'getPosition'</span>: <span class="function"><span class="keyword">function</span>(<span class="params">onSuccess, onError</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (navigator.geolocation) &#123;</span><br><span class="line">          navigator.geolocation.getCurrentPosition(<span class="function"><span class="keyword">function</span>(<span class="params">position</span>) </span>&#123;</span><br><span class="line">            onSuccess(&#123;</span><br><span class="line">              <span class="string">'lat'</span>: position.coords.latitude,</span><br><span class="line">              <span class="string">'lng'</span>: position.coords.longitude</span><br><span class="line">            &#125;);</span><br><span class="line">          &#125;, <span class="function"><span class="keyword">function</span>(<span class="params">error</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">switch</span> (error.code) &#123;</span><br><span class="line">              <span class="keyword">case</span> error.TIMEOUT:</span><br><span class="line">                onError(<span class="string">'Timeout'</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">              <span class="keyword">case</span> error.POSITION_UNAVAILABLE:</span><br><span class="line">                onError(<span class="string">'Position unavailable'</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">              <span class="keyword">case</span> error.PERMISSION_DENIED:</span><br><span class="line">                onError(<span class="string">'Permission denied'</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">              <span class="keyword">case</span> error.UNKNOWN_ERROR:</span><br><span class="line">                onError(<span class="string">'Unknown error'</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          onError(<span class="string">'HTML5 navigator is not supported'</span>);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// have a look at this StackOverflow thread, since it seems Google Geocoder is no longer active</span></span><br><span class="line">  <span class="comment">// http://stackoverflow.com/questions/14195837/is-google-loader-clientlocation-still-supported</span></span><br><span class="line">  <span class="keyword">var</span> googleGeocoderProvider = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="string">'type'</span>: <span class="string">'Google Geocoder'</span>,</span><br><span class="line">      <span class="string">'getPosition'</span>: <span class="function"><span class="keyword">function</span>(<span class="params">onSuccess, onError</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> google === <span class="string">'object'</span>) &#123;</span><br><span class="line">          <span class="keyword">var</span> location = google.loader.ClientLocation;</span><br><span class="line">          <span class="keyword">if</span> (location) &#123;</span><br><span class="line">            onSuccess(&#123;</span><br><span class="line">              <span class="string">'lat'</span>: location.latitude,</span><br><span class="line">              <span class="string">'lng'</span>: location.longitude</span><br><span class="line">            &#125;);</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            onError(<span class="string">'Google Geocoder was unable to get the client position'</span>);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// register providers</span></span><br><span class="line">  <span class="keyword">var</span> providers = [html5Provider, googleGeocoderProvider];</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">init</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> i = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">testProvider</span>(<span class="params">i</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">var</span> provider = providers[i]();</span><br><span class="line">      provider.getPosition(<span class="function"><span class="keyword">function</span>(<span class="params">position</span>) </span>&#123;</span><br><span class="line">        showMapAndRoute(provider.type, position);</span><br><span class="line">      &#125;, <span class="function"><span class="keyword">function</span>(<span class="params">error</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.error(error);</span><br><span class="line">        i++;</span><br><span class="line">        <span class="keyword">if</span> (i &amp;lt; providers.length) &#123;</span><br><span class="line">          testProvider(i);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    testProvider(i);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">showMapAndRoute</span>(<span class="params">method, coordinates</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">document</span>.getElementById(<span class="string">'method'</span>).innerHTML = <span class="string">'Location obtained using '</span> + method;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> myOptions = &#123;</span><br><span class="line">      zoom: <span class="number">8</span>,</span><br><span class="line">      mapTypeId: google.maps.MapTypeId.ROADMAP</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    map = <span class="keyword">new</span> google.maps.Map(<span class="built_in">document</span>.getElementById(<span class="string">'map'</span>), myOptions);</span><br><span class="line">    directionsDisplay = <span class="keyword">new</span> google.maps.DirectionsRenderer();</span><br><span class="line">    directionsDisplay.setMap(map);</span><br><span class="line">    directionsDisplay.setPanel(<span class="built_in">document</span>.getElementById(<span class="string">'route'</span>));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> request = &#123;</span><br><span class="line">      origin: coordinates.lat + <span class="string">','</span> + coordinates.lng,</span><br><span class="line">      destination: destinationName,</span><br><span class="line">      travelMode: google.maps.DirectionsTravelMode.DRIVING</span><br><span class="line">    &#125;;</span><br><span class="line">    directionsService = <span class="keyword">new</span> google.maps.DirectionsService();</span><br><span class="line">    directionsService.route(request, <span class="function"><span class="keyword">function</span>(<span class="params">result, status</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (status === google.maps.DirectionsStatus.OK) &#123;</span><br><span class="line">        directionsDisplay.setDirections(result);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    init();</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure><p>The code is mostly self-explanatory. We need to show the map, obtain the visitor’s position, ask for the directions and render them over the map. You can easily add more geolocation providers, and run them by priority changing they order in the providers array.</p><p>In my tests I have seen that I get <em>null</em> when checking <code>google.loader.ClientLocation</code>. It means that Google couldn’t retrieve a position to the IP that it has detected, so in this case the fallback can fail some times (maybe we should use a second fallback?).</p>
+			  		<p>While helping in the redesign of Signum’s website I took a look at Google Maps. It’s been almost 2 years since I last used the API for my end career project.</p><p>Now I wanted to know if I could make use of geolocalization and directions to show a visitor the way to get to our headquarters from wherever he/she is, instead of just showing with a marker where we are. Thanks to geolocation we can find out with precision the position coordinates of the visitor. <a href="/assets/images/posts/google-maps-geolocation-directions.jpg"><p><amp-img src="/assets/images/posts/google-maps-geolocation-directions-300x187.jpg" width="300" height="187" layout="responsive"></amp-img></p></a> <a href="/demos/geoposition">View demo</a></p><a id="more"></a><p>The code makes use of HTML5 and Google geolocation services, as well as the new Google Maps API v3.</p><p>Some time ago I would have done this (in fact in the project I did this way) querying an IP address to Location database to get the position, having to update data almost every month, as IP addresses were reassigned.</p><p>Now you can get it done by using HTML5 geolocation feature primarily an then use an alternative service as a fallback in case the browser does not support HTML5 or it throws an error when getting the location.</p><p>Here is the JS code (also as <a href="https://gist.github.com/4587682" target="_blank" rel="noopener">a Gist on Github</a>). To see a complete working sample <a href="/demos/geoposition">visit the demo</a>:</p><pre class=" language-js"><code class="language-js"><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token string">'use strict'</span><span class="token punctuation">;</span>
+  <span class="token keyword">var</span> map<span class="token punctuation">,</span> <span class="token comment" spellcheck="true">//the google map</span>
+  directionsService<span class="token punctuation">,</span> <span class="token comment" spellcheck="true">//service that provides directions to reach our destination</span>
+  directionsDisplay<span class="token punctuation">,</span> <span class="token comment" spellcheck="true">//renderer that draws directions on map</span>
+  destinationName <span class="token operator">=</span> <span class="token string">'Ventorro del Cano, Madrid'</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//our destination. Set yours!</span>
+
+  <span class="token comment" spellcheck="true">// providers</span>
+  <span class="token keyword">var</span> html5Provider <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+      <span class="token string">'type'</span><span class="token punctuation">:</span> <span class="token string">'HTML5'</span><span class="token punctuation">,</span>
+      <span class="token string">'getPosition'</span><span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span>onSuccess<span class="token punctuation">,</span> onError<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>navigator<span class="token punctuation">.</span>geolocation<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          navigator<span class="token punctuation">.</span>geolocation<span class="token punctuation">.</span><span class="token function">getCurrentPosition</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>position<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token function">onSuccess</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+              <span class="token string">'lat'</span><span class="token punctuation">:</span> position<span class="token punctuation">.</span>coords<span class="token punctuation">.</span>latitude<span class="token punctuation">,</span>
+              <span class="token string">'lng'</span><span class="token punctuation">:</span> position<span class="token punctuation">.</span>coords<span class="token punctuation">.</span>longitude
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>error<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">switch</span> <span class="token punctuation">(</span>error<span class="token punctuation">.</span>code<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+              <span class="token keyword">case</span> error<span class="token punctuation">.</span>TIMEOUT<span class="token punctuation">:</span>
+                <span class="token function">onError</span><span class="token punctuation">(</span><span class="token string">'Timeout'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>
+              <span class="token keyword">case</span> error<span class="token punctuation">.</span>POSITION_UNAVAILABLE<span class="token punctuation">:</span>
+                <span class="token function">onError</span><span class="token punctuation">(</span><span class="token string">'Position unavailable'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>
+              <span class="token keyword">case</span> error<span class="token punctuation">.</span>PERMISSION_DENIED<span class="token punctuation">:</span>
+                <span class="token function">onError</span><span class="token punctuation">(</span><span class="token string">'Permission denied'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>
+              <span class="token keyword">case</span> error<span class="token punctuation">.</span>UNKNOWN_ERROR<span class="token punctuation">:</span>
+                <span class="token function">onError</span><span class="token punctuation">(</span><span class="token string">'Unknown error'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+          <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+          <span class="token function">onError</span><span class="token punctuation">(</span><span class="token string">'HTML5 navigator is not supported'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+  <span class="token comment" spellcheck="true">// have a look at this StackOverflow thread, since it seems Google Geocoder is no longer active</span>
+  <span class="token comment" spellcheck="true">// http://stackoverflow.com/questions/14195837/is-google-loader-clientlocation-still-supported</span>
+  <span class="token keyword">var</span> googleGeocoderProvider <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+      <span class="token string">'type'</span><span class="token punctuation">:</span> <span class="token string">'Google Geocoder'</span><span class="token punctuation">,</span>
+      <span class="token string">'getPosition'</span><span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span>onSuccess<span class="token punctuation">,</span> onError<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span> google <span class="token operator">===</span> <span class="token string">'object'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">var</span> location <span class="token operator">=</span> google<span class="token punctuation">.</span>loader<span class="token punctuation">.</span>ClientLocation<span class="token punctuation">;</span>
+          <span class="token keyword">if</span> <span class="token punctuation">(</span>location<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token function">onSuccess</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+              <span class="token string">'lat'</span><span class="token punctuation">:</span> location<span class="token punctuation">.</span>latitude<span class="token punctuation">,</span>
+              <span class="token string">'lng'</span><span class="token punctuation">:</span> location<span class="token punctuation">.</span>longitude
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token function">onError</span><span class="token punctuation">(</span><span class="token string">'Google Geocoder was unable to get the client position'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+  <span class="token comment" spellcheck="true">// register providers</span>
+  <span class="token keyword">var</span> providers <span class="token operator">=</span> <span class="token punctuation">[</span>html5Provider<span class="token punctuation">,</span> googleGeocoderProvider<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">function</span> <span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">function</span> <span class="token function">testProvider</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">var</span> provider <span class="token operator">=</span> providers<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      provider<span class="token punctuation">.</span><span class="token function">getPosition</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>position<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">showMapAndRoute</span><span class="token punctuation">(</span>provider<span class="token punctuation">.</span>type<span class="token punctuation">,</span> position<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>error<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>error<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        i<span class="token operator">++</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">&amp;</span>lt<span class="token punctuation">;</span> providers<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token function">testProvider</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token function">testProvider</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">function</span> <span class="token function">showMapAndRoute</span><span class="token punctuation">(</span>method<span class="token punctuation">,</span> coordinates<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'method'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>innerHTML <span class="token operator">=</span> <span class="token string">'Location obtained using '</span> <span class="token operator">+</span> method<span class="token punctuation">;</span>
+
+    <span class="token keyword">var</span> myOptions <span class="token operator">=</span> <span class="token punctuation">{</span>
+      zoom<span class="token punctuation">:</span> <span class="token number">8</span><span class="token punctuation">,</span>
+      mapTypeId<span class="token punctuation">:</span> google<span class="token punctuation">.</span>maps<span class="token punctuation">.</span>MapTypeId<span class="token punctuation">.</span>ROADMAP
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+    map <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">google<span class="token punctuation">.</span>maps<span class="token punctuation">.</span>Map</span><span class="token punctuation">(</span>document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'map'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> myOptions<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    directionsDisplay <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">google<span class="token punctuation">.</span>maps<span class="token punctuation">.</span>DirectionsRenderer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    directionsDisplay<span class="token punctuation">.</span><span class="token function">setMap</span><span class="token punctuation">(</span>map<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    directionsDisplay<span class="token punctuation">.</span><span class="token function">setPanel</span><span class="token punctuation">(</span>document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'route'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">var</span> request <span class="token operator">=</span> <span class="token punctuation">{</span>
+      origin<span class="token punctuation">:</span> coordinates<span class="token punctuation">.</span>lat <span class="token operator">+</span> <span class="token string">','</span> <span class="token operator">+</span> coordinates<span class="token punctuation">.</span>lng<span class="token punctuation">,</span>
+      destination<span class="token punctuation">:</span> destinationName<span class="token punctuation">,</span>
+      travelMode<span class="token punctuation">:</span> google<span class="token punctuation">.</span>maps<span class="token punctuation">.</span>DirectionsTravelMode<span class="token punctuation">.</span>DRIVING
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    directionsService <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">google<span class="token punctuation">.</span>maps<span class="token punctuation">.</span>DirectionsService</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    directionsService<span class="token punctuation">.</span><span class="token function">route</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>result<span class="token punctuation">,</span> status<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>status <span class="token operator">===</span> google<span class="token punctuation">.</span>maps<span class="token punctuation">.</span>DirectionsStatus<span class="token punctuation">.</span>OK<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        directionsDisplay<span class="token punctuation">.</span><span class="token function">setDirections</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  window<span class="token punctuation">.</span>onload <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre><p>The code is mostly self-explanatory. We need to show the map, obtain the visitor’s position, ask for the directions and render them over the map. You can easily add more geolocation providers, and run them by priority changing they order in the providers array.</p><p>In my tests I have seen that I get <em>null</em> when checking <code>google.loader.ClientLocation</code>. It means that Google couldn’t retrieve a position to the IP that it has detected, so in this case the fallback can fail some times (maybe we should use a second fallback?).</p>
 			  	</div>
 
 		  	</article>
