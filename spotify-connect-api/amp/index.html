@@ -1,12 +1,12 @@
 <!doctype html>
-<html ⚡>
+<html ⚡="">
   <head>
     <meta charset="utf-8">
-    <link rel="canonical" href="https://jmperezperez.com/spotify-connect-api/" >
+    <link rel="canonical" href="https://jmperezperez.com/spotify-connect-api/">
     <title>Playing with the Spotify Connect API - Web development, performance, and some other good practices.</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
-    <noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <style amp-boilerplate="">body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
+    <noscript><style amp-boilerplate="">body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
     
     <script async custom-element="amp-youtube" src="https://cdn.ampproject.org/v0/amp-youtube-0.1.js"></script>
     
@@ -57,7 +57,7 @@
 			}
 		}
 	</script>
-	<style amp-custom>
+	<style amp-custom="">
 		
 			/*--RESET--*/
 * {
@@ -747,13 +747,13 @@ pre[class*="language-"] {
           <div class="img">
             <a href="/about-me/">
               <amp-img src="/assets/images/jmperez.jpg" class="avatar-img" alt="" height="53" width="53">
-            </a>
+            </amp-img></a>
           </div>
           <div class="bd">
-            <address class="name" itemprop="author" itemscope itemtype="https://schema.org/Person"><a href="/about-me/" itemprop="name">José M. Pérez</a></address>
+            <address class="name" itemprop="author" itemscope="" itemtype="https://schema.org/Person"><a href="/about-me/" itemprop="name">Jos&#xE9; M. P&#xE9;rez</a></address>
             <meta class="post-data" itemprop="datePublished" content="2017-04-21T20:10:00.000Z">
               April 21 2017
-            </meta>
+            
           </div>
         </div>
 
@@ -772,14 +772,14 @@ pre[class*="language-"] {
 </code></pre><pre class=" language-js"><code class="language-js"><span class="token keyword">var</span> spotifyPlayer <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SpotifyPlayer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 spotifyPlayer<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">&apos;update&apos;</span><span class="token punctuation">,</span> response <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
-  <span class="token comment" spellcheck="true">// render the track received</span>
+  <span class="token comment">// render the track received</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 spotifyPlayer<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">&apos;login&apos;</span><span class="token punctuation">,</span> user <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
   <span class="token keyword">if</span> <span class="token punctuation">(</span>user <span class="token operator">===</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">// no user</span>
+    <span class="token comment">// no user</span>
   <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">// say hello to the user, and tell them to play something!</span>
+    <span class="token comment">// say hello to the user, and tell them to play something!</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
@@ -793,7 +793,7 @@ spotifyPlayer<span class="token punctuation">.</span><span class="token function
 		</div>
     <footer>
         <section class="links">
-            <a href="https://twitter.com/jmperezperez">@jmperezperez</a> on Twitter · <a href="https://github.com/JMPerez">GitHub</a> · <a href="http://www.linkedin.com/in/jmperezperez">LinkedIn</a>
+            <a href="https://twitter.com/jmperezperez">@jmperezperez</a> on Twitter &#xB7; <a href="https://github.com/JMPerez">GitHub</a> &#xB7; <a href="http://www.linkedin.com/in/jmperezperez">LinkedIn</a>
         </section>
     </footer>
 

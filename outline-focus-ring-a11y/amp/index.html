@@ -1,12 +1,12 @@
 <!doctype html>
-<html ⚡>
+<html ⚡="">
   <head>
     <meta charset="utf-8">
-    <link rel="canonical" href="https://jmperezperez.com/outline-focus-ring-a11y/" >
+    <link rel="canonical" href="https://jmperezperez.com/outline-focus-ring-a11y/">
     <title>Hiding the outline or :focus ring in an accessible way - Web development, performance, and some other good practices.</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
-    <noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <style amp-boilerplate="">body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
+    <noscript><style amp-boilerplate="">body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
     
     <script async custom-element="amp-video" src="https://cdn.ampproject.org/v0/amp-video-0.1.js"></script>
     
@@ -55,7 +55,7 @@
 			}
 		}
 	</script>
-	<style amp-custom>
+	<style amp-custom="">
 		
 			/*--RESET--*/
 * {
@@ -745,13 +745,13 @@ pre[class*="language-"] {
           <div class="img">
             <a href="/about-me/">
               <amp-img src="/assets/images/jmperez.jpg" class="avatar-img" alt="" height="53" width="53">
-            </a>
+            </amp-img></a>
           </div>
           <div class="bd">
-            <address class="name" itemprop="author" itemscope itemtype="https://schema.org/Person"><a href="/about-me/" itemprop="name">José M. Pérez</a></address>
+            <address class="name" itemprop="author" itemscope="" itemtype="https://schema.org/Person"><a href="/about-me/" itemprop="name">Jos&#xE9; M. P&#xE9;rez</a></address>
             <meta class="post-data" itemprop="datePublished" content="2017-08-14T15:50:00.000Z">
               August 14 2017
-            </meta>
+            
           </div>
         </div>
 
@@ -770,20 +770,20 @@ pre[class*="language-"] {
 <span class="token class">.no-focus-outline</span> button<span class="token pseudo-class">:focus</span> </span><span class="token punctuation">{</span>
   <span class="token property">outline</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</code></pre><p><strong>JS</strong></p><pre class=" language-js"><code class="language-js"><span class="token comment" spellcheck="true">// Listen to tab events to enable outlines (accessibility improvement)</span>
+</code></pre><p><strong>JS</strong></p><pre class=" language-js"><code class="language-js"><span class="token comment">// Listen to tab events to enable outlines (accessibility improvement)</span>
 document<span class="token punctuation">.</span>body<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">&apos;keyup&apos;</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token keyword">if</span> <span class="token punctuation">(</span>e<span class="token punctuation">.</span>which <span class="token operator">===</span> <span class="token number">9</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">/* tab */</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>e<span class="token punctuation">.</span>which <span class="token operator">===</span> <span class="token number">9</span><span class="token punctuation">)</span> <span class="token comment">/* tab */</span> <span class="token punctuation">{</span>
     document<span class="token punctuation">.</span>documentElement<span class="token punctuation">.</span>classList<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span><span class="token string">&apos;no-focus-outline&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-</code></pre><p>And a video showing what it looks like when tabbing:</p><div id="hexo-amp-id-1"   ><amp-video width="320" height="560" controls src="https://res.cloudinary.com/jmperez/video/upload/v1510495843/css-outline-focus_olx6zh.mp4" layout="responsive"></amp-video></div><p>Some additional a11y improvements are that I apply the same effect on hover and on focus, like when going through the &#x201C;More by &#x2026;&#x201D; albums section. Last, but not least, the track row acts as a button to start the playback.</p><p>These are some small touches that very few people will realise, but are not difficult to implement and can have a very positive impact for some users.</p>
+</code></pre><p>And a video showing what it looks like when tabbing:</p><div id="hexo-amp-id-1"><amp-video width="320" height="560" controls src="https://res.cloudinary.com/jmperez/video/upload/v1510495843/css-outline-focus_olx6zh.mp4" layout="responsive"></amp-video></div><p>Some additional a11y improvements are that I apply the same effect on hover and on focus, like when going through the &#x201C;More by &#x2026;&#x201D; albums section. Last, but not least, the track row acts as a button to start the playback.</p><p>These are some small touches that very few people will realise, but are not difficult to implement and can have a very positive impact for some users.</p>
 			  	</div>
 
 		  	</article>
 		</div>
     <footer>
         <section class="links">
-            <a href="https://twitter.com/jmperezperez">@jmperezperez</a> on Twitter · <a href="https://github.com/JMPerez">GitHub</a> · <a href="http://www.linkedin.com/in/jmperezperez">LinkedIn</a>
+            <a href="https://twitter.com/jmperezperez">@jmperezperez</a> on Twitter &#xB7; <a href="https://github.com/JMPerez">GitHub</a> &#xB7; <a href="http://www.linkedin.com/in/jmperezperez">LinkedIn</a>
         </section>
     </footer>
 

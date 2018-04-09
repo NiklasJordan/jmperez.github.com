@@ -1,12 +1,12 @@
 <!doctype html>
-<html ⚡>
+<html ⚡="">
   <head>
     <meta charset="utf-8">
-    <link rel="canonical" href="https://jmperezperez.com/gulp-js/" >
+    <link rel="canonical" href="https://jmperezperez.com/gulp-js/">
     <title>Gulp.js, an alternative to Grunt.js - Web development, performance, and some other good practices.</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
-    <noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <style amp-boilerplate="">body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
+    <noscript><style amp-boilerplate="">body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
     
     <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
     
@@ -53,7 +53,7 @@
 			}
 		}
 	</script>
-	<style amp-custom>
+	<style amp-custom="">
 		
 			/*--RESET--*/
 * {
@@ -743,13 +743,13 @@ pre[class*="language-"] {
           <div class="img">
             <a href="/about-me/">
               <amp-img src="/assets/images/jmperez.jpg" class="avatar-img" alt="" height="53" width="53">
-            </a>
+            </amp-img></a>
           </div>
           <div class="bd">
-            <address class="name" itemprop="author" itemscope itemtype="https://schema.org/Person"><a href="/about-me/" itemprop="name">José M. Pérez</a></address>
+            <address class="name" itemprop="author" itemscope="" itemtype="https://schema.org/Person"><a href="/about-me/" itemprop="name">Jos&#xE9; M. P&#xE9;rez</a></address>
             <meta class="post-data" itemprop="datePublished" content="2014-01-08T22:55:00.000Z">
               January 08 2014
-            </meta>
+            
           </div>
         </div>
 
@@ -765,44 +765,44 @@ pre[class*="language-"] {
 				<!-- entry content -->
 			    <div class="entry-content ecp">
 			  		<p>I like <a href="http://gruntjs.com/" target="_blank" rel="noopener">Grunt.js</a>. Since I started using it I have applied it to all my web projects. It has improved my workflow by providing a uniform way to perform operations such as combination of files, minification, optimization and testing, to name a few. And I already posted about it when I talked about <a href="/writing-testable-javascript-grunt-workflow">how to make Javascript more testable</a>.</p><p>Grunt made it a non-brainer thing to carry out tasks that were more cumbersome to setup before. More often than not I would not dare to clone a repo and give it a try, if I had to set up many dependencies. Now I feel relieved when I see it contains a Gruntfile.js file.</p><a id="more"></a><h3 id="Here-comes-Gulp"><a href="#Here-comes-Gulp" class="headerlink" title="Here comes Gulp"></a>Here comes Gulp</h3><p>Today I came across <a href="http://gulpjs.com/" target="_blank" rel="noopener">Gulp</a>. At first sight it is another Javascript task runner that looks more concise and less verbose. Its chainable commands are convenient for carrying out operations on <strong>streams</strong> of data:</p><pre class=" language-js"><code class="language-js">
-<span class="token keyword">var</span> gulp <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'gulp'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    jshint <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'gulp-jshint'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    concat <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'gulp-concat'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    uglify <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'gulp-uglify'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> gulp <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;gulp&apos;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    jshint <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;gulp-jshint&apos;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    concat <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;gulp-concat&apos;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    uglify <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;gulp-uglify&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="token comment" spellcheck="true">// Lint JS</span>
-gulp<span class="token punctuation">.</span><span class="token function">task</span><span class="token punctuation">(</span><span class="token string">'lint'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  gulp<span class="token punctuation">.</span><span class="token function">src</span><span class="token punctuation">(</span><span class="token string">'./src/*.js'</span><span class="token punctuation">)</span>
+<span class="token comment">// Lint JS</span>
+gulp<span class="token punctuation">.</span><span class="token function">task</span><span class="token punctuation">(</span><span class="token string">&apos;lint&apos;</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  gulp<span class="token punctuation">.</span><span class="token function">src</span><span class="token punctuation">(</span><span class="token string">&apos;./src/*.js&apos;</span><span class="token punctuation">)</span>
     <span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span><span class="token function">jshint</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-    <span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span>jshint<span class="token punctuation">.</span><span class="token function">reporter</span><span class="token punctuation">(</span><span class="token string">'default'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span>jshint<span class="token punctuation">.</span><span class="token function">reporter</span><span class="token punctuation">(</span><span class="token string">&apos;default&apos;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="token comment" spellcheck="true">// Concat &amp; Minify JS</span>
-gulp<span class="token punctuation">.</span><span class="token function">task</span><span class="token punctuation">(</span><span class="token string">'minify'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-    gulp<span class="token punctuation">.</span><span class="token function">src</span><span class="token punctuation">(</span><span class="token string">'./src/*.js'</span><span class="token punctuation">)</span>
-        <span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span><span class="token function">concat</span><span class="token punctuation">(</span><span class="token string">'all.js'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment">// Concat &amp; Minify JS</span>
+gulp<span class="token punctuation">.</span><span class="token function">task</span><span class="token punctuation">(</span><span class="token string">&apos;minify&apos;</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    gulp<span class="token punctuation">.</span><span class="token function">src</span><span class="token punctuation">(</span><span class="token string">&apos;./src/*.js&apos;</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span><span class="token function">concat</span><span class="token punctuation">(</span><span class="token string">&apos;all.js&apos;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
         <span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span><span class="token function">uglify</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-        <span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span>gulp<span class="token punctuation">.</span><span class="token function">dest</span><span class="token punctuation">(</span><span class="token string">'./dist/'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span>gulp<span class="token punctuation">.</span><span class="token function">dest</span><span class="token punctuation">(</span><span class="token string">&apos;./dist/&apos;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="token comment" spellcheck="true">// Default</span>
-gulp<span class="token punctuation">.</span><span class="token function">task</span><span class="token punctuation">(</span><span class="token string">'default'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-  gulp<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token string">'lint'</span><span class="token punctuation">,</span> <span class="token string">'minify'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// Default</span>
+gulp<span class="token punctuation">.</span><span class="token function">task</span><span class="token punctuation">(</span><span class="token string">&apos;default&apos;</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+  gulp<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token string">&apos;lint&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;minify&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="token comment" spellcheck="true">// Watch JS Files</span>
-  gulp<span class="token punctuation">.</span><span class="token function">watch</span><span class="token punctuation">(</span><span class="token string">"./src/*.js"</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span><span class="token punctuation">{</span>
-    gulp<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token string">'lint'</span><span class="token punctuation">,</span> <span class="token string">'minify'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// Watch JS Files</span>
+  gulp<span class="token punctuation">.</span><span class="token function">watch</span><span class="token punctuation">(</span><span class="token string">&quot;./src/*.js&quot;</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    gulp<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token string">&apos;lint&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;minify&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-</code></pre><p>Chaining calls is not only clean, but Gulp also avoids the creation of intermediary files. You could convert LESS files to CSS, concatenate them and minify the output, and only then write the ouput to disk. It is the concept of streams that UNIX commands follow.</p><p>I recommend you to have a look at <a href="http://slid.es/contra/gulp" target="_blank" rel="noopener">this presentation</a> by <a href="https://twitter.com/eschoff" target="_blank" rel="noopener">Eric Schoff</a> about Gulp.</p><h3 id="Trying-it-out"><a href="#Trying-it-out" class="headerlink" title="Trying it out"></a>Trying it out</h3><p>I have tried Gulp to mimic a rather small Gruntfile.js, and using it feels a lot like using Grunt. For now I don’t see a big reason to migrate to Gulp, but I would definitely like to try it in bigger projects whose build process is more complex.</p><p>The truth is that Grunt’s ecosystem of plug-ins is very large, even though it is relatively young. You just need to search for what you need and you will very likely find a <em>mature</em> plug-in that does exactly what you need.</p><p>Creating a plug-in for Gulp from a Grunt’s one is pretty straightforward, so we can expect an explosion of available plug-ins in a near future. I’m only concerned about the duplication of code and the maintainability of the plug-ins once there exist different versions depending on the task runner. Actually it would be great if they could be reused somehow or be compatible with both Grunt and Gulp if they both become widely used.</p><h3 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h3><p>I will keep watching how the community around Gulp develops and what the general feeling is. For now it looks very promising, and I’m looking forward to see how both Gulp and Grunt evolve.</p>
+</code></pre><p>Chaining calls is not only clean, but Gulp also avoids the creation of intermediary files. You could convert LESS files to CSS, concatenate them and minify the output, and only then write the ouput to disk. It is the concept of streams that UNIX commands follow.</p><p>I recommend you to have a look at <a href="http://slid.es/contra/gulp" target="_blank" rel="noopener">this presentation</a> by <a href="https://twitter.com/eschoff" target="_blank" rel="noopener">Eric Schoff</a> about Gulp.</p><h3 id="Trying-it-out"><a href="#Trying-it-out" class="headerlink" title="Trying it out"></a>Trying it out</h3><p>I have tried Gulp to mimic a rather small Gruntfile.js, and using it feels a lot like using Grunt. For now I don&#x2019;t see a big reason to migrate to Gulp, but I would definitely like to try it in bigger projects whose build process is more complex.</p><p>The truth is that Grunt&#x2019;s ecosystem of plug-ins is very large, even though it is relatively young. You just need to search for what you need and you will very likely find a <em>mature</em> plug-in that does exactly what you need.</p><p>Creating a plug-in for Gulp from a Grunt&#x2019;s one is pretty straightforward, so we can expect an explosion of available plug-ins in a near future. I&#x2019;m only concerned about the duplication of code and the maintainability of the plug-ins once there exist different versions depending on the task runner. Actually it would be great if they could be reused somehow or be compatible with both Grunt and Gulp if they both become widely used.</p><h3 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h3><p>I will keep watching how the community around Gulp develops and what the general feeling is. For now it looks very promising, and I&#x2019;m looking forward to see how both Gulp and Grunt evolve.</p>
 			  	</div>
 
 		  	</article>
 		</div>
     <footer>
         <section class="links">
-            <a href="https://twitter.com/jmperezperez">@jmperezperez</a> on Twitter · <a href="https://github.com/JMPerez">GitHub</a> · <a href="http://www.linkedin.com/in/jmperezperez">LinkedIn</a>
+            <a href="https://twitter.com/jmperezperez">@jmperezperez</a> on Twitter &#xB7; <a href="https://github.com/JMPerez">GitHub</a> &#xB7; <a href="http://www.linkedin.com/in/jmperezperez">LinkedIn</a>
         </section>
     </footer>
 

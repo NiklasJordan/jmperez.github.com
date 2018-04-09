@@ -1,12 +1,12 @@
 <!doctype html>
-<html ⚡>
+<html ⚡="">
   <head>
     <meta charset="utf-8">
-    <link rel="canonical" href="https://jmperezperez.com/jpegoptim-optimize-jpg-page-speed/" >
+    <link rel="canonical" href="https://jmperezperez.com/jpegoptim-optimize-jpg-page-speed/">
     <title>Optimizing images for web with Google Page Speed and jpegoptim - Web development, performance, and some other good practices.</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
-    <noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <style amp-boilerplate="">body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
+    <noscript><style amp-boilerplate="">body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
     
     <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
     
@@ -53,7 +53,7 @@
 			}
 		}
 	</script>
-	<style amp-custom>
+	<style amp-custom="">
 		
 			/*--RESET--*/
 * {
@@ -743,13 +743,13 @@ pre[class*="language-"] {
           <div class="img">
             <a href="/about-me/">
               <amp-img src="/assets/images/jmperez.jpg" class="avatar-img" alt="" height="53" width="53">
-            </a>
+            </amp-img></a>
           </div>
           <div class="bd">
-            <address class="name" itemprop="author" itemscope itemtype="https://schema.org/Person"><a href="/about-me/" itemprop="name">José M. Pérez</a></address>
+            <address class="name" itemprop="author" itemscope="" itemtype="https://schema.org/Person"><a href="/about-me/" itemprop="name">Jos&#xE9; M. P&#xE9;rez</a></address>
             <meta class="post-data" itemprop="datePublished" content="2009-06-27T13:42:44.000Z">
               June 27 2009
-            </meta>
+            
           </div>
         </div>
 
@@ -764,7 +764,7 @@ pre[class*="language-"] {
 
 				<!-- entry content -->
 			    <div class="entry-content ecp">
-			  		<p>Image optimization is a big topic these days. The main culprit in site traffic are images, and <a href="http://httparchive.org/trends.php#bytesImg&amp;reqImg" target="_blank" rel="noopener">their transfer size is increasing over time</a>.</p><p>You may have wondered how to optimize your images. First, check if there is room for improvement. For that I will be using <a href="http://developers.google.com/speed/pagespeed" target="_blank" rel="noopener">Google Page Speed</a>, which offers several tools for analyzing your site. One of them is a handy <a href="http://developers.google.com/speed/pagespeed/insights/" target="_blank" rel="noopener">online analyzer</a>. Type there the name of your site and click to analyze it.</p><a id="more"></a><p>I like the ‘Optimize images’ section. It tells you what resources can be optimized and how much traffic you can save, both in the mobile version of your site and the one served for desktop: <a href="/assets/images/posts/google-pagespeed-insights-report.png"><p><amp-img src="/assets/images/posts/google-pagespeed-insights-report-thumb.jpg" width="400" height="436" layout="responsive"></amp-img></p></a> <em>Analyzing the analyzer: Here you can see the ‘Optimize images’ section for the Google PageSpeed Insights page. Notice the it reports the optimizable images and how much size you can save.</em></p><h2 id="Optimizing-your-JPG-images-with-Jpegoptim"><a href="#Optimizing-your-JPG-images-with-Jpegoptim" class="headerlink" title="Optimizing your JPG images with Jpegoptim"></a>Optimizing your JPG images with Jpegoptim</h2><p>The truth is that when you save a JPG image, you don’t know exactly how much compression level you should apply. Sometimes we try different values until we find the best balance between quality and size. Google Page Speed must be using an algorithm that optimizes this relationship, performing a lossless compression to JPG and PNG files.</p><p>As mentioned in the <a href="http://code.google.com/speed/page-speed/docs/payload.html#CompressImages" target="_blank" rel="noopener">section on optimization of images</a>, we can use tools like <a href="http://jpegclub.org/" target="_blank" rel="noopener">jpegtran</a> and <a href="http://freshmeat.net/projects/jpegoptim/" target="_blank" rel="noopener">jpegoptim</a></p><p>You can install jpegoptim in GNU / Linux easily. If you are an Ubuntu user, it is included in the section on Graphics (universe) and simply run:</p><pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> jpegoptim
+			  		<p>Image optimization is a big topic these days. The main culprit in site traffic are images, and <a href="http://httparchive.org/trends.php#bytesImg&amp;reqImg" target="_blank" rel="noopener">their transfer size is increasing over time</a>.</p><p>You may have wondered how to optimize your images. First, check if there is room for improvement. For that I will be using <a href="http://developers.google.com/speed/pagespeed" target="_blank" rel="noopener">Google Page Speed</a>, which offers several tools for analyzing your site. One of them is a handy <a href="http://developers.google.com/speed/pagespeed/insights/" target="_blank" rel="noopener">online analyzer</a>. Type there the name of your site and click to analyze it.</p><a id="more"></a><p>I like the &#x2018;Optimize images&#x2019; section. It tells you what resources can be optimized and how much traffic you can save, both in the mobile version of your site and the one served for desktop: <a href="/assets/images/posts/google-pagespeed-insights-report.png"><p><amp-img src="/assets/images/posts/google-pagespeed-insights-report-thumb.jpg" width="400" height="436" layout="responsive"></amp-img></p></a> <em>Analyzing the analyzer: Here you can see the &#x2018;Optimize images&#x2019; section for the Google PageSpeed Insights page. Notice the it reports the optimizable images and how much size you can save.</em></p><h2 id="Optimizing-your-JPG-images-with-Jpegoptim"><a href="#Optimizing-your-JPG-images-with-Jpegoptim" class="headerlink" title="Optimizing your JPG images with Jpegoptim"></a>Optimizing your JPG images with Jpegoptim</h2><p>The truth is that when you save a JPG image, you don&#x2019;t know exactly how much compression level you should apply. Sometimes we try different values until we find the best balance between quality and size. Google Page Speed must be using an algorithm that optimizes this relationship, performing a lossless compression to JPG and PNG files.</p><p>As mentioned in the <a href="http://code.google.com/speed/page-speed/docs/payload.html#CompressImages" target="_blank" rel="noopener">section on optimization of images</a>, we can use tools like <a href="http://jpegclub.org/" target="_blank" rel="noopener">jpegtran</a> and <a href="http://freshmeat.net/projects/jpegoptim/" target="_blank" rel="noopener">jpegoptim</a></p><p>You can install jpegoptim in GNU / Linux easily. If you are an Ubuntu user, it is included in the section on Graphics (universe) and simply run:</p><pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> jpegoptim
 </code></pre><p>If you want to make the optimization of images across your website, or simply reduce the size of your photo albums, you can run this script, that will recursively scan folders to optimize every JPG file. The files will be overwritten with the optimized version.</p><pre class=" language-bash"><code class="language-bash">optimize<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   jpegoptim *.jpg --strip-all
   <span class="token keyword">for</span> i <span class="token keyword">in</span> *
@@ -780,14 +780,14 @@ pre[class*="language-"] {
   <span class="token keyword">echo</span>
 <span class="token punctuation">}</span>
 optimize
-</code></pre><p>This script uses the option <code>--strip-all</code> to strip out the text information contained in the file (comments and EXIF data) that are not necessary on web images (for your own pictures you’d better keep them).</p><p>If you are interested in image optimization, I recommend you having a look at:</p><h2 id="Other-tools-for-optimizing-images"><a href="#Other-tools-for-optimizing-images" class="headerlink" title="Other tools for optimizing images"></a>Other tools for optimizing images</h2><p>I have been using image optimization actively for a long time. Depending on your needs, I recommend you one of these methods:</p><ul><li><strong>Optimization of a few files through a desktop app (on Mac)</strong>: Use <a href="http://imageoptim.com" target="_blank" rel="noopener">ImageOptim</a>. Drag and drop JPG and PNG files and you are goo to go.</li><li><strong>Optimization of images on Wordpress</strong>: Use <a href="http://wordpress.org/plugins/wp-smushit/" target="_blank" rel="noopener">Smush.it</a>. It optimizes uploaded images automatically, and you can also run the plug-in against the existing images.</li><li><strong>Optimizing PNG files using lossy compression</strong>: Use <a href="https://tinypng.com" target="_blank" rel="noopener">TinyPNG</a>. It can reduce PNG images size a lot, but double check the result before, since sometimes you can notice the difference in the colours.</li></ul><h2 id="Read-also"><a href="#Read-also" class="headerlink" title="Read also"></a>Read also</h2><p>I wrote a post about <a href="/image-optimization-lossy-lossless-techniques/">Image optimization: Lossy, lossless and other techniques</a> in which I explain some tools and considerations when compressing images.</p>
+</code></pre><p>This script uses the option <code>--strip-all</code> to strip out the text information contained in the file (comments and EXIF data) that are not necessary on web images (for your own pictures you&#x2019;d better keep them).</p><p>If you are interested in image optimization, I recommend you having a look at:</p><h2 id="Other-tools-for-optimizing-images"><a href="#Other-tools-for-optimizing-images" class="headerlink" title="Other tools for optimizing images"></a>Other tools for optimizing images</h2><p>I have been using image optimization actively for a long time. Depending on your needs, I recommend you one of these methods:</p><ul><li><strong>Optimization of a few files through a desktop app (on Mac)</strong>: Use <a href="http://imageoptim.com" target="_blank" rel="noopener">ImageOptim</a>. Drag and drop JPG and PNG files and you are goo to go.</li><li><strong>Optimization of images on Wordpress</strong>: Use <a href="http://wordpress.org/plugins/wp-smushit/" target="_blank" rel="noopener">Smush.it</a>. It optimizes uploaded images automatically, and you can also run the plug-in against the existing images.</li><li><strong>Optimizing PNG files using lossy compression</strong>: Use <a href="https://tinypng.com" target="_blank" rel="noopener">TinyPNG</a>. It can reduce PNG images size a lot, but double check the result before, since sometimes you can notice the difference in the colours.</li></ul><h2 id="Read-also"><a href="#Read-also" class="headerlink" title="Read also"></a>Read also</h2><p>I wrote a post about <a href="/image-optimization-lossy-lossless-techniques/">Image optimization: Lossy, lossless and other techniques</a> in which I explain some tools and considerations when compressing images.</p>
 			  	</div>
 
 		  	</article>
 		</div>
     <footer>
         <section class="links">
-            <a href="https://twitter.com/jmperezperez">@jmperezperez</a> on Twitter · <a href="https://github.com/JMPerez">GitHub</a> · <a href="http://www.linkedin.com/in/jmperezperez">LinkedIn</a>
+            <a href="https://twitter.com/jmperezperez">@jmperezperez</a> on Twitter &#xB7; <a href="https://github.com/JMPerez">GitHub</a> &#xB7; <a href="http://www.linkedin.com/in/jmperezperez">LinkedIn</a>
         </section>
     </footer>
 
