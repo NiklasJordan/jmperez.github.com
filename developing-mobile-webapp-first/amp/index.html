@@ -1,12 +1,12 @@
 <!doctype html>
-<html ⚡="">
+<html ⚡>
   <head>
     <meta charset="utf-8">
-    <link rel="canonical" href="https://jmperezperez.com/developing-mobile-webapp-first/">
+    <link rel="canonical" href="https://jmperezperez.com/developing-mobile-webapp-first/" >
     <title>Webapp first: An approach to developing for mobile - Web development, performance, and some other good practices.</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-    <style amp-boilerplate="">body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
-    <noscript><style amp-boilerplate="">body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
+    <noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
     
     <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
     
@@ -53,7 +53,7 @@
 			}
 		}
 	</script>
-	<style amp-custom="">
+	<style amp-custom>
 		
 			/*--RESET--*/
 * {
@@ -743,13 +743,13 @@ pre[class*="language-"] {
           <div class="img">
             <a href="/about-me/">
               <amp-img src="/assets/images/jmperez.jpg" class="avatar-img" alt="" height="53" width="53">
-            </amp-img></a>
+            </a>
           </div>
           <div class="bd">
-            <address class="name" itemprop="author" itemscope="" itemtype="https://schema.org/Person"><a href="/about-me/" itemprop="name">Jos&#xE9; M. P&#xE9;rez</a></address>
+            <address class="name" itemprop="author" itemscope itemtype="https://schema.org/Person"><a href="/about-me/" itemprop="name">José M. Pérez</a></address>
             <meta class="post-data" itemprop="datePublished" content="2012-05-21T05:21:17.000Z">
               May 21 2012
-            
+            </meta>
           </div>
         </div>
 
@@ -764,14 +764,14 @@ pre[class*="language-"] {
 
 				<!-- entry content -->
 			    <div class="entry-content ecp">
-			  		<p>Mobile web apps are not at the same level of native ones. Until browsers don&#x2019;t implement HTML5 API specifications to access device hardware (device API, audio, video), implement push notifications, and improve general performance (animations, scroll) web apps will not be able to deliver the experience that can&#x2019;t be reach through native development.</p><p>However, there are some advantages when taking a webapp first approach for mobile development.</p><a id="more"></a><h2 id="UI-mocking"><a href="#UI-mocking" class="headerlink" title="UI mocking"></a>UI mocking</h2><p>Some UI designers are so familiar with web that they use HTML+CSS to implement native apps mockups. Then, this mockups are used by iOS or Android developers to implement the app UI. Why don&#x2019;t take advantage of that web mockup and use it for a web app?</p><h2 id="Hybrid-application"><a href="#Hybrid-application" class="headerlink" title="Hybrid application"></a><a name="hybrid"></a>Hybrid application</h2><p>Your web development can be easily reused to make a hybrid application. Your native app can be a wrapper of your webapp, and you can use PhoneGap or Titanium to to access hardware through JS bridges. In addition, you can iterate and port parts of your application to native controls if you realize it is more suitable. You don&#x2019;t lose your previous development, since you can reuse them in your mobile site.</p><p>Take Google+ iPhone app as an example: </p><p><amp-img src="/assets/images/posts/google-plus-hybrid.jpg" width="640" height="480" layout="responsive"></amp-img></p><p></p><p>The Google+ iPhone app was basically a wrapper around their mobile webapp. From there, they have evolve it to a much richer one. However, certain features like the login page remain the same. And there is the mobile site, that looks a lot like the &#x2018;old&#x2019; iPhone app.</p><h2 id="Testing-new-features"><a href="#Testing-new-features" class="headerlink" title="Testing new features"></a>Testing new features</h2><p>Deploying changes in a webapp is easier than building and distributing an app. Thus, you can easily perform A/B testing or introduce new features on your webapp and use it as a way to get feedback before porting those changes to native apps.</p><h2 id="Defensive-development-Future-Friendly"><a href="#Defensive-development-Future-Friendly" class="headerlink" title="Defensive development - Future Friendly"></a>Defensive development - Future Friendly</h2><p>Having a webapp makes your solution compatible with future devices, no matter what OS they are running. Your users will be able to use your application on their mobile phones through their browser. <a href="http://www.openwebdevice.com/" target="_blank" rel="noopener">Open Web Device</a> gaining traction? You are ready. <a href="http://www.slashgear.com/intels-first-medfield-phone-coming-this-week-claims-ceo-17223318/" target="_blank" rel="noopener">Intel Mobile phone</a>? You are ready too. E-book reader? Of course! And take into account that your application wouldn&#x2019;t be compatible with these devices if you had chosen any of current &#x2018;native&#x2019; environments.</p><p>In addition, as OS software updates are being released and more powerful browsers are available, our web apps will behave better. If we have embraced progressive enhancement, our apps will be able to take advantage of most recent HTML5 APIs as soon as the browser in which they are running supports them.</p>
+			  		<p>Mobile web apps are not at the same level of native ones. Until browsers don&#x2019;t implement HTML5 API specifications to access device hardware (device API, audio, video), implement push notifications, and improve general performance (animations, scroll) web apps will not be able to deliver the experience that can&#x2019;t be reach through native development.</p><p>However, there are some advantages when taking a webapp first approach for mobile development.</p><a id="more"></a><h2 id="UI-mocking"><a href="#UI-mocking" class="headerlink" title="UI mocking"></a>UI mocking</h2><p>Some UI designers are so familiar with web that they use HTML+CSS to implement native apps mockups. Then, this mockups are used by iOS or Android developers to implement the app UI. Why don&#x2019;t take advantage of that web mockup and use it for a web app?</p><h2 id="Hybrid-application"><a href="#Hybrid-application" class="headerlink" title="Hybrid application"></a><a name="hybrid"></a>Hybrid application</h2><p>Your web development can be easily reused to make a hybrid application. Your native app can be a wrapper of your webapp, and you can use PhoneGap or Titanium to to access hardware through JS bridges. In addition, you can iterate and port parts of your application to native controls if you realize it is more suitable. You don&#x2019;t lose your previous development, since you can reuse them in your mobile site.</p><p>Take Google+ iPhone app as an example: </p><div class="amp-img-wrapper"><amp-img src="/assets/images/posts/google-plus-hybrid.jpg" width="640" height="480" layout="responsive"></amp-img></div><p>The Google+ iPhone app was basically a wrapper around their mobile webapp. From there, they have evolve it to a much richer one. However, certain features like the login page remain the same. And there is the mobile site, that looks a lot like the &#x2018;old&#x2019; iPhone app.</p><h2 id="Testing-new-features"><a href="#Testing-new-features" class="headerlink" title="Testing new features"></a>Testing new features</h2><p>Deploying changes in a webapp is easier than building and distributing an app. Thus, you can easily perform A/B testing or introduce new features on your webapp and use it as a way to get feedback before porting those changes to native apps.</p><h2 id="Defensive-development-Future-Friendly"><a href="#Defensive-development-Future-Friendly" class="headerlink" title="Defensive development - Future Friendly"></a>Defensive development - Future Friendly</h2><p>Having a webapp makes your solution compatible with future devices, no matter what OS they are running. Your users will be able to use your application on their mobile phones through their browser. <a href="http://www.openwebdevice.com/" target="_blank" rel="noopener">Open Web Device</a> gaining traction? You are ready. <a href="http://www.slashgear.com/intels-first-medfield-phone-coming-this-week-claims-ceo-17223318/" target="_blank" rel="noopener">Intel Mobile phone</a>? You are ready too. E-book reader? Of course! And take into account that your application wouldn&#x2019;t be compatible with these devices if you had chosen any of current &#x2018;native&#x2019; environments.</p><p>In addition, as OS software updates are being released and more powerful browsers are available, our web apps will behave better. If we have embraced progressive enhancement, our apps will be able to take advantage of most recent HTML5 APIs as soon as the browser in which they are running supports them.</p>
 			  	</div>
 
 		  	</article>
 		</div>
     <footer>
         <section class="links">
-            <a href="https://twitter.com/jmperezperez">@jmperezperez</a> on Twitter &#xB7; <a href="https://github.com/JMPerez">GitHub</a> &#xB7; <a href="http://www.linkedin.com/in/jmperezperez">LinkedIn</a>
+            <a href="https://twitter.com/jmperezperez">@jmperezperez</a> on Twitter · <a href="https://github.com/JMPerez">GitHub</a> · <a href="http://www.linkedin.com/in/jmperezperez">LinkedIn</a>
         </section>
     </footer>
 

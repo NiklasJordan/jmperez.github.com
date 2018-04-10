@@ -1,12 +1,12 @@
 <!doctype html>
-<html ⚡="">
+<html ⚡>
   <head>
     <meta charset="utf-8">
-    <link rel="canonical" href="https://jmperezperez.com/google-maps-geolocation-directions-specific-destination/">
+    <link rel="canonical" href="https://jmperezperez.com/google-maps-geolocation-directions-specific-destination/" >
     <title>Google Maps Geolocation and Directions to a Specific Destination - Web development, performance, and some other good practices.</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-    <style amp-boilerplate="">body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
-    <noscript><style amp-boilerplate="">body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
+    <noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
     
     <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
     
@@ -53,7 +53,7 @@
 			}
 		}
 	</script>
-	<style amp-custom="">
+	<style amp-custom>
 		
 			/*--RESET--*/
 * {
@@ -743,13 +743,13 @@ pre[class*="language-"] {
           <div class="img">
             <a href="/about-me/">
               <amp-img src="/assets/images/jmperez.jpg" class="avatar-img" alt="" height="53" width="53">
-            </amp-img></a>
+            </a>
           </div>
           <div class="bd">
-            <address class="name" itemprop="author" itemscope="" itemtype="https://schema.org/Person"><a href="/about-me/" itemprop="name">Jos&#xE9; M. P&#xE9;rez</a></address>
+            <address class="name" itemprop="author" itemscope itemtype="https://schema.org/Person"><a href="/about-me/" itemprop="name">José M. Pérez</a></address>
             <meta class="post-data" itemprop="datePublished" content="2010-07-16T16:50:57.000Z">
               July 16 2010
-            
+            </meta>
           </div>
         </div>
 
@@ -764,7 +764,7 @@ pre[class*="language-"] {
 
 				<!-- entry content -->
 			    <div class="entry-content ecp">
-			  		<p>While helping in the redesign of Signum&#x2019;s website I took a look at Google Maps. It&#x2019;s been almost 2 years since I last used the API for my end career project.</p><p>Now I wanted to know if I could make use of geolocalization and directions to show a visitor the way to get to our headquarters from wherever he/she is, instead of just showing with a marker where we are. Thanks to geolocation we can find out with precision the position coordinates of the visitor. <a href="/assets/images/posts/google-maps-geolocation-directions.jpg"><p><amp-img src="/assets/images/posts/google-maps-geolocation-directions-300x187.jpg" width="300" height="187" layout="responsive"></amp-img></p></a> <a href="/demos/geoposition">View demo</a></p><a id="more"></a><p>The code makes use of HTML5 and Google geolocation services, as well as the new Google Maps API v3.</p><p>Some time ago I would have done this (in fact in the project I did this way) querying an IP address to Location database to get the position, having to update data almost every month, as IP addresses were reassigned.</p><p>Now you can get it done by using HTML5 geolocation feature primarily an then use an alternative service as a fallback in case the browser does not support HTML5 or it throws an error when getting the location.</p><p>Here is the JS code (also as <a href="https://gist.github.com/4587682" target="_blank" rel="noopener">a Gist on Github</a>). To see a complete working sample <a href="/demos/geoposition">visit the demo</a>:</p><pre class=" language-js"><code class="language-js"><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+			  		<p>While helping in the redesign of Signum&#x2019;s website I took a look at Google Maps. It&#x2019;s been almost 2 years since I last used the API for my end career project.</p><p>Now I wanted to know if I could make use of geolocalization and directions to show a visitor the way to get to our headquarters from wherever he/she is, instead of just showing with a marker where we are. Thanks to geolocation we can find out with precision the position coordinates of the visitor. <a href="/assets/images/posts/google-maps-geolocation-directions.jpg"></a></p><div class="amp-img-wrapper"><a href="/assets/images/posts/google-maps-geolocation-directions.jpg"><amp-img src="/assets/images/posts/google-maps-geolocation-directions-300x187.jpg" width="300" height="187" layout="responsive"></amp-img></a></div> <a href="/demos/geoposition">View demo</a><a id="more"></a><p>The code makes use of HTML5 and Google geolocation services, as well as the new Google Maps API v3.</p><p>Some time ago I would have done this (in fact in the project I did this way) querying an IP address to Location database to get the position, having to update data almost every month, as IP addresses were reassigned.</p><p>Now you can get it done by using HTML5 geolocation feature primarily an then use an alternative service as a fallback in case the browser does not support HTML5 or it throws an error when getting the location.</p><p>Here is the JS code (also as <a href="https://gist.github.com/4587682" target="_blank" rel="noopener">a Gist on Github</a>). To see a complete working sample <a href="/demos/geoposition">visit the demo</a>:</p><pre class=" language-js"><code class="language-js"><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token string">&apos;use strict&apos;</span><span class="token punctuation">;</span>
   <span class="token keyword">var</span> map<span class="token punctuation">,</span> <span class="token comment">//the google map</span>
   directionsService<span class="token punctuation">,</span> <span class="token comment">//service that provides directions to reach our destination</span>
@@ -885,7 +885,7 @@ pre[class*="language-"] {
 		</div>
     <footer>
         <section class="links">
-            <a href="https://twitter.com/jmperezperez">@jmperezperez</a> on Twitter &#xB7; <a href="https://github.com/JMPerez">GitHub</a> &#xB7; <a href="http://www.linkedin.com/in/jmperezperez">LinkedIn</a>
+            <a href="https://twitter.com/jmperezperez">@jmperezperez</a> on Twitter · <a href="https://github.com/JMPerez">GitHub</a> · <a href="http://www.linkedin.com/in/jmperezperez">LinkedIn</a>
         </section>
     </footer>
 
