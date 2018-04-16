@@ -58,4 +58,29 @@
           timingStats.innerHTML = timingStatsHTML;
       }
     }, 0);
-   });</script></body></html>
+   });</script><script>try {
+    function isDecodeSupported() {
+      const img = new Image();
+      return typeof img.decode === 'function';
+    }
+
+    function isGaAvailable() {
+      return !!window.ga;
+    }
+
+    async function loadAndDecode(src) {
+      const img = new Image();
+      img.src = src;
+      const startTime = Date.now();
+      await img.decode();
+      return Date.now() - startTime;
+    }
+
+    (async () => {
+    if (isGaAvailable() && isDecodeSupported()) {
+      const time1 = await loadAndDecode("https://jmperezperez.com/assets/images/posts/observer/hoc.png");
+      ga('send', 'event', 'image-decode', 'decode', 'hoc', time1);
+    }})();
+  } catch (e) {
+
+  }</script></body></html>
