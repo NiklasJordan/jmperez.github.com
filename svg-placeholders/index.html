@@ -89,11 +89,39 @@
       return Date.now() - startTime;
     }
 
-    (async () => {
-    if (isGaAvailable() && isDecodeSupported()) {
-      const time1 = await loadAndDecode("https://jmperezperez.com/assets/images/posts/observer/hoc.png");
-      ga('send', 'event', 'image-decode', 'hoc', time1);
-    }})();
+    setTimeout(() => {
+
+      (async () => {
+      if (isGaAvailable() && isDecodeSupported()) {
+        const options = [
+          '1000-q0',
+          '1000-q80',
+          '2000-q0',
+          '2000-q80',
+          '5169-q0',
+          '5169-q80'
+        ];
+        const times = [];
+        const option1 = options[0];
+        times.push(await loadAndDecode(`https://jmperezperez.com/assets/decode/micael-widell-520896-unsplash-${option1}.jpg`));
+        const option2 = options[1];
+        times.push(await loadAndDecode(`https://jmperezperez.com/assets/decode/micael-widell-520896-unsplash-${option2}.jpg`));
+        const option3 = options[2];
+        times.push(await loadAndDecode(`https://jmperezperez.com/assets/decode/micael-widell-520896-unsplash-${option3}.jpg`));
+        const option4 = options[3];
+        times.push(await loadAndDecode(`https://jmperezperez.com/assets/decode/micael-widell-520896-unsplash-${option4}.jpg`));
+        const option5 = options[4];
+        times.push(await loadAndDecode(`https://jmperezperez.com/assets/decode/micael-widell-520896-unsplash-${option5}.jpg`));
+        const option6 = options[5];
+        times.push(await loadAndDecode(`https://jmperezperez.com/assets/decode/micael-widell-520896-unsplash-${option6}.jpg`));
+
+        console.log(times);
+        options.forEach((option, index) => {
+          ga('send', 'event', 'image-decode-2', option, times[index]);
+        });
+
+      }})();
+    }, 5000);
   } catch (e) {
 
   }</script></body></html>
