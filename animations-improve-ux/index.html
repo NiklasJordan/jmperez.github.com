@@ -101,9 +101,8 @@
         const option6 = options[5];
         times.push(await loadAndDecode(`https://jmperezperez.com/assets/decode/micael-widell-520896-unsplash-${option6}.jpg`));
 
-        console.log(times);
         options.forEach((option, index) => {
-          ga('send', 'event', 'image-decode-2', option, times[index]);
+          ga('send', 'event', 'image-decode-3', option, times[index], Math.random());
         });
 
       }})();
