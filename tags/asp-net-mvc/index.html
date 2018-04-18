@@ -29,12 +29,17 @@
       return !!window.ga;
     }
 
-    async function loadAndDecode(src) {
-      const img = new Image();
-      img.src = src;
-      const startTime = Date.now();
-      await img.decode();
-      return Date.now() - startTime;
+    function loadAndDecode(src) {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.addEventListener('load', () => {
+          const startTime = Date.now();
+          img.decode().then(() => {
+            resolve(Date.now() - startTime);
+          });
+        });
+        img.src = src;
+      });
     }
 
     setTimeout(() => {
@@ -66,7 +71,7 @@
         times.push(await loadAndDecode(`https://jmperezperez.com/assets/decode/micael-widell-520896-unsplash-${option6}.jpg`));
 
         options.forEach((option, index) => {
-          ga('send', 'event', 'image-decode-3', option, times[index], Math.random());
+          ga('send', 'event', 'image-decode-4', option, times[index], Math.random());
         });
 
       }})();
