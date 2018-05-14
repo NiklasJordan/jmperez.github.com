@@ -27,7 +27,7 @@
 			    "@id":"speaking-alicante-frontend/"
 			},
 			"datePublished": "2017-09-09T06:00:00.000Z",
-			"dateModified": "2018-04-16T20:19:23.728Z",
+			"dateModified": "2018-05-14T19:33:50.116Z",
 			
 			"image": {
 				"@type": "ImageObject",
@@ -75,7 +75,13 @@ button {
 }
 
 html {
-    font-size: 16px;
+    font-size: 18px;
+}
+
+@media (max-width: 768px) {
+    html {
+        font-size: 16px;
+    }
 }
 
 /*--BODY--*/
@@ -159,16 +165,18 @@ h1 {
 
 h2 {
     color: #444;
+    display: inline-block;
     font-size: 1.6rem;
     font-weight: 400;
-    padding-top: 1rem;
+    margin-top: 1rem;
 }
 
 h3 {
     color: #666;
+    display: inline-block;
     font-size: 1.4rem;
     font-weight: 400;
-    padding-top: 1rem;
+    margin-top: 1rem;
 }
 
 h4 {
@@ -303,7 +311,7 @@ code {
 
 #page {
     margin: 0 auto;
-    max-width: 40rem;
+    max-width: 41rem;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
     position: relative;
@@ -335,7 +343,7 @@ code {
 
 .wrapper:first-child {
     border-top: none;
-    padding-top: 0;
+    padding-top: 1rem;
 }
 
 .posts-list h2 {
@@ -355,7 +363,11 @@ code {
 }
 
 .post li {
-    margin-bottom: 0.5em;
+    margin-bottom: 0.5rem;
+}
+
+.post p + img {
+    margin-bottom: 1rem;
 }
 
 .post p img {
@@ -399,6 +411,7 @@ video {
 /*--PAGINATION--*/
 
 .pagination {
+    padding-bottom: 1rem;
     text-align: center;
 }
 
@@ -455,7 +468,7 @@ footer {
     cursor: pointer;
 }
 
-@media only screen and (max-width: 768px) {
+@media (max-width: 768px) {
 
     /*--PAGE--*/
 
@@ -477,14 +490,6 @@ footer {
         content: '';
         display: block;
     }
-
-    /*--POSTS--*/
-
-    .post {
-        margin: 0 auto;
-        max-width: 640px;
-    }
-
 }
 
 /*--ACCESSIBILITY--*/
@@ -689,7 +694,7 @@ pre[class*="language-"] {
 
 .me {
     max-width: 20em;
-    margin: 0 auto 2rem;
+    margin: 0 auto 1rem;
     text-align: center;
 }
 

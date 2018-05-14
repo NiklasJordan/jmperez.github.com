@@ -11,8 +11,8 @@ ul.projects p {
 }
 
 ul.projects > li {
-    margin-bottom: 10%;
-    margin-right: 10%;
+    margin-bottom: 2.5rem;
+    margin-right: 2.5rem;
     flex: 1 0 15em;
 }
 
